@@ -1,0 +1,95 @@
+<html>
+<table cellpadding="1" cellspacing="1" border="1">
+    <tbody>
+    <tr>
+        <td colspan="3" align="center">
+            <strong>DATOS DE LA VISITA</strong>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Categor&iacute;a</strong>
+        </td>
+        <td>
+            <strong>Tipo de Visita</strong>
+        </td>
+        <td style="text-align:center;">
+            <strong>Fecha</strong>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ client }}
+        </td>
+        <td>
+            {{ visitType }}
+        </td>
+        <td>
+            <strong>Ejecuci&oacute;n: </strong> {{ executedDate }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Subcategor&iacute;a</strong>
+        </td>
+        <td>
+            <strong>Tipo de Transporte </strong>
+        </td>
+        <td>
+            <strong>Hora de Inicio: </strong> {{ startHour }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ system }}
+        </td>
+        <td>
+            {{ transportType }}
+        </td>
+        <td>
+            <strong>Hora de Fin: </strong>{{ endHour }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <strong>Direcci&oacute;n: </strong> {{ address }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <strong>Responsable: </strong> {{ mainPerson }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <strong>Involucrados: </strong> {{ otherPeople }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center">
+            <strong>Observaciones </strong>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div>
+                {{ obs }}
+            </div>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center">
+            <strong>Descripci&oacute;n </strong>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div>
+                {{ description }}
+                <br>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
