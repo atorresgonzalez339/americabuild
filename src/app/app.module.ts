@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { ScriptLoaderService } from "./_services/script-loader.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
-import { CompanyComponent } from './componets/company/company.component';
+//import { CompanyComponent } from './componets/company/company.component';
 
 // used to create fake backend
 /*import { fakeBackendProvider } from './_helpers/index';
@@ -30,7 +30,7 @@ import { RegisterComponent } from './register/index';
   declarations: [
 ThemeComponent,
     AppComponent,
-    CompanyComponent,
+    //CompanyComponent,
   ],
   imports: [
 LayoutModule,
