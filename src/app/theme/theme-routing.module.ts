@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from "../auth/_guards/auth.guard";
+import {CompanyModule} from "./pages/default/company/company.module";
 
 const routes: Routes = [
     {
@@ -16,6 +17,18 @@ const routes: Routes = [
             {
                 "path": "inner",
                 "loadChildren": ".\/pages\/default\/inner\/inner.module#InnerModule"
+            },
+            {
+                "path": "company",
+                "loadChildren": ".\/pages\/default\/company\/company.module#CompanyModule"
+            },
+            {
+              "path": "roles",
+              "loadChildren": ".\/pages\/default\/roles\/roles.module#RolesModule"
+            },
+            {
+              "path": "users",
+              "loadChildren": ".\/pages\/default\/users\/users.module#UsersModule"
             },
             {
                 "path": "profile",
@@ -33,7 +46,7 @@ const routes: Routes = [
         ]
     },
     {
-        "path": "**",
+        "path": "vvbvbv/bmnb/m**",
         "redirectTo": "404",
         "pathMatch": "full"
     }

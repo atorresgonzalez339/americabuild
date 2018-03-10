@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 		let currentUser = sessionStorage.getItem('apiKey');
-		if (currentUser == null)
+		if (currentUser === null)
 		{
 			this._router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
 			return false;

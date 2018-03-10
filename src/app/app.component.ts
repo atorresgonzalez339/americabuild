@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 			if (route instanceof NavigationStart) {
 				Helpers.setLoading(true);
 				Helpers.bodyClass(this.globalBodyClass);
+
 			}
 			if (route instanceof NavigationEnd) {
 				Helpers.setLoading(false);

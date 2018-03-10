@@ -12,7 +12,7 @@ import {AuthGuard} from './_guards/auth.guard';
 import {AlertService} from './_services/alert.service';
 import {AuthenticationService} from './_services/authentication.service';
 import {UserService} from './_services/user.service';
-import {fakeBackendProvider} from './_helpers/index';
+import {CompanyService} from "../theme/pages/default/company/_services/company.service";
 
 @NgModule({
   declarations: [
@@ -31,10 +31,8 @@ import {fakeBackendProvider} from './_helpers/index';
     AlertService,
     AuthenticationService,
     UserService,
-    // api backend simulation
-    //fakeBackendProvider,
-    //MockBackend,
     BaseRequestOptions,
+    CompanyService
   ],
   entryComponents: [AlertComponent],
 })

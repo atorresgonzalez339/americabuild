@@ -9,38 +9,29 @@ import { AppComponent } from './app.component';
 import { ScriptLoaderService } from "./_services/script-loader.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
-//import { CompanyComponent } from './componets/company/company.component';
 
-// used to create fake backend
-/*import { fakeBackendProvider } from './_helpers/index';
+import { UserService } from "./auth/_services";
+import { RolesService } from "./theme/pages/default/roles/_services";
+import {CompanyService} from "./theme/pages/default/company/_services";
 
-import { AppComponent } from './app.component';
-import { routing } from './app.routing';
-
-import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
-import { JwtInterceptor } from './_helpers/index';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
-import { HomeComponent } from './home/index';
-import { LoginComponent } from './login/index';
-import { RegisterComponent } from './register/index';
-*/
 
 @NgModule({
   declarations: [
 ThemeComponent,
     AppComponent,
     //CompanyComponent,
+    //UsersComponent,
+    //RolesComponent,
   ],
   imports: [
-LayoutModule,
+    LayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ThemeRoutingModule,
-    AuthModule,
+    AuthModule
   ],
-  providers: [ScriptLoaderService],
+  providers: [ScriptLoaderService, CompanyService, RolesService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

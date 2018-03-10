@@ -97,10 +97,24 @@ export class LoginCustom {
             equalTo: "#registerpassword",
             minlength: 5,
           },
+          company: {
+            min: 1,
+          },
           agree: {
             required: true,
           },
         },
+        messages:{
+          rpassword: {
+            equalTo: "Confirmation password does not match.",
+          },
+          company:{
+            min: "Please select your company."
+          },
+          agree: {
+            required: "Please indicate that you accept the Terms and Conditions."
+          },
+        }
       });
       if (!form.valid()) {
         e.preventDefault();

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
 
 import {User} from "../_models/index";
-import { BaseService } from './base.service';
+import { BaseService } from '../../_services/base.service';
 
 @Injectable()
 export class UserService extends BaseService{
@@ -28,7 +28,7 @@ export class UserService extends BaseService{
 	}
 
 	create(user: User) {
-		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname }),
+		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname, company:user.company }),
 							 {headers: this.getHeaders()});
 	}
 
