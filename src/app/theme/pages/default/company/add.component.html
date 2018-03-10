@@ -1,0 +1,46 @@
+<div class="m-portlet m-portlet--tab">
+  <div class="m-portlet__head">
+    <div class="m-portlet__head-caption">
+      <div class="m-portlet__head-title">
+        <span class="m-portlet__head-icon m--hide">
+            <i class="la la-gear"></i>
+        </span>
+        <h3 class="m-portlet__head-text">
+         Create new company
+        </h3>
+      </div>
+    </div>
+  </div>
+  <!--begin::Form-->
+  <form (ngSubmit)="addCompany()" class="m-form m-form--fit m-form--label-align-right">
+    <ng-template></ng-template>
+    <div class="m-portlet__body">
+      <div class="form-group m-form__group">
+        <label>
+          Company Name
+        </label>
+        <input type="text" class="form-control m-input m-input--air" style="max-width: 500px;" placeholder="Name of the company" name="companyName" [(ngModel)]="company.companyName" #companyName="ngModel">
+      </div>
+      <div class="form-group m-form__group">
+        <label>
+          Company subdomain
+        </label>
+        <input type="text" class="form-control m-input m-input--air" style="max-width: 500px;" placeholder="Subdomain" name="subdomain" [(ngModel)]="company.subdomain" subdomain="ngModel">
+        <span class="m-form__help">
+            Examples: gmail.com, facebook.com.
+        </span>
+      </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__foot--fit">
+      <div class="m-form__actions">
+        <button type="submit" class="btn btn-accent">
+          Accept
+        </button>
+        <button (click)="cancelAdd()" class="btn btn-secondary">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+  <!--end::Form-->
+</div>
