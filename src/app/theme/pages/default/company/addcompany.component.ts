@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Helpers } from "../../../../helpers";
 import { ScriptLoaderService } from "../../../../_services/script-loader.service";
 import { CompanyService} from "./_services";
@@ -10,7 +10,7 @@ selector: "add-company",
 templateUrl: "./add.component.html",
 encapsulation: ViewEncapsulation.None,
 })
-export class AddCompanyComponent implements OnInit, AfterViewInit {
+export class AddCompanyComponent implements OnInit{
 
     public company: any = {};
 
