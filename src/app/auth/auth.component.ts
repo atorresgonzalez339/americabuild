@@ -83,12 +83,9 @@ export class AuthComponent implements OnInit , AfterViewInit{
               }
             },
             error => {
-              /*this.showAlert('alertSignin');
+              this.showAlert('alertSignin');
               this._alertService.error(error);
-              this.loading = false;*/
-              sessionStorage.setItem('apiKey', "uufd87ydfhhd78");
-                this._router.navigate([this.returnUrl]);
-                this.loading = false;
+              this.loading = false;              
             });
 
     }
