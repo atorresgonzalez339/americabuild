@@ -10,7 +10,7 @@ selector: "add-company",
 templateUrl: "./add.component.html",
 encapsulation: ViewEncapsulation.None,
 })
-export class AddCompanyComponent implements OnInit, AfterViewInit {
+export class AddCompanyComponent implements OnInit {
 
     public company: any = {};
 

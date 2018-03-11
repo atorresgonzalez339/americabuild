@@ -7,7 +7,7 @@ import {CompanyComponent} from "./company.component";
 import {AddCompanyComponent} from "./addcompany.component";
 import { CompanyService} from "./_services";
 import {FormsModule} from '@angular/forms';
-import {AlertService} from './_services/alert.service';
+//import {AlertService} from './_services/alert.service';
 const routes: Routes = [
     {
         "path": "",
