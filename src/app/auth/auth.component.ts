@@ -29,7 +29,7 @@ export class AuthComponent implements OnInit , AfterViewInit{
   model: any = {};
   loading = false;
   returnUrl: string;
-  companyInfo: Company[];
+  //companyInfo: Company[];
 
   @ViewChild('alertSignin',
       {read: ViewContainerRef}) alertSignin: ViewContainerRef;
@@ -54,12 +54,13 @@ export class AuthComponent implements OnInit , AfterViewInit{
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
     this._router.navigate([this.returnUrl]);
-    this.getAllCompany();
+    //this.getAllCompany();
     this._script.loadScripts('body', [
       'assets/vendors/base/vendors.bundle.js',
       'assets/demo/demo3/base/scripts.bundle.js'
        ], true).then(() => {
         LoginCustom.init();
+        Helpers.setLoading(false);
     });
   }
 
@@ -67,8 +68,9 @@ export class AuthComponent implements OnInit , AfterViewInit{
     this._script.loadScripts('body',
         ['assets/demo/custom/components/forms/widgets/bootstrap-select.js']);
   }
-
+/*
     getAllCompany(){
+
         return this._companyService.getAll().subscribe(
             (data: Response) => {
 
@@ -91,7 +93,9 @@ export class AuthComponent implements OnInit , AfterViewInit{
                 Helpers.setLoading(false);
             }
         );
+
     }
+    */
 
   signin() {
         this.loading = true;

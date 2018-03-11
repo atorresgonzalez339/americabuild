@@ -28,7 +28,7 @@ export class UserService extends BaseService{
 	}
 
 	create(user: User) {
-		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname, company:user.company }),
+		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname, company:2 }),
 							 {headers: this.getHeaders()});
 	}
 
