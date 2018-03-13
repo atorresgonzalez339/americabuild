@@ -16,8 +16,6 @@ import {AlertComponent} from './_directives/alert.component';
 import {LoginCustom} from './_helpers/login-custom';
 import {Helpers} from '../helpers';
 import {Response} from "@angular/http";
-import {Company} from "../theme/pages/default/company/_models";
-import {CompanyService} from "../theme/pages/default/company/_services/company.service";
 
 @Component({
   selector: '.m-grid.m-grid--hor.m-grid--root.m-page',
@@ -29,7 +27,6 @@ export class AuthComponent implements OnInit , AfterViewInit{
   model: any = {};
   loading = false;
   returnUrl: string;
-  //companyInfo: Company[];
 
   @ViewChild('alertSignin',
       {read: ViewContainerRef}) alertSignin: ViewContainerRef;
@@ -45,7 +42,6 @@ export class AuthComponent implements OnInit , AfterViewInit{
       private _route: ActivatedRoute,
       private _authService: AuthenticationService,
       private _alertService: AlertService,
-      private _companyService: CompanyService,
       private cfr: ComponentFactoryResolver) {
   }
 
@@ -54,7 +50,6 @@ export class AuthComponent implements OnInit , AfterViewInit{
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
     this._router.navigate([this.returnUrl]);
-    //this.getAllCompany();
     this._script.loadScripts('body', [
       'assets/vendors/base/vendors.bundle.js',
       'assets/demo/demo3/base/scripts.bundle.js'
@@ -68,34 +63,6 @@ export class AuthComponent implements OnInit , AfterViewInit{
     this._script.loadScripts('body',
         ['assets/demo/custom/components/forms/widgets/bootstrap-select.js']);
   }
-/*
-    getAllCompany(){
-
-        return this._companyService.getAll().subscribe(
-            (data: Response) => {
-
-                this.companyInfo = data.json().data;
-                let response = data.json();
-                if (response.success)
-                {
-                    this.companyInfo = response.data;
-                }
-                else
-                {
-                    this.showAlert('alertSignin');
-                    this._alertService.error(response.error);
-                }
-                Helpers.setLoading(false);
-            },
-            error => {
-                this.showAlert('alertSignin');
-                this._alertService.error(error);
-                Helpers.setLoading(false);
-            }
-        );
-
-    }
-    */
 
   signin() {
         this.loading = true;
