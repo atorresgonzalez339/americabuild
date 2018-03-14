@@ -27,7 +27,6 @@ export class LoginCustom {
     login.removeClass('m-login--signin');
 
     login.addClass('m-login--signup');
-    (<any>login.find('.m-login__signup')).animateClass('flipInX animated');
   }
 
   static displaySignInForm() {
@@ -40,7 +39,6 @@ export class LoginCustom {
     }
 
     login.addClass('m-login--signin');
-    (<any>login.find('.m-login__signin')).animateClass('flipInX animated');
   }
 
   static displayForgetPasswordForm() {
@@ -49,8 +47,6 @@ export class LoginCustom {
     login.removeClass('m-login--signup');
 
     login.addClass('m-login--forget-password');
-    (<any>login.find('.m-login__forget-password')).animateClass(
-        'flipInX animated');
   }
 
   static handleFormSwitch() {
