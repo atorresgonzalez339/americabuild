@@ -46,7 +46,7 @@ const routes: Routes = [
         ]
     },
     {
-        "path": "vvbvbv/bmnb/m**",
+        "path": "**",
         "redirectTo": "404",
         "pathMatch": "full"
     }

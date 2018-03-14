@@ -11,21 +11,12 @@ export class RolesService extends BaseService{
 
 
 	getAll() {
-		return this.http.get('http://apiservices.lh/api/roles', {headers: this.getHeaders()});
+		return this.http.get(this.urlService+'roles', {headers: this.getHeaders()});
 	}
 
 	getById(id: number) {
-		return this.http.get(this.urlService+'http://apiservices.lh/api/roles/' + id,{headers: this.getHeaders()});
+		return this.http.get(this.urlService+'roles/' + id,{headers: this.getHeaders()});
 	}
-
-	/*create(company: Company) {
-		return this.http.post(this.urlService+'roles', JSON.stringify({ companyName:company.companyName, subdomain:company.subdomain }),
-							 {headers: this.getHeaders()});
-	}
-
-	update(company: Company) {
-		return this.http.put(this.urlService+'roles', {companyName:company.companyName, subdomain:company.subdomain});
-	}*/
 
 	delete(id: number) {
 		return this.http.delete(this.urlService+'roles/' + id);

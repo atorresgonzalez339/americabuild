@@ -11,20 +11,16 @@ export class UserService extends BaseService{
     super(http);
   }
 
-	verify() {
-		return this.http.get('http://apiservices.lh/api/login', this.jwt()).map((response: Response) => response.json());
-	}
-
 	forgotPassword(email: string) {
-		return this.http.post('http://apiservices.lh/api/passwords/forgot', JSON.stringify({email:email}), {headers: this.getHeaders()});
+		return this.http.post(this.urlService+'passwords/forgot', JSON.stringify({email:email}), {headers: this.getHeaders()});
 	}
 
 	getAll() {
-		return this.http.get('http://apiservices.lh/api/users', {headers: this.getHeaders()});
+		return this.http.get(this.urlService+'users', {headers: this.getHeaders()});
 	}
 
 	getById(id: number) {
-		return this.http.get('http://apiservices.lh/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+		return this.http.get(this.urlService+'users/' + id, this.jwt()).map((response: Response) => response.json());
 	}
 
 	create(user: User) {
@@ -33,11 +29,11 @@ export class UserService extends BaseService{
 	}
 
 	update(user: User) {
-		return this.http.put('http://apiservices.lh/api/users/', {username:user.email, id:user.id});
+		return this.http.put(this.urlService+'users/', {username:user.email, id:user.id});
 	}
 
 	delete(id: number) {
-		return this.http.delete('http://apiservices.lh/api/users/' + id);
+		return this.http.delete(this.urlService+'users/' + id);
 	}
 
 	// private helper methods
