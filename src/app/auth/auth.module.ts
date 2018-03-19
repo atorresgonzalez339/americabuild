@@ -11,12 +11,16 @@ import {AuthGuard} from './_guards/auth.guard';
 import {AlertService} from './_services/alert.service';
 import {AuthenticationService} from './_services/authentication.service';
 import {UserService} from './_services/user.service';
+import {ActivationComponet} from "./activation/activation.componet";
+import {RecoverComponet} from "./recover/recover.componet";
 
 @NgModule({
   declarations: [
     AuthComponent,
     AlertComponent,
     LogoutComponent,
+    ActivationComponet,
+    RecoverComponet
   ],
   imports: [
     CommonModule,

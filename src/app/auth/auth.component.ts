@@ -27,6 +27,9 @@ export class AuthComponent implements OnInit , AfterViewInit{
   model: any = {};
   loading = false;
   returnUrl: string;
+  message:string;
+  error=false;
+  parameters=false;
 
   @ViewChild('alertSignin',
       {read: ViewContainerRef}) alertSignin: ViewContainerRef;
@@ -43,20 +46,44 @@ export class AuthComponent implements OnInit , AfterViewInit{
       private _authService: AuthenticationService,
       private _alertService: AlertService,
       private cfr: ComponentFactoryResolver) {
+
+    this._route.queryParams.subscribe(params => {
+      if(params['error']){
+        this.parameters=true;
+        this.error=true;
+        this. message=params['error'];
+      }else if(params['success']){
+        this.parameters=true;
+        this. message=params['success'];
+      }
+    });
   }
 
   ngOnInit() {
     this.model.remember = true;
-    // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-    this._router.navigate([this.returnUrl]);
+    if(this.parameters){
+      if(this.error){
+        this.showAlert('alertSignin');
+        this._alertService.error(this.message);
+        this.loading = false;
+      }else{
+        this.showAlert('alertSignin');
+        this._alertService.success(this.message);
+        this.loading = false;
+      }
+    }else this._router.navigate([this.returnUrl]);
+    // get return url from route parameters or default to '/'
+
     this._script.loadScripts('body', [
       'assets/vendors/base/vendors.bundle.js',
       'assets/demo/demo3/base/scripts.bundle.js'
-       ], true).then(() => {
-        LoginCustom.init();
-        Helpers.setLoading(false);
+    ], true).then(() => {
+      LoginCustom.init();
+      Helpers.setLoading(false);
+
     });
+
   }
 
   ngAfterViewInit(): void {
@@ -65,38 +92,38 @@ export class AuthComponent implements OnInit , AfterViewInit{
   }
 
   signin() {
-        this.loading = true;
-          this._authService.login(this.model.email, this.model.password).subscribe(
-            (data: Response) => {
-              this.loading = false;
-              let response = data.json();
-              if (response.success) {
-                sessionStorage.setItem('apiKey', response.token);
-                this._router.navigate([this.returnUrl]);
-              } else {
-                this.showAlert('alertSignin');
-                this._alertService.error(response.error);
-                this.loading = false;
-              }
-            },
-            error => {
-              this.showAlert('alertSignin');
-              this._alertService.error(error);
-              this.loading = false;
-            });
+    this.loading = true;
+    this._authService.login(this.model.email, this.model.password).subscribe(
+        (data: Response) => {
+          this.loading = false;
+          let response = data.json();
+          if (response.success) {
+            sessionStorage.setItem('apiKey', response.token);
+            this._router.navigate([this.returnUrl]);
+          } else {
+            this.showAlert('alertSignin');
+            this._alertService.error(response.error);
+            this.loading = false;
+          }
+        },
+        error => {
+          this.showAlert('alertSignin');
+          this._alertService.error(error);
+          this.loading = false;
+        });
 
-    }
+  }
 
   signup() {
     this.loading = true;
-      this._userService.create(this.model).subscribe(
+    this._userService.create(this.model).subscribe(
         (data: Response) => {
           let response = data.json();
           if (response.success) {
             this.showAlert('alertSignin');
             this._alertService.success(
-              'Thank you. To complete your registration please check your email.',
-              true);
+                'Thank you. To complete your registration please check your email.',
+                true);
             this.loading = false;
             LoginCustom.displaySignInForm();
             this.model = {};
@@ -118,21 +145,21 @@ export class AuthComponent implements OnInit , AfterViewInit{
   forgotPass() {
     this.loading = true;
     this._userService.forgotPassword(this.model.email).subscribe(
-      (data: Response) => {
-        let response=data.json();
-        if(response.success){
-          this.showAlert('alertSignin');
-          this._alertService.success(
-            'Cool! Password recovery instruction has been sent to your email.',
-            true);
-          this.loading = false;
-          LoginCustom.displaySignInForm();
-          this.model = {};
-        }
-        else{
-          this.showAlert('alertSignup');
-          this._alertService.error(response.error);
-          this.loading = false;
+        (data: Response) => {
+          let response=data.json();
+          if(response.success){
+            this.showAlert('alertSignin');
+            this._alertService.success(
+                'Cool! Password recovery instruction has been sent to your email.',
+                true);
+            this.loading = false;
+            LoginCustom.displaySignInForm();
+            this.model = {};
+          }
+          else{
+            this.showAlert('alertSignup');
+            this._alertService.error(response.error);
+            this.loading = false;
           }
         },
         error => {

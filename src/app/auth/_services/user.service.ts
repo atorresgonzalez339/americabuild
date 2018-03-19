@@ -7,9 +7,21 @@ import { BaseService } from '../../_services/base.service';
 @Injectable()
 export class UserService extends BaseService{
 
-  constructor(public http: Http) {
-    super(http);
-  }
+	constructor(public http: Http) {
+		super(http);
+	}
+
+	userVerifyToken(token: string){
+		return this.http.post(this.urlService+'passwords/reset', JSON.stringify({token:token}), {headers: this.getHeaders()});
+	}
+
+	userRecover(token: string, password:string, rpassword:string) {
+		return this.http.post(this.urlService+'passwords/reset', JSON.stringify({token:token, password:password, repassword:rpassword}), {headers: this.getHeaders()});
+	}
+
+	userActivation(token: string) {
+		return this.http.put(this.urlService+'users/register/activation', JSON.stringify({token:token}), {headers: this.getHeaders()});
+	}
 
 	forgotPassword(email: string) {
 		return this.http.post(this.urlService+'passwords/forgot', JSON.stringify({email:email}), {headers: this.getHeaders()});
@@ -25,7 +37,7 @@ export class UserService extends BaseService{
 
 	create(user: User) {
 		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname }),
-							 {headers: this.getHeaders()});
+			{headers: this.getHeaders()});
 	}
 
 	update(user: User) {
