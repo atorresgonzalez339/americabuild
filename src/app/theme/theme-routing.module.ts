@@ -3,6 +3,7 @@ import { ThemeComponent } from './theme.component';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from "../auth/_guards/auth.guard";
 import {CompanyModule} from "./pages/default/company/company.module";
+import {PermitModule} from "./pages/default/permit/permit.module";
 
 const routes: Routes = [
     {
@@ -15,20 +16,20 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/aside\/index\/index.module#IndexModule"
             },
             {
-                "path": "inner",
-                "loadChildren": ".\/pages\/default\/inner\/inner.module#InnerModule"
+                "path": "permit",
+                "loadChildren": ".\/pages\/default\/permit\/permit.module#PermitModule"
             },
             {
                 "path": "company",
                 "loadChildren": ".\/pages\/default\/company\/company.module#CompanyModule"
             },
             {
-              "path": "roles",
-              "loadChildren": ".\/pages\/default\/roles\/roles.module#RolesModule"
+                "path": "roles",
+                "loadChildren": ".\/pages\/default\/roles\/roles.module#RolesModule"
             },
             {
-              "path": "users",
-              "loadChildren": ".\/pages\/default\/users\/users.module#UsersModule"
+                "path": "users",
+                "loadChildren": ".\/pages\/default\/users\/users.module#UsersModule"
             },
             {
                 "path": "profile",
@@ -53,7 +54,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class ThemeRoutingModule {}

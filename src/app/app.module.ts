@@ -13,19 +13,18 @@ import { AuthModule } from "./auth/auth.module";
 import { UserService } from "./auth/_services";
 import { RolesService } from "./theme/pages/default/roles/_services";
 import {CompanyService} from "./theme/pages/default/company/_services";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
 ThemeComponent,
-    AppComponent,
-    //CompanyComponent,
-    //UsersComponent,
-    //RolesComponent,
+    AppComponent
   ],
   imports: [
     LayoutModule,
     BrowserModule,
+    FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ThemeRoutingModule,
