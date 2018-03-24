@@ -5,7 +5,7 @@ var WizardDemo = function () {
     var formEl = $('#m_form');
     var validator;
     var wizard;
-    
+
     //== Private functions
     var initWizard = function () {
         //== Initialize form wizard
@@ -35,33 +35,39 @@ var WizardDemo = function () {
             rules: {
                 //=== Client Information(step 1)
                 //== Client details
-                name: {
-                    required: true 
+                first_name: {
+                    required: true
+                },
+                last_name: {
+                    required: true
                 },
                 email: {
                     required: true,
-                    email: true 
-                },       
+                    email: true
+                },
                 phone: {
                     required: true,
-                    phoneUS: true 
-                },     
+                    phoneUS: true
+                },
 
                 //== Mailing address
                 address1: {
-                    required: true 
+                    required: true
+                },
+                address2: {
+                    required: true
                 },
                 city: {
-                    required: true 
+                    required: true
                 },
                 state: {
-                    required: true 
+                    required: true
                 },
-                city: {
-                    required: true 
+                zipcode: {
+                    required: true
                 },
-                country: {
-                    required: true 
+                driverlic: {
+                    required: true
                 },
 
                 //=== Client Information(step 2)
@@ -77,12 +83,12 @@ var WizardDemo = function () {
                 account_password: {
                     required: true,
                     minlength: 6
-                },                
+                },
 
                 //== Client Settings
                 account_group: {
-                     required: true
-                },                
+                    required: true
+                },
                 'account_communication[]': {
                     required: true
                 },
@@ -113,7 +119,7 @@ var WizardDemo = function () {
                     required: true
                 },
                 billing_address_2: {
-                    
+
                 },
                 billing_city: {
                     required: true
@@ -142,16 +148,16 @@ var WizardDemo = function () {
                 },
                 accept: {
                     required: "You must accept the Terms and Conditions agreement!"
-                } 
+                }
             },
-            
+
             //== Display error  
-            invalidHandler: function(event, validator) {     
+            invalidHandler: function(event, validator) {
                 mApp.scrollTop();
 
                 swal({
-                    "title": "", 
-                    "text": "There are some errors in your submission. Please correct them.", 
+                    "title": "",
+                    "text": "There are some errors in your submission. Please correct them.",
                     "type": "error",
                     "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                 });
@@ -159,9 +165,9 @@ var WizardDemo = function () {
 
             //== Submit valid form
             submitHandler: function (form) {
-                
+
             }
-        });   
+        });
     }
 
     var initSubmit = function() {
@@ -182,8 +188,8 @@ var WizardDemo = function () {
                         //mApp.unblock(formEl);
 
                         swal({
-                            "title": "", 
-                            "text": "The application has been successfully submitted!", 
+                            "title": "",
+                            "text": "The application has been successfully submitted!",
                             "type": "success",
                             "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                         });
@@ -199,13 +205,13 @@ var WizardDemo = function () {
             wizardEl = $('#m_wizard');
             formEl = $('#m_form');
 
-            initWizard(); 
+            initWizard();
             initValidation();
             initSubmit();
         }
     };
 }();
 
-jQuery(document).ready(function() {    
+jQuery(document).ready(function() {
     WizardDemo.init();
 });

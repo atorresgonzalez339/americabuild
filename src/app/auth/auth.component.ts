@@ -157,7 +157,7 @@ export class AuthComponent implements OnInit , AfterViewInit{
             this.model = {};
           }
           else{
-            this.showAlert('alertSignup');
+            this.showAlert('alertForgotPass');
             this._alertService.error(response.error);
             this.loading = false;
           }
