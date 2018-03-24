@@ -151,7 +151,7 @@ var WizardDemo = function () {
                 }
             },
 
-            //== Display error  
+            //== Display error
             invalidHandler: function(event, validator) {
                 mApp.scrollTop();
 
@@ -179,7 +179,7 @@ var WizardDemo = function () {
             if (validator.form()) {
                 //== See: src\js\framework\base\app.js
                 mApp.progress(btn);
-                //mApp.block(formEl); 
+                //mApp.block(formEl);
 
                 //== See: http://malsup.com/jquery/form/#ajaxSubmit
                 formEl.ajaxSubmit({

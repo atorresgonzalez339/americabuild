@@ -18,8 +18,6 @@ ngOnInit()  {
 
 }
 ngAfterViewInit()  {
-this._script.loadScripts('app-index',
-['assets/app/js/dashboard.js']);
 
 }
 

@@ -1,22 +1,3 @@
-<!-- BEGIN: Subheader -->
-<div class="m-subheader" appunwraptag="">
-	<div class="d-flex align-items-center">
-		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				Create New Permit
-			</h3>
-			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true">
-					<a  routerLink="/" class="m-menu__link">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-			</ul>
-		</div>
-
-	</div>
-</div>
-<!-- END: Subheader -->
 <div class="m-content">
 	<!--Begin::Main Portlet-->
 	<div class="m-portlet m-portlet--full-height">
@@ -25,21 +6,9 @@
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
 					<h3 class="m-portlet__head-text">
-						Client Registration
-						<small>
-							form wizard
-						</small>
+						Owner / Tenant - Information
 					</h3>
 				</div>
-			</div>
-			<div class="m-portlet__head-tools">
-				<ul class="m-portlet__nav">
-					<li class="m-portlet__nav-item">
-						<a href="#" data-toggle="m-tooltip" class="m-portlet__nav-link m-portlet__nav-link--icon" data-direction="left" data-width="auto" title="Get help with filling up this form">
-							<i class="flaticon-info m--icon-font-size-lg3"></i>
-						</a>
-					</li>
-				</ul>
 			</div>
 		</div>
 		<!--end: Portlet Head-->     <!--begin: Form Wizard-->
@@ -69,11 +38,6 @@
 								<div class="m-wizard__step-title">
 									1. Client Information
 								</div>
-								<div class="m-wizard__step-desc">
-									Lorem ipsum doler amet elit
-									<br>
-									sed eiusmod tempors
-								</div>
 							</div>
 						</div>
 						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_2">
@@ -86,11 +50,6 @@
 								<div class="m-wizard__step-title">
 									2. Account Setup
 								</div>
-								<div class="m-wizard__step-desc">
-									Lorem ipsum doler amet elit
-									<br>
-									sed eiusmod tempors
-								</div>
 							</div>
 						</div>
 						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_3">
@@ -102,11 +61,6 @@
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
 									3. Confirmation
-								</div>
-								<div class="m-wizard__step-desc">
-									Lorem ipsum doler amet elit
-									<br>
-									sed eiusmod tempors
 								</div>
 							</div>
 						</div>
@@ -122,126 +76,126 @@
 					<div class="m-portlet__body">
 						<!--begin: Form Wizard Step 1-->
 						<div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
-								<div class="row">
-									<div class="col-xl-8 offset-xl-2">
-										<div class="m-form__section m-form__section--first">
-											<div class="m-form__heading">
-												<h3 class="m-form__heading-title">
-													Client Details
-												</h3>
-											</div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-6 m-form__group-sub">												
+							<div class="row">
+								<div class="col-xl-10 offset-xl-1">
+									<div class="m-form__section m-form__section--first">
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">
+												Client Details
+											</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
 													<input type="checkbox" name="applyinf" checked value="">
-													Apply same information of the profile													
+													Apply same information of the profile
 													<span></span>
 												</label>
 											</div>
-											</div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* First Name:
-													</label>
-													<input type="text" name="first_name" class="form-control m-input" placeholder="" value="First Name">
-													<span class="m-form__help">
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* First Name:
+												</label>
+												<input type="text" name="first_name" class="form-control m-input" placeholder="">
+												<span class="m-form__help">
 														Please enter your first names
 													</span>
-												</div>
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* Last Name:
-													</label>
-													<input type="text" name="last_name" class="form-control m-input" placeholder="" value="Last Name">
-													<span class="m-form__help">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Last Name:
+												</label>
+												<input type="text" name="last_name" class="form-control m-input" placeholder="">
+												<span class="m-form__help">
 														Please enter your last names
 													</span>
-												</div>
 											</div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* Address 1:
-													</label>
-													<input type="text" name="address1" class="form-control m-input" placeholder="" value="Headquarters 1120 N Street Sacramento 916-654-5266">
-													<span class="m-form__help">
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Address 1:
+												</label>
+												<input type="text" name="address1" class="form-control m-input" placeholder="">
+												<span class="m-form__help">
 														Street address, P.O. box, company name, c/o
 													</span>
-												</div>
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* Address 2:
-													</label>
-													<input type="text" name="address2" class="form-control m-input" placeholder="" value="P.O. Box 942873 Sacramento, CA 94273-0001">
-													<span class="m-form__help">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Address 2:
+												</label>
+												<input type="text" name="address2" class="form-control m-input" placeholder="">
+												<span class="m-form__help">
 														Appartment, suite, unit, building, floor, etc
 													</span>
-												</div>
 											</div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* City:
-													</label>
-													<input type="text" name="city" class="form-control m-input" placeholder="" value="Polo Alto">
-												</div>
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* State:
-													</label>
-													<input type="text" name="state" class="form-control m-input" placeholder="" value="California">
-												</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* City:
+												</label>
+												<input type="text" name="city" class="form-control m-input" placeholder="">
 											</div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* Zip Code:
-													</label>
-													<input type="text" name="zipcode" class="form-control m-input" placeholder="" value="34890">
-												</div>
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* Driver Lic Number/ID:
-													</label>
-													<input type="text" name="driverlic" class="form-control m-input" placeholder="" value="">
-												</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* State:
+												</label>
+												<input type="text" name="state" class="form-control m-input" placeholder="">
 											</div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-6 m-form__group-sub">
-													<label class="form-control-label">
-														* Phone:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-															<div class="input-group">
-																<div class="input-group-prepend">
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Zip Code:
+												</label>
+												<input type="text" name="zipcode" class="form-control m-input" placeholder="">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Driver Lic Number/ID:
+												</label>
+												<input type="text" name="driverlic" class="form-control m-input" placeholder="">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Phone:
+												</label>
+												<div class="">
+													<div class="input-group">
+														<div class="input-group-prepend">
 																	<span class="input-group-text">
 																		<i class="la la-phone"></i>
 																	</span>
-																</div>
-																<input type="text" name="phone" class="form-control m-input" placeholder="" value="1-541-754-3010">
-															</div>
-															<span class="m-form__help">
+														</div>
+														<input type="text" name="phone" class="form-control m-input" placeholder="">
+													</div>
+													<span class="m-form__help">
 																Enter your valid phone in US phone format. E.g: 1-541-754-3010
 															</span>
-														</div>
 												</div>
-												<div class="col-lg-6 m-form__group-sub">												
-													<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-														<input type="checkbox" name="owner" checked value="">
-														Owner Builder													
-														<span></span>
-													</label>
-												</div>
-												</div>
+											</div>
+											<div class="col-lg-6 m-form__group-sub m-checkbox-form-group-sub">
+												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+													<input type="checkbox" name="owner" checked value="">
+													Owner Builder
+													<span></span>
+												</label>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+						</div>
 						<!--end: Form Wizard Step 1-->                     <!--begin: Form Wizard Step 2-->
 						<div class="m-wizard__form-step" id="m_wizard_form_step_2">
 							<div class="row">
-								<div class="col-xl-8 offset-xl-2">
+								<div class="col-xl-10 offset-xl-1">
 									<div class="m-form__section m-form__section--first">
 										<div class="m-form__heading">
 											<h3 class="m-form__heading-title">
@@ -253,7 +207,7 @@
 												<label class="form-control-label">
 													* URL:
 												</label>
-												<input type="url" name="account_url" class="form-control m-input" placeholder="" value="http://sinortech.vertoffice.com">
+												<input type="url" name="account_url" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">
 													Please enter your preferred URL  to your dashboard
 												</span>
@@ -264,7 +218,7 @@
 												<label class="form-control-label">
 													* Username:
 												</label>
-												<input type="text" name="account_username" class="form-control m-input" placeholder="" value="nick.stone">
+												<input type="text" name="account_username" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">
 													Your username to login to your dashboard
 												</span>
@@ -273,7 +227,7 @@
 												<label class="form-control-label">
 													* Password:
 												</label>
-												<input type="password" name="account_password" class="form-control m-input" placeholder="" value="qwerty">
+												<input type="password" name="account_password" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">
 													Please use letters and at least one number and symbol
 												</span>

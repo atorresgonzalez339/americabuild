@@ -2,24 +2,40 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Helpers } from '../helpers';
 import { ScriptLoaderService } from '../_services/script-loader.service';
+import {UserService} from "../auth/_services/index";
+import {Response} from "@angular/http";
 
 declare let mApp: any;
 declare let mUtil: any;
 declare let mLayout: any;
 @Component({
-selector: ".m-grid.m-grid--hor.m-grid--root.m-page",
-templateUrl: "./theme.component.html",
-encapsulation: ViewEncapsulation.None,
+	selector: ".m-grid.m-grid--hor.m-grid--root.m-page",
+	templateUrl: "./theme.component.html",
+	encapsulation: ViewEncapsulation.None,
 })
 export class ThemeComponent implements OnInit {
 
 
-constructor(private _script: ScriptLoaderService, private _router: Router)  {
+	constructor(private _script: ScriptLoaderService, private _router: Router, private _userService: UserService)  {
 
-}
-ngOnInit()  {
+	}
+	ngOnInit()  {
+		/*this._userService.userInformation().subscribe(
+			(data:Response) =>{
+				let response = data.json();
+				if (response.success) {
+					sessionStorage.setItem('user', response.data);
+				}else{
+					this._router.navigate(['/login'] , { queryParams: { error: response.error } });
+				}
+			},
+			error => {
+				this._router.navigate(['/login'] , { queryParams: { error:error } });
+			}
+		);
+*/
 		this._script.loadScripts('body', ['assets/vendors/base/vendors.bundle.js','assets/demo/demo3/base/scripts.bundle.js'], true)
-			.then(result => {
+            .then(result => {
 				Helpers.setLoading(false);
 				// optional js to be loaded once
 				this._script.loadScripts('head', ['assets/vendors/custom/fullcalendar/fullcalendar.bundle.js'], true);
@@ -27,7 +43,7 @@ ngOnInit()  {
 		this._router.events.subscribe((route) => {
 			if (route instanceof NavigationStart) {
 				(<any>mLayout).closeMobileAsideMenuOffcanvas();
-(<any>mLayout).closeMobileHorMenuOffcanvas();
+				(<any>mLayout).closeMobileHorMenuOffcanvas();
 				(<any>mApp).scrollTop();
 				Helpers.setLoading(true);
 				// hide visible popover
@@ -45,6 +61,6 @@ ngOnInit()  {
 				}).removeClass(animation).addClass(animation);
 			}
 		});
-}
+	}
 
 }
