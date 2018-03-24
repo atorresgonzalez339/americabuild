@@ -13,19 +13,21 @@ import {Response} from "@angular/http";
 export class LogoutComponent implements OnInit {
 
 	constructor(private _router: Router,
-	            private _authService: AuthenticationService) {
+				private _authService: AuthenticationService) {
 	}
 
 	ngOnInit(): void {
 		Helpers.setLoading(true);
 		this._authService.logout().subscribe(
 			(data:Response) =>
-				{
-					sessionStorage.removeItem("apiKey");
-					this._router.navigate(['/login']);
-				},
+			{
+				sessionStorage.removeItem("apiKey");
+				sessionStorage.removeItem("user");
+				this._router.navigate(['/login']);
+			},
 			error => {
 				sessionStorage.removeItem("apiKey");
+				sessionStorage.removeItem("user");
 				this._router.navigate(['/login']);
 			}
 		);

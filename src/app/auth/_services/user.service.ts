@@ -11,6 +11,10 @@ export class UserService extends BaseService{
 		super(http);
 	}
 
+	userInformation(){
+		return this.http.get(this.urlService+'users/info', {headers: this.getHeaders()});
+	}
+
 	userVerifyToken(token: string){
 		return this.http.post(this.urlService+'passwords/reset', JSON.stringify({token:token}), {headers: this.getHeaders()});
 	}

@@ -1,11 +1,13 @@
 export class User {
 	id: number;
-	email: string;
+	username: string;
 	password: string;
 	rpassword:string;
-	fullname: string;
-	role: string;
+	fullname:string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	roleid: number;
 	activo: boolean;
-	companyname:string;
-	company:number;
+	companyid:number;
 }
