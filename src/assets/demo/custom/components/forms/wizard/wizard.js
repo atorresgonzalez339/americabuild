@@ -70,71 +70,6 @@ var WizardDemo = function () {
                     required: true
                 },
 
-                //=== Client Information(step 2)
-                //== Account Details
-                account_url: {
-                    required: true,
-                    url: true
-                },
-                account_username: {
-                    required: true,
-                    minlength: 4
-                },
-                account_password: {
-                    required: true,
-                    minlength: 6
-                },
-
-                //== Client Settings
-                account_group: {
-                    required: true
-                },
-                'account_communication[]': {
-                    required: true
-                },
-
-                //=== Client Information(step 3)
-                //== Billing Information
-                billing_card_name: {
-                    required: true
-                },
-                billing_card_number: {
-                    required: true,
-                    creditcard: true
-                },
-                billing_card_exp_month: {
-                    required: true
-                },
-                billing_card_exp_year: {
-                    required: true
-                },
-                billing_card_cvv: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 3
-                },
-
-                //== Billing Address
-                billing_address_1: {
-                    required: true
-                },
-                billing_address_2: {
-
-                },
-                billing_city: {
-                    required: true
-                },
-                billing_state: {
-                    required: true
-                },
-                billing_zip: {
-                    required: true,
-                    number: true
-                },
-                billing_delivery: {
-                    required: true
-                },
-
                 //=== Confirmation(step 4)
                 accept: {
                     required: true
@@ -171,6 +106,7 @@ var WizardDemo = function () {
     }
 
     var initSubmit = function() {
+        /*
         var btn = formEl.find('[data-wizard-action="submit"]');
 
         btn.on('click', function(e) {
@@ -179,24 +115,9 @@ var WizardDemo = function () {
             if (validator.form()) {
                 //== See: src\js\framework\base\app.js
                 mApp.progress(btn);
-                //mApp.block(formEl);
-
-                //== See: http://malsup.com/jquery/form/#ajaxSubmit
-                formEl.ajaxSubmit({
-                    success: function() {
-                        mApp.unprogress(btn);
-                        //mApp.unblock(formEl);
-
-                        swal({
-                            "title": "",
-                            "text": "The application has been successfully submitted!",
-                            "type": "success",
-                            "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
-                        });
-                    }
-                });
+                mApp.block(formEl);
             }
-        });
+        });*/
     }
 
     return {
