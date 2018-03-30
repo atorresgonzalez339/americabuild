@@ -48,7 +48,7 @@
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									2. Account Setup
+									2. Contractor Information
 								</div>
 							</div>
 						</div>
@@ -71,11 +71,12 @@
 			<!--end: Form Wizard Head -->           <!--begin: Form Wizard Form-->
 			<div class="m-wizard__form">
 				<!--                 1) Use m-form--label-align-left class to alight the form input lables to the right                 2) Use m-form--state class to highlight input control borders on form validation                 -->
-				<form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+				<form class="m-form m-form--label-align-left- m-form--state-" (ngSubmit)="saveWizard()" id="m_form">
 					<!--begin: Form Body -->
 					<div class="m-portlet__body">
 						<!--begin: Form Wizard Step 1-->
 						<div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
+							<ng-template #alertPermit></ng-template>
 							<div class="row">
 								<div class="col-xl-10 offset-xl-1">
 									<div class="m-form__section m-form__section--first">
@@ -87,7 +88,7 @@
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="applyinf" checked value="">
+													<input type="checkbox" name="applyinf" checked value="" (change)="showProfile($event)">
 													Apply same information of the profile
 													<span></span>
 												</label>
@@ -98,13 +99,13 @@
 												<label class="form-control-label">
 													* First Name:
 												</label>
-												<input type="text" name="first_name" class="form-control m-input" placeholder="">
+												<input type="text" name="first_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.firstname" #firstname="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Last Name:
 												</label>
-												<input type="text" name="last_name" class="form-control m-input" placeholder="">
+												<input type="text" name="last_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.lastname" #lastname="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -112,13 +113,13 @@
 												<label class="form-control-label">
 													* Address 1:
 												</label>
-												<input type="text" name="address1" class="form-control m-input" placeholder="">
+												<input type="text" name="address1" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.address1" #address1="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Address 2:
 												</label>
-												<input type="text" name="address2" class="form-control m-input" placeholder="">
+												<input type="text" name="address2" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.address2" #address2="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -126,13 +127,13 @@
 												<label class="form-control-label">
 													* City:
 												</label>
-												<input type="text" name="city" class="form-control m-input" placeholder="">
+												<input type="text" name="city" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.city" #city="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* State:
 												</label>
-												<input type="text" name="state" class="form-control m-input" placeholder="">
+												<input type="text" name="state" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.state" #state="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -140,13 +141,13 @@
 												<label class="form-control-label">
 													* Zip Code:
 												</label>
-												<input type="text" name="zipcode" class="form-control m-input" placeholder="">
+												<input type="text" name="zipcode" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.zip" #zip="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Driver Lic Number/ID:
 												</label>
-												<input type="text" name="driverlic" class="form-control m-input" placeholder="">
+												<input type="text" name="driverlic" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.driverLicOrId" #driverLicOrId="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -161,13 +162,13 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone" class="form-control m-input" placeholder="">
+														<input type="text" name="phone" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.phoneNumber" #phoneNumber="ngModel">
 													</div>
 												</div>
 											</div>
 											<div class="col-lg-6 m-form__group-sub m-checkbox-form-group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="owner" checked value="">
+													<input type="checkbox" name="owner" checked value="" [(ngModel)]="ownerTenantUserProfile.owner" #owner="ngModel">
 													Owner Builder
 													<span></span>
 												</label>
@@ -184,154 +185,96 @@
 									<div class="m-form__section m-form__section--first">
 										<div class="m-form__heading">
 											<h3 class="m-form__heading-title">
-												Account Details
+												Contractor Details
 											</h3>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-lg-12">
-												<label class="form-control-label">
-													* URL:
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+													<input type="checkbox" name="applyinf2" checked value="">
+													Apply same information of the profile
+													<span></span>
 												</label>
-												<input type="url" name="account_url" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">
-													Please enter your preferred URL  to your dashboard
-												</span>
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
-													* Username:
+													* First Name:
 												</label>
-												<input type="text" name="account_username" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">
-													Your username to login to your dashboard
-												</span>
+												<input type="text" name="first_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.firstname" #firstname="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
-													* Password:
+													* Last Name:
 												</label>
-												<input type="password" name="account_password" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">
-													Please use letters and at least one number and symbol
-												</span>
+												<input type="text" name="last_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.lastname" #lastname="ngModel">
 											</div>
-										</div>
-									</div>
-									<div class="m-separator m-separator--dashed m-separator--lg"></div>
-									<div class="m-form__section">
-										<div class="m-form__heading">
-											<h3 class="m-form__heading-title">
-												Client Settings
-											</h3>
 										</div>
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
-													* User Group:
+													* Address 1:
 												</label>
-												<div class="m-radio-inline">
-													<label class="m-radio m-radio--solid m-radio--brand">
-														<input type="radio" name="account_group" checked="" value="2">
-														Sales Person
-														<span></span>
-													</label>
-													<label class="m-radio m-radio--solid m-radio--brand">
-														<input type="radio" name="account_group" value="2">
-														Customer
-														<span></span>
-													</label>
-												</div>
-												<span class="m-form__help">
-													Please select user group
-												</span>
+												<input type="text" name="address1_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address1" #address1="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
-													* Communications:
+													* Address 2:
 												</label>
-												<div class="m-checkbox-inline">
-													<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-														<input type="checkbox" name="account_communication[]" checked value="email">
-														Email
-														<span></span>
-													</label>
-													<label class="m-checkbox m-checkbox--solid  m-checkbox--brand">
-														<input type="checkbox" name="account_communication[]" value="sms">
-														SMS
-														<span></span>
-													</label>
-													<label class="m-checkbox m-checkbox--solid  m-checkbox--brand">
-														<input type="checkbox" name="account_communication[]" value="phone">
-														Phone
-														<span></span>
-													</label>
-												</div>
-												<span class="m-form__help">
-													Please select user communication options
-												</span>
+												<input type="text" name="address2_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address2" #address2="ngModel">
 											</div>
 										</div>
-									</div>
-									<div class="m-separator m-separator--dashed m-separator--lg"></div>
-									<div class="m-form__section">
-										<div class="m-form__heading">
-											<h3 class="m-form__heading-title">
-												Delivery Type
-											</h3>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* City:
+												</label>
+												<input type="text" name="city_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.city" #city="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* State:
+												</label>
+												<input type="text" name="state_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.state" #state="ngModel">
+											</div>
 										</div>
-										<div class="form-group m-form__group">
-											<div class="row">
-												<div class="col-lg-6">
-													<label class="m-option">
-														<span class="m-option__control">
-															<span class="m-radio m-radio--state-brand">
-																<input type="radio" name="billing_delivery" value="">
-																<span></span>
-															</span>
-														</span>
-														<span class="m-option__label">
-															<span class="m-option__head">
-																<span class="m-option__title">
-																	Standart Delevery
-																</span>
-																<span class="m-option__focus">
-																	Free
-																</span>
-															</span>
-															<span class="m-option__body">
-																Estimated 14-20 Day Shipping                                                  (&nbsp;Duties end taxes may be due                                                  upon delivery&nbsp;)
-															</span>
-														</span>
-													</label>
-												</div>
-												<div class="col-lg-6">
-													<label class="m-option">
-														<span class="m-option__control">
-															<span class="m-radio m-radio--state-brand">
-																<input type="radio" name="billing_delivery" value="">
-																<span></span>
-															</span>
-														</span>
-														<span class="m-option__label">
-															<span class="m-option__head">
-																<span class="m-option__title">
-																	Fast Delevery
-																</span>
-																<span class="m-option__focus">
-																	$&nbsp;8.00
-																</span>
-															</span>
-															<span class="m-option__body">
-																Estimated 2-5 Day Shipping                                                 (&nbsp;Duties end taxes may be due                                                 upon delivery&nbsp;)
-															</span>
-														</span>
-													</label>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Zip Code:
+												</label>
+												<input type="text" name="zipcode_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Driver Lic Number/ID:
+												</label>
+												<input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Phone:
+												</label>
+												<div class="">
+													<div class="input-group">
+														<div class="input-group-prepend">
+																	<span class="input-group-text">
+																		<i class="la la-phone"></i>
+																	</span>
+														</div>
+														<input type="text" name="phone_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel">
+													</div>
 												</div>
 											</div>
-											<div class="m-form__help">
-												<!--must use this helper element to display error message for the options-->
+											<div class="col-lg-6 m-form__group-sub m-checkbox-form-group-sub">
+												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+													<input type="checkbox" name="owner2" checked value="1" [(ngModel)]="contractorUserProfile.owner" #owner="ngModel">
+													Owner Builder
+													<span></span>
+												</label>
 											</div>
 										</div>
 									</div>
@@ -346,17 +289,12 @@
 									<ul class="nav nav-tabs m-tabs-line--2x m-tabs-line m-tabs-line--danger" role="tablist">
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_form_confirm_1" role="tab">
-												1. Client Information
+												1. Owner / Tenant - Information
 											</a>
 										</li>
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_2" role="tab">
-												2. Account Setup
-											</a>
-										</li>
-										<li class="nav-item m-tabs__item">
-											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_3" role="tab">
-												3. Billing Setup
+												2. Contractor Information
 											</a>
 										</li>
 									</ul>
@@ -369,200 +307,197 @@
 													</h4>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Name:
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* First Name:
+														</label>
 														<span class="m-form__control-static">
-															Nick Stone
+															{{ ownerTenantUserProfile.firstname }}
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Last Name:
+														</label>
+														<span class="m-form__control-static">
+																{{ ownerTenantUserProfile.lastname }}
 														</span>
 													</div>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Email:
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 1:
+														</label>
 														<span class="m-form__control-static">
-															nick.stone@gmail.com
-														</span>
+																		{{ ownerTenantUserProfile.address1 }}
+																</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 2:
+														</label>
+														<span class="m-form__control-static">
+																		{{ ownerTenantUserProfile.address2 }}
+																</span>
 													</div>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Phone
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* City:
+														</label>
 														<span class="m-form__control-static">
-															+206-78-55034890
-														</span>
+																		{{ ownerTenantUserProfile.city }}
+																</span>
 													</div>
-												</div>
-											</div>
-											<div class="m-separator m-separator--dashed m-separator--lg"></div>
-											<div class="m-form__section">
-												<div class="m-form__heading">
-													<h4 class="m-form__heading-title">
-														Corresponding Address
-														<i data-toggle="m-tooltip" data-width="auto" class="m-form__heading-help-icon flaticon-info" title="Some help text goes here"></i>
-													</h4>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Address Line 1:
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* State:
+														</label>
 														<span class="m-form__control-static">
-															Headquarters 1120 N Street Sacramento 916-654-5266
-														</span>
+																		{{ ownerTenantUserProfile.state }}
+																</span>
 													</div>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Address Line 2:
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Zip Code:
+														</label>
 														<span class="m-form__control-static">
-															P.O. Box 942873 Sacramento, CA 94273-0001
-														</span>
+																		{{ ownerTenantUserProfile.zip }}
+																</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Driver Lic Number/ID:
+														</label>
+														<span class="m-form__control-static">
+																		{{ ownerTenantUserProfile.driverLicOrId }}
+																</span>
 													</div>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														City:
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Phone:
+														</label>
 														<span class="m-form__control-static">
-															Polo Alto
+															<i class="la la-phone">{{ ownerTenantUserProfile.phoneNumber }}</i>
+
 														</span>
 													</div>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														State:
-													</label>
-													<div class="col-xl-9 col-lg-9">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															Owner Builder:
+														</label>
 														<span class="m-form__control-static">
-															California
+															Yes
 														</span>
+
 													</div>
 												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Country:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															USA
-														</span>
-													</div>
-												</div>
+
 											</div>
 										</div>
 										<div class="tab-pane" id="m_form_confirm_2" role="tabpanel">
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
-														Account Details
+														Contractor Details
 													</h4>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														URL:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															sinortech.vertoffice.com
-														</span>
-													</div>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Username:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															sinortech.admin
-														</span>
-													</div>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Password:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															*********
-														</span>
-													</div>
-												</div>
-											</div>
-											<div class="m-separator m-separator--dashed m-separator--lg"></div>
-											<div class="m-form__section">
-												<div class="m-form__heading">
-													<h4 class="m-form__heading-title">
-														Account Details
-													</h4>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														URL:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															sinortech.vertoffice.com
-														</span>
-													</div>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Username:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															sinortech.admin
-														</span>
-													</div>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<label class="col-xl-3 col-lg-3 col-form-label">
-														Password:
-													</label>
-													<div class="col-xl-9 col-lg-9">
-														<span class="m-form__control-static">
-															*********
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="tab-pane" id="m_form_confirm_3" role="tabpanel">
-											<div class="m-form__section m-form__section--first">
-												<div class="m-form__section">
-													<div class="m-form__heading">
-														<h4 class="m-form__heading-title">
-															Client Settings
-														</h4>
-													</div>
-													<div class="form-group m-form__group m-form__group--sm row">
-														<label class="col-xl-3 col-lg-3 col-form-label">
-															User Group:
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* First Name:
 														</label>
-														<div class="col-xl-9 col-lg-9">
-															<span class="m-form__control-static">
-																Customer
+														<span class="m-form__control-static">
+																{{ contractorUserProfile.firstname }}
 															</span>
-														</div>
+														<!--input type="text" name="first_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.name" #name="ngModel"-->
 													</div>
-													<div class="form-group m-form__group m-form__group--sm row">
-														<label class="col-xl-3 col-lg-3 col-form-label">
-															Communications:
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Last Name:
 														</label>
-														<div class="col-xl-9 col-lg-9">
-															<span class="m-form__control-static">
-																Phone, Email
+														<span class="m-form__control-static">
+																	{{ contractorUserProfile.lastname }}
 															</span>
-														</div>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 1:
+														</label>
+														<span class="m-form__control-static">
+																			{{ contractorUserProfile.address1 }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 2:
+														</label>
+														<span class="m-form__control-static">
+																			{{ contractorUserProfile.address2 }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* City:
+														</label>
+														<span class="m-form__control-static">
+																			{{ contractorUserProfile.city }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* State:
+														</label>
+														<span class="m-form__control-static">
+																			{{ contractorUserProfile.state }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Zip Code:
+														</label>
+														<span class="m-form__control-static">
+																			{{ contractorUserProfile.zip }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Driver Lic Number/ID:
+														</label>
+														<span class="m-form__control-static">
+																			{{ contractorUserProfile.driverLicOrId }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Phone:
+														</label>
+														<span class="m-form__control-static">
+															<i class="la la-phone">{{ contractorUserProfile.phoneNumber }}</i>
+
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															Owner Builder:
+														</label>
+														<span class="m-form__control-static">
+															Yes
+														</span>
 													</div>
 												</div>
 											</div>
@@ -603,7 +538,7 @@
 									</a>
 								</div>
 								<div class="col-lg-4 m--align-right">
-									<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
+									<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit" (ngSubmit)="saveWizard()" (click)="saveWizard()">
 										<span>
 											<i class="la la-check"></i>
 											&nbsp;&nbsp;
@@ -611,7 +546,7 @@
 												Submit
 											</span>
 										</span>
-									</a>
+								</a>
 									<a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
 										<span>
 											<span>
