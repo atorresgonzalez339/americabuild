@@ -29,3 +29,12 @@ a {
 .m-checkbox-form-group-sub {
    padding-top: 30px;
 }
+
+.m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info .m-wizard__step-title
+{
+  font-size: 1.0rem !important;
+}
+
+.m-portlet .m-portlet__body {
+  padding: 2.2rem 0.4rem !important;
+}
