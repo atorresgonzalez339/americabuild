@@ -20,10 +20,6 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/default\/permit\/permit.module#PermitModule"
             },
             {
-                "path": "listpermit",
-                "loadChildren": ".\/pages\/default\/listpermit\/list.module#ListModule"
-            },
-            {
                 "path": "company",
                 "loadChildren": ".\/pages\/default\/company\/company.module#CompanyModule"
             },

@@ -19,13 +19,13 @@ export class PermitService extends BaseService{
 		return this.http.get(this.urlService+'permittypes/' + id,{headers: this.getHeaders()});
 	}
 
-	create(contractorUserProfile: PermitUserProfile, permitUserProfile:PermitUserProfile) {
-		return this.http.post(this.urlService+'permits', JSON.stringify({ contractorUserProfile:contractorUserProfile, ownerTenantUserProfile:permitUserProfile, permitType:1 }),
+	create(ownerTenantUserProfile:PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile) {
+		return this.http.post(this.urlService+'permits', JSON.stringify({ ownerTenantUserProfile:ownerTenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile,  permitType:1 }),
 			{headers: this.getHeaders()});
 	}
 
-	update(contractorUserProfile: PermitUserProfile, permitUserProfile:PermitUserProfile) {
-		return this.http.put(this.urlService+'permits', {contractorUserProfile:contractorUserProfile, ownerTenantUserProfile:permitUserProfile, permitType:1 });
+	update(ownerTenantUserProfile:PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile) {
+		return this.http.put(this.urlService+'permits', {ownerTenantUserProfile:ownerTenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile, permitType:1 });
 	}
 
 	delete(id: number) {

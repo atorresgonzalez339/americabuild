@@ -43,7 +43,7 @@
 						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_2">
 							<a href="#" class="m-wizard__step-number">
 								<span>
-									<i class="fa  flaticon-layers"></i>
+									<i class="fa  flaticon-placeholder"></i>
 								</span>
 							</a>
 							<div class="m-wizard__step-info">
@@ -55,12 +55,24 @@
 						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_3">
 							<a href="#" class="m-wizard__step-number">
 								<span>
+									<i class="fa  flaticon-placeholder"></i>
+								</span>
+							</a>
+							<div class="m-wizard__step-info">
+								<div class="m-wizard__step-title">
+									3. Architect Information
+								</div>
+							</div>
+						</div>
+						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_4">
+							<a href="#" class="m-wizard__step-number">
+								<span>
 									<i class="fa  flaticon-layers"></i>
 								</span>
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									3. Confirmation
+									4. Confirmation
 								</div>
 							</div>
 						</div>
@@ -71,7 +83,7 @@
 			<!--end: Form Wizard Head -->           <!--begin: Form Wizard Form-->
 			<div class="m-wizard__form">
 				<!--                 1) Use m-form--label-align-left class to alight the form input lables to the right                 2) Use m-form--state class to highlight input control borders on form validation                 -->
-				<form class="m-form m-form--label-align-left- m-form--state-" (ngSubmit)="saveWizard()" id="m_form">
+				<form class="m-form m-form--label-align-left- m-form--state-"  id="m_form">
 					<!--begin: Form Body -->
 					<div class="m-portlet__body">
 						<!--begin: Form Wizard Step 1-->
@@ -88,7 +100,7 @@
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="applyinf" checked value="" (change)="showProfile($event)">
+													<input type="checkbox" name="applyinf" value="" (change)="showProfile($event)">
 													Apply same information of the profile
 													<span></span>
 												</label>
@@ -106,6 +118,29 @@
 													* Last Name:
 												</label>
 												<input type="text" name="last_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.lastname" #lastname="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Email:
+												</label>
+												<input type="text" name="email" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.email" #email="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Phone:
+												</label>
+												<div class="">
+													<div class="input-group">
+														<div class="input-group-prepend">
+																	<span class="input-group-text">
+																		<i class="la la-phone"></i>
+																	</span>
+														</div>
+														<input type="text" name="phone" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.phoneNumber" #phoneNumber="ngModel">
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -151,21 +186,6 @@
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">
-													* Phone:
-												</label>
-												<div class="">
-													<div class="input-group">
-														<div class="input-group-prepend">
-																	<span class="input-group-text">
-																		<i class="la la-phone"></i>
-																	</span>
-														</div>
-														<input type="text" name="phone" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.phoneNumber" #phoneNumber="ngModel">
-													</div>
-												</div>
-											</div>
 											<div class="col-lg-6 m-form__group-sub m-checkbox-form-group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
 													<input type="checkbox" name="owner" checked value="" [(ngModel)]="ownerTenantUserProfile.owner" #owner="ngModel">
@@ -180,6 +200,7 @@
 						</div>
 						<!--end: Form Wizard Step 1-->                     <!--begin: Form Wizard Step 2-->
 						<div class="m-wizard__form-step" id="m_wizard_form_step_2">
+							<ng-template #alertPermit></ng-template>
 							<div class="row">
 								<div class="col-xl-10 offset-xl-1">
 									<div class="m-form__section m-form__section--first">
@@ -191,7 +212,7 @@
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="applyinf2" checked value="">
+													<input type="checkbox" name="applyinf2" value="" (change)="showProfile($event)">
 													Apply same information of the profile
 													<span></span>
 												</label>
@@ -209,6 +230,29 @@
 													* Last Name:
 												</label>
 												<input type="text" name="last_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.lastname" #lastname="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Email:
+												</label>
+												<input type="text" name="email_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.email" #email="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Phone:
+												</label>
+												<div class="">
+													<div class="input-group">
+														<div class="input-group-prepend">
+																	<span class="input-group-text">
+																		<i class="la la-phone"></i>
+																	</span>
+														</div>
+														<input type="text" name="phone_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel">
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -253,7 +297,51 @@
 												<input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.driverLicOrId" #driverLicOrId="ngModel">
 											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="m-wizard__form-step" id="m_wizard_form_step_3">
+							<ng-template #alertPermit></ng-template>
+							<div class="row">
+								<div class="col-xl-10 offset-xl-1">
+									<div class="m-form__section m-form__section--first">
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">
+												Architect Details
+											</h3>
+										</div>
 										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+													<input type="checkbox" name="applyinf3" value="" (change)="showProfile($event)">
+													Apply same information of the profile
+													<span></span>
+												</label>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* First Name:
+												</label>
+												<input type="text" name="first_name_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.firstname" #firstname="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Last Name:
+												</label>
+												<input type="text" name="last_name_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.lastname" #lastname="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Email:
+												</label>
+												<input type="text" name="email_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.email" #email="ngModel">
+											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Phone:
@@ -265,16 +353,51 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel">
+														<input type="text" name="phone_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.phoneNumber" #phoneNumber="ngModel">
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-6 m-form__group-sub m-checkbox-form-group-sub">
-												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="owner2" checked value="1" [(ngModel)]="contractorUserProfile.owner" #owner="ngModel">
-													Owner Builder
-													<span></span>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Address 1:
 												</label>
+												<input type="text" name="address1_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.address1" #address1="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Address 2:
+												</label>
+												<input type="text" name="address2_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.address2" #address2="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* City:
+												</label>
+												<input type="text" name="city_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.city" #city="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* State:
+												</label>
+												<input type="text" name="state_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.state" #state="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Zip Code:
+												</label>
+												<input type="text" name="zipcode_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.zip" #zip="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Driver Lic Number/ID:
+												</label>
+												<input type="text" name="driverlic_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.driverLicOrId" #driverLicOrId="ngModel">
 											</div>
 										</div>
 									</div>
@@ -282,7 +405,7 @@
 							</div>
 						</div>
 						<!--end: Form Wizard Step 2-->                      <!--begin: Form Wizard Step 3-->
-						<div class="m-wizard__form-step" id="m_wizard_form_step_3">
+						<div class="m-wizard__form-step" id="m_wizard_form_step_4">
 							<div class="row">
 								<div class="col-xl-8 offset-xl-2">
 									<!--begin::Section-->
@@ -295,6 +418,11 @@
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_2" role="tab">
 												2. Contractor Information
+											</a>
+										</li>
+										<li class="nav-item m-tabs__item">
+											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_3" role="tab">
+												3. Architect Information
 											</a>
 										</li>
 									</ul>
@@ -321,6 +449,25 @@
 														</label>
 														<span class="m-form__control-static">
 																{{ ownerTenantUserProfile.lastname }}
+														</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Email:
+														</label>
+														<span class="m-form__control-static">
+																{{ ownerTenantUserProfile.email }}
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Phone:
+														</label>
+														<span class="m-form__control-static">
+															<i class="la la-phone">{{ ownerTenantUserProfile.phoneNumber }}</i>
+
 														</span>
 													</div>
 												</div>
@@ -381,15 +528,6 @@
 												<div class="form-group m-form__group m-form__group--sm row">
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
-															* Phone:
-														</label>
-														<span class="m-form__control-static">
-															<i class="la la-phone">{{ ownerTenantUserProfile.phoneNumber }}</i>
-
-														</span>
-													</div>
-													<div class="col-lg-6 m-form__group-sub">
-														<label class="form-control-label">
 															Owner Builder:
 														</label>
 														<span class="m-form__control-static">
@@ -425,6 +563,25 @@
 														<span class="m-form__control-static">
 																	{{ contractorUserProfile.lastname }}
 															</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Email:
+														</label>
+														<span class="m-form__control-static">
+																{{ contractorUserProfile.email }}
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Phone:
+														</label>
+														<span class="m-form__control-static">
+															<i class="la la-phone">{{ contractorUserProfile.phoneNumber }}</i>
+
+														</span>
 													</div>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
@@ -481,23 +638,104 @@
 																	</span>
 													</div>
 												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="m_form_confirm_3" role="tabpanel">
+											<div class="m-form__section m-form__section--first">
+												<div class="m-form__heading">
+													<h4 class="m-form__heading-title">
+														Architect Details
+													</h4>
+												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* First Name:
+														</label>
+														<span class="m-form__control-static">
+																{{ architectUserProfile.firstname }}
+															</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Last Name:
+														</label>
+														<span class="m-form__control-static">
+																	{{ architectUserProfile.lastname }}
+															</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Email:
+														</label>
+														<span class="m-form__control-static">
+																{{ architectUserProfile.email }}
+														</span>
+													</div>
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
 															* Phone:
 														</label>
 														<span class="m-form__control-static">
-															<i class="la la-phone">{{ contractorUserProfile.phoneNumber }}</i>
+															<i class="la la-phone">{{ architectUserProfile.phoneNumber }}</i>
 
 														</span>
 													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
-															Owner Builder:
+															* Address 1:
 														</label>
 														<span class="m-form__control-static">
-															Yes
-														</span>
+																			{{ architectUserProfile.address1 }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 2:
+														</label>
+														<span class="m-form__control-static">
+																			{{ architectUserProfile.address2 }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* City:
+														</label>
+														<span class="m-form__control-static">
+																			{{ architectUserProfile.city }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* State:
+														</label>
+														<span class="m-form__control-static">
+																			{{ architectUserProfile.state }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Zip Code:
+														</label>
+														<span class="m-form__control-static">
+																			{{ architectUserProfile.zip }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Driver Lic Number/ID:
+														</label>
+														<span class="m-form__control-static">
+																			{{ architectUserProfile.driverLicOrId }}
+																	</span>
 													</div>
 												</div>
 											</div>
@@ -509,8 +747,8 @@
 										<div class="col-xl-12">
 											<div class="m-checkbox-inline">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="accept" value="1">
-													Click here to indicate that you have read and agree to the terms presented in the Terms and Conditions agreement
+													<input type="checkbox" name="accept" value="" [(ngModel)]="agree">
+													Click here to indicate that you have confirmed the information.
 													<span></span>
 												</label>
 											</div>
@@ -538,7 +776,7 @@
 									</a>
 								</div>
 								<div class="col-lg-4 m--align-right">
-									<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit" (ngSubmit)="saveWizard()" (click)="saveWizard()">
+									<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit" (click)="saveWizard()">
 										<span>
 											<i class="la la-check"></i>
 											&nbsp;&nbsp;
