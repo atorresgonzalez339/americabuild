@@ -82,11 +82,11 @@ export class BaseComponent implements OnInit {
 	{
 		if ( enable)
 		{
-			mApp.block('.m-page--fluid', {message:"Please wait..."});
+			mApp.block('body', {message:"Please wait..."});
 		}
 		else
 		{
-			mApp.unblock('.m-page--fluid');
+			mApp.unblock('body');
 		}
 
 	}
