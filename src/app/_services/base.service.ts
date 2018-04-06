@@ -28,16 +28,16 @@ export class BaseService{
   }
 
   get(url:string){
-    return this.http.get(url,{headers: this.getHeaders()});
+
   }
   post(url:string,object:Object){
-    return this.http.post(url,JSON.stringify(object),{headers: this.getHeaders()}).catch((error:any) => Observable.throw( 'Ocurrió un error en el servidor'));
+
   }
   put(url:string,object:Object){
-    return this.http.put(url,JSON.stringify(object),{headers: this.getHeaders()}).catch((error:any) => Observable.throw( 'Ocurrió un error en el servidor'));
+
   }
   delete(url){
-    return this.http.delete(url,{headers: this.getHeaders()}).catch((error:any) => Observable.throw( 'Ocurrió un error en el servidor'));
+
   }
 
   getConfiguration()

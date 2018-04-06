@@ -35,10 +35,6 @@ export class UserService extends BaseService{
 		return this.http.get(this.urlService+'users', {headers: this.getHeaders()});
 	}
 
-	getById(id: number) {
-		return this.http.get(this.urlService+'users/' + id, this.jwt()).map((response: Response) => response.json());
-	}
-
 	create(user: User) {
 		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname }),
 			{headers: this.getHeaders()});
@@ -50,16 +46,5 @@ export class UserService extends BaseService{
 
 	delete(id: number) {
 		return this.http.delete(this.urlService+'users/' + id);
-	}
-
-	// private helper methods
-
-	private jwt() {
-		// create authorization header with jwt token
-		let currentUser = JSON.parse(sessionStorage.getItem('user'));
-		if (currentUser && currentUser.token) {
-			let headers = new Headers({'apiKey': currentUser.token});
-			return new RequestOptions({headers: headers});
-		}
 	}
 }
