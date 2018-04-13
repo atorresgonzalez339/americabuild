@@ -10,11 +10,11 @@ import { ScriptLoaderService } from "./_services/script-loader.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
 
-import { PermitService } from "./theme/pages/default/permit/_services";
 import { UserService } from "./auth/_services";
 import { RolesService } from "./theme/pages/default/roles/_services";
 import {CompanyService} from "./theme/pages/default/company/_services";
 import {FormsModule} from "@angular/forms";
+import { PermitService, PermitImprovementTypesService,PermitTypeService } from "./theme/pages/default/permit/_services";
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import {FormsModule} from "@angular/forms";
     ThemeRoutingModule,
     AuthModule
   ],
-  providers: [ScriptLoaderService, CompanyService, RolesService, UserService, PermitService],
+  providers: [ScriptLoaderService, CompanyService, RolesService, UserService, PermitService, PermitImprovementTypesService,PermitTypeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
