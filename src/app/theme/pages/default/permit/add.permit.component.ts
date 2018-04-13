@@ -79,7 +79,6 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     }
 
     saveWizard(){
-        //this.block(true);
         if ( this.agree ) {
             this.block(true);
             this.ownerTenantUserProfile.name = this.ownerTenantUserProfile.firstname + ' ' + this.ownerTenantUserProfile.lastname;
