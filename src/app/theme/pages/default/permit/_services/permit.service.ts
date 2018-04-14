@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import { Http } from "@angular/http";
 import {PermitUserProfile} from "../_models/index";
 import { BaseService } from "../../../../../_services/base.service";
 
@@ -10,7 +10,6 @@ export class PermitService extends BaseService{
 		super(http)
 	}
 
-
 	getAll() {
 		return this.http.get(this.urlService+ 'permits', {headers: this.getHeaders()});
 	}
@@ -19,13 +18,28 @@ export class PermitService extends BaseService{
 		return this.http.get(this.urlService+'permittypes/' + id,{headers: this.getHeaders()});
 	}
 
-	create(ownerTenantUserProfile:PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile) {
-		return this.http.post(this.urlService+'permits', JSON.stringify({ ownerTenantUserProfile:ownerTenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile,  permitType:1 }),
+	create(ownerTenantUserProfile:PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile, permitProfile) {
+		return this.http.post(this.urlService+'permits', JSON.stringify({ ownerTenantUserProfile:ownerTenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile,
+				folioNumber:permitProfile.folioNumber,
+				numberOfUnits:permitProfile.numberOfUnits,
+				lot:permitProfile.lot,
+				block:permitProfile.block,
+				subdivision:permitProfile.subdivision,
+				pbpg:permitProfile.pbpg,
+				currentUseOfProperty:permitProfile.currentUseOfProperty,
+				descriptionOfWork:permitProfile.descriptionOfWork,
+				estimateValue:permitProfile.estimateValue,
+				area:permitProfile.area,
+				length:permitProfile.length,
+				typeOfImprovement:permitProfile.typeOfImprovement,
+				permitType:permitProfile.type,
+				ownerBuilder:permitProfile.ownerBuilder
+			}),
 			{headers: this.getHeaders()});
 	}
 
 	update(ownerTenantUserProfile:PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile) {
-		return this.http.put(this.urlService+'permits', {ownerTenantUserProfile:ownerTenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile, permitType:1 });
+		return this.http.put(this.urlService+'permits', {ownerTenantUserProfile:ownerTenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile, permitType:1 },{headers: this.getHeaders()});
 	}
 
 	delete(id: number) {

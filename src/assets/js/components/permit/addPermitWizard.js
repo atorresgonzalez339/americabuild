@@ -1,4 +1,6 @@
 //== Class definition
+
+
 var addPermitWizard = function () {
     //== Base elements
     var wizardEl = $('#m_wizard');
@@ -9,6 +11,7 @@ var addPermitWizard = function () {
     //== Private functions
     var initWizard = function () {
         //== Initialize form wizard
+
         wizard = wizardEl.mWizard({
             startStep: 1
         });
@@ -108,6 +111,51 @@ var addPermitWizard = function () {
                     required: true
                 },
 
+                //== Permit information
+                folio_number: {
+                    required: true
+                },
+                number_of_units: {
+                    required: true,
+                    integer:true
+                },
+                lot: {
+                    required: true
+                },
+                block: {
+                    required: true
+                },
+                subdivision: {
+                    required: true
+                },
+                pbpg: {
+                    required: true
+                },
+                current_use_of_property: {
+                    required: true
+                },
+                description_of_work: {
+                    required: true
+                },
+                estimate_value: {
+                    required: true,
+                    range:[0.0,99999999999]
+                },
+                area: {
+                    required: true,
+                    range:[0.0,99999999999]
+                },
+                length: {
+                    required: true,
+                    range:[0.0,99999999999]
+                },
+                typeOfImprovement: {
+                    required: true
+                },
+                type: {
+                    required: true
+                },
+
                 //== Architect information
                 first_name_architect: {
                     required: true
@@ -152,9 +200,23 @@ var addPermitWizard = function () {
             messages: {
                 accept: {
                     required: "You must accept the Terms and Conditions agreement!"
+                },
+                area: {
+                    range:"The area must be a decimal value."
+                },
+                length: {
+                    range:"The length must be a decimal value."
+                },
+                estimate_value: {
+                    range:"The estimate value must be a decimal value."
+                },
+                type: {
+                    required: "You must to select a permit type."
+                },
+                typeOfImprovement: {
+                    required: "You must to select a permit improvement type."
                 }
             },
-
             //== Display error
             invalidHandler: function(event, validator) {
                 mApp.scrollTop();
@@ -191,6 +253,10 @@ var addPermitWizard = function () {
 
             initWizard();
             initValidation();
+        },
+
+        initSelects: function (idSelect) {
+            $(idSelect).selectpicker();
         }
     };
 }();

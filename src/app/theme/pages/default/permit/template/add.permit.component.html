@@ -60,11 +60,23 @@
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									3. Architect Information
+									3. Permit Information
 								</div>
 							</div>
 						</div>
 						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_4">
+							<a href="#" class="m-wizard__step-number">
+								<span>
+									<i class="fa  flaticon-placeholder"></i>
+								</span>
+							</a>
+							<div class="m-wizard__step-info">
+								<div class="m-wizard__step-title">
+									3. Architect Information
+								</div>
+							</div>
+						</div>
+						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_5">
 							<a href="#" class="m-wizard__step-number">
 								<span>
 									<i class="fa  flaticon-layers"></i>
@@ -188,7 +200,7 @@
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub m-checkbox-form-group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="owner" checked value="" [(ngModel)]="ownerTenantUserProfile.owner" #owner="ngModel">
+													<input type="checkbox" name="owner" value="" (change)="changeOwner($event)" [(ngModel)]="permitProfile.ownerBuilder" #owner="ngModel">
 													Owner Builder
 													<span></span>
 												</label>
@@ -212,7 +224,7 @@
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-													<input type="checkbox" name="applyinf2" value="" (change)="showProfile($event)">
+													<input type="checkbox" name="applyinf2" value="" (change)="showProfile($event)" [disabled]="myStep_disabled">
 													Apply same information of the profile
 													<span></span>
 												</label>
@@ -223,13 +235,13 @@
 												<label class="form-control-label">
 													* First Name:
 												</label>
-												<input type="text" name="first_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.firstname" #firstname="ngModel">
+												<input type="text" name="first_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.firstname" #firstname="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Last Name:
 												</label>
-												<input type="text" name="last_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.lastname" #lastname="ngModel">
+												<input type="text" name="last_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.lastname" #lastname="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -237,7 +249,7 @@
 												<label class="form-control-label">
 													* Email:
 												</label>
-												<input type="text" name="email_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.email" #email="ngModel">
+												<input type="text" name="email_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.email" #email="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
@@ -250,7 +262,7 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel">
+														<input type="text" name="phone_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel" disabled="{{myStep_disabled}}">
 													</div>
 												</div>
 											</div>
@@ -260,13 +272,13 @@
 												<label class="form-control-label">
 													* Address 1:
 												</label>
-												<input type="text" name="address1_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address1" #address1="ngModel">
+												<input type="text" name="address1_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address1" #address1="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Address 2:
 												</label>
-												<input type="text" name="address2_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address2" #address2="ngModel">
+												<input type="text" name="address2_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address2" #address2="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -274,13 +286,13 @@
 												<label class="form-control-label">
 													* City:
 												</label>
-												<input type="text" name="city_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.city" #city="ngModel">
+												<input type="text" name="city_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.city" #city="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* State:
 												</label>
-												<input type="text" name="state_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.state" #state="ngModel">
+												<input type="text" name="state_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.state" #state="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -288,21 +300,133 @@
 												<label class="form-control-label">
 													* Zip Code:
 												</label>
-												<input type="text" name="zipcode_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel">
+												<input type="text" name="zipcode_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Driver Lic Number/ID:
 												</label>
-												<input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+												<input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.driverLicOrId" #driverLicOrId="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
+						<!--end: Form Wizard Step 2-->                     <!--begin: Form Wizard Step 3-->
 						<div class="m-wizard__form-step" id="m_wizard_form_step_3">
+							<ng-template #alertPermit></ng-template>
+							<div class="row">
+								<div class="col-xl-10 offset-xl-1">
+									<div class="m-form__section m-form__section--first">
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">
+												Permit Information
+											</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Folio Number:
+												</label>
+												<input type="text" name="folio_number" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.folioNumber" #folioNumber="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Number Of Units:
+												</label>
+												<input type="text" name="number_of_units" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.numberOfUnits" #numberOfUnits="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Lot:
+												</label>
+												<input type="text" name="lot" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.lot" #lot="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Block:
+												</label>
+												<input type="text" name="block" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.block" #block="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Subdivision:
+												</label>
+												<input type="text" name="subdivision" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.subdivision" #subdivision="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* PbPg:
+												</label>
+												<input type="text" name="pbpg" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.pbpg" #pbpg="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Current Use of Property:
+												</label>
+												<input type="text" name="current_use_of_property" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.currentUseOfProperty" #currentUseOfProperty="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Description Of Work:
+												</label>
+												<input type="text" name="description_of_work" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.descriptionOfWork" #descriptionOfWork="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Estimate Value:
+												</label>
+												<input type="text" name="estimate_value" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.estimateValue" #estimateValue="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Area:
+												</label>
+												<input type="text" name="area" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.area" #area="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Length:
+												</label>
+												<input type="text" name="length" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.length" #length="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub select_element">
+												<label class="form-control-label">
+													* Type Of Improvement:
+												</label>
+												<select class="form-control m-bootstrap-select" id="typeOfImprovement" [(ngModel)]="selectedPermitImprovementType" name="typeOfImprovement" title="-- Select an Option --">
+													<option *ngFor="let pt of listPermitImprovementType" [ngValue]="pt">{{pt.name}}</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub select_element">
+												<label class="form-control-label">
+													* Permit Type:
+												</label>
+												<select id="type" class="form-control m-bootstrap-select m_selectpicker" [(ngModel)]="selectedPermitType" name="type" title="-- Select an Option --">
+													<option *ngFor="let pt of listPermitType" [ngValue]="pt">{{pt.name}}</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end: Form Wizard Step 3-->                     <!--begin: Form Wizard Step 4-->
+						<div class="m-wizard__form-step" id="m_wizard_form_step_4">
 							<ng-template #alertPermit></ng-template>
 							<div class="row">
 								<div class="col-xl-10 offset-xl-1">
@@ -404,10 +528,10 @@
 								</div>
 							</div>
 						</div>
-						<!--end: Form Wizard Step 2-->                      <!--begin: Form Wizard Step 3-->
-						<div class="m-wizard__form-step" id="m_wizard_form_step_4">
+						<!--end: Form Wizard Step 4-->                      <!--begin: Form Wizard Step 5-->
+						<div class="m-wizard__form-step" id="m_wizard_form_step_5">
 							<div class="row">
-								<div class="col-xl-8 offset-xl-2">
+								<div class="col-xl-10 offset-xl-2">
 									<!--begin::Section-->
 									<ul class="nav nav-tabs m-tabs-line--2x m-tabs-line m-tabs-line--danger" role="tablist">
 										<li class="nav-item m-tabs__item">
@@ -422,7 +546,12 @@
 										</li>
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_3" role="tab">
-												3. Architect Information
+												3. Permit Information
+											</a>
+										</li>
+										<li class="nav-item m-tabs__item">
+											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_4" role="tab">
+												4. Architect Information
 											</a>
 										</li>
 									</ul>
@@ -431,7 +560,7 @@
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
-														Client Details
+														Owner / Tenant - Information
 													</h4>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
@@ -530,10 +659,12 @@
 														<label class="form-control-label">
 															Owner Builder:
 														</label>
-														<span class="m-form__control-static">
+														<span class="m-form__control-static" *ngIf="myStep_disabled">
 															Yes
 														</span>
-
+														<span class="m-form__control-static" *ngIf="!myStep_disabled">
+															No
+														</span>
 													</div>
 												</div>
 
@@ -543,7 +674,7 @@
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
-														Contractor Details
+														Contractor Information
 													</h4>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
@@ -554,7 +685,6 @@
 														<span class="m-form__control-static">
 																{{ contractorUserProfile.firstname }}
 															</span>
-														<!--input type="text" name="first_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.name" #name="ngModel"-->
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
@@ -644,7 +774,135 @@
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
-														Architect Details
+														Permit Information
+													</h4>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Folio Number:
+														</label>
+														<span class="m-form__control-static">
+																{{ permitProfile.folioNumber }}
+															</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Number Of Units:
+														</label>
+														<span class="m-form__control-static">
+																	{{ permitProfile.numberOfUnits }}
+															</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Lot:
+														</label>
+														<span class="m-form__control-static">
+																{{ permitProfile.lot }}
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Block:
+														</label>
+														<span class="m-form__control-static">
+															{{ permitProfile.block }}
+														</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Subdivision:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.subdivision }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* PbPg:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.pbpg }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Current Use of Property:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.currentUseOfProperty }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Description Of Work:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.descriptionOfWork }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Estimate Value:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.estimateValue }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Area:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.area }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Length:
+														</label>
+														<span class="m-form__control-static">
+																			{{ permitProfile.length }}
+																	</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Type Of Improvement:
+														</label>
+														<span class="m-form__control-static">
+																			{{ selectedPermitImprovementType.name }}
+																	</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Permit Type:
+														</label>
+														<span class="m-form__control-static">
+																			{{ selectedPermitType.name }}
+																	</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="m_form_confirm_4" role="tabpanel">
+											<div class="m-form__section m-form__section--first">
+												<div class="m-form__heading">
+													<h4 class="m-form__heading-title">
+														Architect Information
 													</h4>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
@@ -745,7 +1003,7 @@
 									<div class="m-separator m-separator--dashed m-separator--lg"></div>
 									<div class="form-group m-form__group m-form__group--sm row">
 										<div class="col-xl-12">
-											<div class="m-checkbox-inline">
+											<div class="m-checkbox-inline m-form__group-sub">
 												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
 													<input type="checkbox" name="accept" value="" [(ngModel)]="agree">
 													Click here to indicate that you have confirmed the information.
@@ -784,7 +1042,7 @@
 												Submit
 											</span>
 										</span>
-								</a>
+									</a>
 									<a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
 										<span>
 											<span>
