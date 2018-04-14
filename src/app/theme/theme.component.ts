@@ -22,6 +22,7 @@ export class ThemeComponent extends  BaseComponent implements OnInit {
 	}
 
 	ngOnInit()  {
+		Helpers.setLoading(false);
 		this._userService.userInformation().subscribe(
 			(data:Response) =>{
 				let response = data.json();

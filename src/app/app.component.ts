@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this._router.events.subscribe((route) => {
 			if (route instanceof NavigationStart) {
-				Helpers.setLoading(true);
+				//Helpers.setLoading(true);
 				Helpers.bodyClass(this.globalBodyClass);
 
 			}
