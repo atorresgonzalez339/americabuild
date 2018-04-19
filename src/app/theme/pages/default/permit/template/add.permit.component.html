@@ -312,12 +312,12 @@
 												</label>
 												<input type="text" name="zipcode_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel" disabled="{{myStep_disabled}}">
 											</div>
-											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">
-													* Driver Lic Number/ID:
-												</label>
-												<input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.driverLicOrId" #driverLicOrId="ngModel" disabled="{{myStep_disabled}}">
-											</div>
+                                            <div class="col-lg-6 m-form__group-sub" [style.visibility]="!myStep_disabled ? 'visible' : 'hidden'">
+                                                <label class="form-control-label">
+                                                    * License Number:
+                                                </label>
+                                                <input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.licenseNumber" #licenseNumber="ngModel" disabled="{{myStep_disabled}}">
+                                            </div>
 										</div>
 									</div>
 								</div>
@@ -771,14 +771,14 @@
 																			{{ contractorUserProfile.zip }}
 																	</span>
 													</div>
-													<div class="col-lg-6 m-form__group-sub">
-														<label class="form-control-label">
-															* Driver Lic Number/ID:
-														</label>
-														<span class="m-form__control-static">
-																			{{ contractorUserProfile.driverLicOrId }}
-																	</span>
-													</div>
+                                                    <div class="col-lg-6 m-form__group-sub" [hidden]="myStep_disabled">
+                                                        <label class="form-control-label">
+                                                            * License Number:
+                                                        </label>
+                                                        <span class="m-form__control-static">
+                                                            {{ contractorUserProfile.licenseNumber }}
+                                                        </span>
+                                                    </div>
 												</div>
 											</div>
 										</div>

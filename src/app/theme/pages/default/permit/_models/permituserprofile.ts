@@ -9,10 +9,11 @@ export class PermitUserProfile {
   state : string;
   zip : string;
   phoneNumber : string;
-  driverLicOrId : string;  
+  driverLicOrId : string;
+  licenseNumber: string;
 
 
-  constructor(id, name, lastname, firstname, address1, address2 ,city ,state ,zip ,phoneNumber, driverLicOrId){
+  constructor(id, name, lastname, firstname, address1, address2 ,city ,state ,zip ,phoneNumber, driverLicOrId, licenseNumber){
     this.id=id;
     this.name=name;
     this.firstname=firstname;
@@ -24,5 +25,6 @@ export class PermitUserProfile {
     this.zip=zip;
     this.phoneNumber=phoneNumber;
     this.driverLicOrId=driverLicOrId;
+    this.licenseNumber = licenseNumber;
   }
 }
