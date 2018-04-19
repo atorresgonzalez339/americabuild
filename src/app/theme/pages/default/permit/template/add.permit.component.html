@@ -176,11 +176,13 @@
 												</label>
 												<input type="text" name="city" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.city" #city="ngModel">
 											</div>
-											<div class="col-lg-6 m-form__group-sub">
+											<div class="col-lg-6 m-form__group-sub select_element">
 												<label class="form-control-label">
 													* State:
 												</label>
-												<input type="text" name="state" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.state" #state="ngModel">
+												<select class="form-control m-bootstrap-select" id="ownerTenantState" [(ngModel)]="ownerTenantUserProfile.countryState" #countryState="ngModel" name="state" title="-- Select an Option --">
+													<option *ngFor="let state of listStates" [ngValue]="state">{{state.name}}</option>
+												</select>
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -288,11 +290,19 @@
 												</label>
 												<input type="text" name="city_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.city" #city="ngModel" disabled="{{myStep_disabled}}">
 											</div>
-											<div class="col-lg-6 m-form__group-sub">
+											<div class="col-lg-6 m-form__group-sub" [hidden]="myStep_disabled">
 												<label class="form-control-label">
 													* State:
 												</label>
-												<input type="text" name="state_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.state" #state="ngModel" disabled="{{myStep_disabled}}">
+												<select class="form-control m-bootstrap-select" id="contractorState" [(ngModel)]="contractorUserProfile.countryState" #countryState="ngModel" name="state_contractor" disabled="{{myStep_disabled}}" title="-- Select an Option --">
+													<option *ngFor="let state of listStates" [ngValue]="state">{{state.name}}</option>
+												</select>
+											</div>
+											<div class="col-lg-6 m-form__group-sub" [hidden]="!myStep_disabled">
+												<label class="form-control-label">
+													* State:
+												</label>
+												<input type="text" name="state_contractor-1" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.countryState.name" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -507,7 +517,9 @@
 												<label class="form-control-label">
 													* State:
 												</label>
-												<input type="text" name="state_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.state" #state="ngModel">
+												<select class="form-control m-bootstrap-select" id="architectState" [(ngModel)]="architectUserProfile.countryState" #countryState="ngModel" name="state_architect" title="-- Select an Option --">
+													<option *ngFor="let state of listStates" [ngValue]="state">{{state.name}}</option>
+												</select>
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -632,7 +644,7 @@
 															* State:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.state }}
+																		{{ ownerTenantUserProfile.countryState.name }}
 																</span>
 													</div>
 												</div>
@@ -746,7 +758,7 @@
 															* State:
 														</label>
 														<span class="m-form__control-static">
-																			{{ contractorUserProfile.state }}
+																			{{ contractorUserProfile.countryState.name }}
 																	</span>
 													</div>
 												</div>
@@ -974,7 +986,7 @@
 															* State:
 														</label>
 														<span class="m-form__control-static">
-																			{{ architectUserProfile.state }}
+																			{{ architectUserProfile.countryState.name }}
 																	</span>
 													</div>
 												</div>

@@ -14,7 +14,7 @@ import { UserService } from "./auth/_services";
 import { RolesService } from "./theme/pages/default/roles/_services";
 import {CompanyService} from "./theme/pages/default/company/_services";
 import {FormsModule} from "@angular/forms";
-import { PermitService, PermitImprovementTypesService,PermitTypeService } from "./theme/pages/default/permit/_services";
+import { PermitService, PermitImprovementTypesService,PermitTypeService, StateService } from "./theme/pages/default/permit/_services";
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { PermitService, PermitImprovementTypesService,PermitTypeService } from "
     ThemeRoutingModule,
     AuthModule
   ],
-  providers: [ScriptLoaderService, CompanyService, RolesService, UserService, PermitService, PermitImprovementTypesService,PermitTypeService],
+  providers: [ScriptLoaderService, CompanyService, RolesService, UserService, PermitService, PermitImprovementTypesService,PermitTypeService, StateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

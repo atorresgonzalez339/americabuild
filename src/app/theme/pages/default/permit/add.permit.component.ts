@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit} from '@angular/core';
 import { ScriptLoaderService } from '../../../../_services/script-loader.service';
-import {PermitImprovementTypesService, PermitTypeService, PermitService } from './_services';
+import {PermitImprovementTypesService, PermitTypeService, PermitService, StateService } from './_services';
 import {Response} from "@angular/http";
 import {UserService} from "../../../../auth/_services";
 import {Router} from '@angular/router';
@@ -13,15 +13,16 @@ declare var addPermitWizard: any;
     encapsulation: ViewEncapsulation.None,
 })
 export class AddPermitComponent extends BaseComponent implements AfterViewInit {
-    public ownerTenantUserProfile: any = {};
-    public contractorUserProfile: any = {};
-    public architectUserProfile: any = {};
+    public ownerTenantUserProfile: any = {countryState:{}};
+    public contractorUserProfile: any = {countryState:{}};
+    public architectUserProfile: any = {countryState:{}};
     public permitProfile: any = {};
     public agree: boolean = false;
     public user: any = {};
     public myStep_disabled = false;
     public listPermitType: any [];
     public listPermitImprovementType: any [];
+    public listStates: any [];
     public selectedPermitType: any = {};
     public selectedPermitImprovementType: any = {};
 
@@ -30,9 +31,11 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                 private _permitTypeService: PermitTypeService,
                 private _permitImprovementTypesServices: PermitImprovementTypesService,
                 private _usersService:UserService,
-                public _router: Router
+                public _router: Router,
+                public _stateService: StateService
     )  {
         super(_router);
+        this.permitProfile.ownerBuilder = false;
     }
 
     ngOnInit()  {
@@ -54,8 +57,22 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             .subscribe((data)=> {
                     this.listPermitImprovementType = data.json().data;
                     setTimeout(()=> {
-                        this.listPermitImprovementType = data.json().data;
                         addPermitWizard.initSelects('#typeOfImprovement');
+                    }, 2000);
+                },
+                error =>
+                {
+                    this.block(false);
+                    this.onError(error);
+                }
+            );
+        this._stateService.getAll()
+            .subscribe((data)=> {
+                    this.listStates = data.json().data;
+                    setTimeout(()=> {
+                        addPermitWizard.initSelects('#ownerTenantState');
+                        addPermitWizard.initSelects('#contractorState');
+                        addPermitWizard.initSelects('#architectState');
                     }, 2000);
                 },
                 error =>
@@ -122,7 +139,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             this.myStep_disabled = true;
         }else
         {
-            this.contractorUserProfile = {};
+            this.contractorUserProfile = {countryState:{}};
             this.myStep_disabled = false;
         }
     }
@@ -135,6 +152,9 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             this.architectUserProfile.name = this.architectUserProfile.firstname + ' ' + this.architectUserProfile.lastname;
             this.permitProfile.type = this.selectedPermitType.id;
             this.permitProfile.typeOfImprovement = this.selectedPermitImprovementType.id;
+            this.ownerTenantUserProfile.state = this.ownerTenantUserProfile.countryState.id;
+            this.contractorUserProfile.state = this.contractorUserProfile.countryState.id;
+            this.architectUserProfile.state = this.architectUserProfile.countryState.id;
             this._permitService.create(this.ownerTenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
                 (data: Response) => {
                     let response = data.json();
