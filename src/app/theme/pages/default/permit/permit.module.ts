@@ -5,7 +5,8 @@ import { PermitComponent } from './permit.component';
 import { AddPermitComponent } from './add.permit.component';
 import { LayoutModule } from '../../../layouts/layout.module';
 import { DefaultComponent } from '../default.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
     {
@@ -25,7 +26,13 @@ const routes: Routes = [
 ];
 @NgModule({imports: [
     CommonModule,RouterModule.forChild(routes),LayoutModule,
-    FormsModule
+    FormsModule, ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+        apiKey: "AIzaSyCaMqMr5QhuglLcpClt81Euzd3Qg0lUuuY",
+        libraries: ["places"],
+        language: 'en',
+        region: 'US'
+    }),
 ],exports: [
     RouterModule
 ],declarations: [

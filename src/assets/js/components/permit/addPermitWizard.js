@@ -36,6 +36,10 @@ var addPermitWizard = function () {
     }
 
     var initValidation = function() {
+        $.validator.addMethod( "addressUS", function( value, element ) {
+            return $(element).attr("validAddress") == "true";
+        }, "Please enter a valid address." );
+
         validator = formEl.validate({
             //== Validate only visible fields
             ignore: ":hidden",
@@ -59,7 +63,8 @@ var addPermitWizard = function () {
                     phoneUS: true
                 },
                 address1: {
-                    required: true
+                    required: true,
+                    addressUS: true
                 },
                 address2: {
                     required: true
@@ -93,7 +98,8 @@ var addPermitWizard = function () {
                     phoneUS: true
                 },
                 address1_contractor: {
-                    required: true
+                    required: true,
+                    addressUS: true
                 },
                 address2_contractor: {
                     required: true
@@ -172,7 +178,8 @@ var addPermitWizard = function () {
                     phoneUS: true
                 },
                 address1_architect: {
-                    required: true
+                    required: true,
+                    addressUS: true
                 },
                 address2_architect: {
                     required: true
@@ -215,7 +222,7 @@ var addPermitWizard = function () {
                 },
                 typeOfImprovement: {
                     required: "You must to select a permit improvement type."
-                }
+                },
             },
             //== Display error
             invalidHandler: function(event, validator) {
@@ -257,6 +264,10 @@ var addPermitWizard = function () {
 
         initSelects: function (idSelect) {
             $(idSelect).selectpicker();
+        },
+        changeAttr: function (idSelect, attr, value) {
+            $(idSelect).attr(attr,value);
+            $(idSelect).valid();
         }
     };
 }();

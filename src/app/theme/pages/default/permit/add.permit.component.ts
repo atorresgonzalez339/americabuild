@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit} from '@angular/core';
+import { ElementRef, NgZone, Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild} from '@angular/core';
 import { ScriptLoaderService } from '../../../../_services/script-loader.service';
 import {PermitImprovementTypesService, PermitTypeService, PermitService, StateService } from './_services';
 import {Response} from "@angular/http";
 import {UserService} from "../../../../auth/_services";
 import {Router} from '@angular/router';
 import { BaseComponent } from '../base/base.component';
+import { FormControl } from '@angular/forms';
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
 declare var addPermitWizard: any;
 
 @Component({
@@ -25,14 +28,25 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public listStates: any [];
     public selectedPermitType: any = {};
     public selectedPermitImprovementType: any = {};
+    public ownerAddress: any = { valid: false};
+    public ownerTenantSearchControl: FormControl = new FormControl();
+    public contractorSearchControl: FormControl = new FormControl();
+    public architectSearchControl: FormControl = new FormControl();
+
+    @ViewChild("addressOwnerTenant")
+    public addressOwnerTenantElementRef: ElementRef;
+    @ViewChild("addressContractorUser")
+    public addressContractorUserElementRef: ElementRef;
+    @ViewChild("addressArchitectUser")
+    public addressArchitectUserElementRef: ElementRef;
 
     constructor(private _script: ScriptLoaderService,
                 private _permitService: PermitService,
                 private _permitTypeService: PermitTypeService,
                 private _permitImprovementTypesServices: PermitImprovementTypesService,
-                private _usersService:UserService,
                 public _router: Router,
-                public _stateService: StateService
+                public _stateService: StateService,
+                private mapsAPILoader: MapsAPILoader,
     )  {
         super(_router);
         this.permitProfile.ownerBuilder = false;
@@ -40,6 +54,35 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
 
     ngOnInit()  {
         this.block(true);
+
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(() => {
+
+            let autocompleteOwnerTenant = new google.maps.places.Autocomplete(this.addressOwnerTenantElementRef.nativeElement, {  types: ["address"], componentRestrictions: {country: 'US'} });
+            autocompleteOwnerTenant.addListener("place_changed", () => {
+                let placeOwnerTenant: google.maps.places.PlaceResult = autocompleteOwnerTenant.getPlace();
+                this.ownerTenantUserProfile.address1 = placeOwnerTenant.formatted_address;
+                this.ownerTenantSearchControl.setValue( this.ownerTenantUserProfile.address1);
+                addPermitWizard.changeAttr("#address1","validAddress", "true");
+            });
+
+            let autocompleteContractorUser = new google.maps.places.Autocomplete(this.addressContractorUserElementRef.nativeElement, { types: ["address"], componentRestrictions: {country: 'US'} });
+            autocompleteContractorUser.addListener("place_changed", () => {
+                let placeContractorUser: google.maps.places.PlaceResult = autocompleteContractorUser.getPlace();
+                this.contractorUserProfile.address1 = placeContractorUser.formatted_address;
+                this.contractorSearchControl.setValue( this.contractorUserProfile.address1);
+                addPermitWizard.changeAttr("#address1_contractor","validAddress", "true");
+                });
+
+            let autocompleteArchitectUser = new google.maps.places.Autocomplete(this.addressArchitectUserElementRef.nativeElement, { types: ["address"], componentRestrictions: {country: 'US'} });
+            autocompleteArchitectUser.addListener("place_changed", () => {
+                let placeArchitectUser: google.maps.places.PlaceResult = autocompleteArchitectUser.getPlace();
+                this.architectUserProfile.address1=placeArchitectUser.formatted_address;
+                this.architectSearchControl.setValue( this.architectUserProfile.address1);
+                addPermitWizard.changeAttr("#address1_architect","validAddress", "true");
+            });
+        });
+
         this._permitTypeService.getAll()
             .subscribe((data)=> {
                     this.listPermitType = data.json().data;
@@ -86,6 +129,35 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
 
     ngAfterViewInit()  {
         this._script.loadScripts('add-app-permit', ['assets/js/components/permit/addPermitWizard.js']);
+    }
+
+    onAddressBlur(e)
+    {
+        if (e.target.name == "address1") {
+            if (e.target.value == this.ownerTenantUserProfile.address1) {
+                addPermitWizard.changeAttr("#address1", "validAddress", "true");
+            }
+            else {
+                addPermitWizard.changeAttr("#address1", "validAddress", "false");
+            }
+        }
+        else if (e.target.name == "addres1_contractor")
+        {
+            if (e.target.value == this.contractorUserProfile.address1) {
+                addPermitWizard.changeAttr("#address1_contractor", "validAddress", "true");
+            }
+            else {
+                addPermitWizard.changeAttr("#address1_contractor", "validAddress", "false");
+            }
+        }
+        else {
+            if (e.target.value == this.architectUserProfile.address1) {
+                addPermitWizard.changeAttr("#address1_architect", "validAddress", "true");
+            }
+            else {
+                addPermitWizard.changeAttr("#address1_architect", "validAddress", "false");
+            }
+        }
     }
 
     showProfile(e) {
