@@ -16,9 +16,9 @@ declare var addPermitWizard: any;
     encapsulation: ViewEncapsulation.None,
 })
 export class AddPermitComponent extends BaseComponent implements AfterViewInit {
-    public ownerTenantUserProfile: any = {countryState:{}};
-    public contractorUserProfile: any = {countryState:{}};
-    public architectUserProfile: any = {countryState:{}};
+    public ownerTenantUserProfile: any = {countryState:{}, addressLocation: {}};
+    public contractorUserProfile: any = {countryState:{}, addressLocation: {}};
+    public architectUserProfile: any = {countryState:{}, addressLocation: {}};
     public permitProfile: any = {};
     public agree: boolean = false;
     public user: any = {};
@@ -50,12 +50,29 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     )  {
         super(_router);
         this.permitProfile.ownerBuilder = false;
+
+        //Initialize lat, lgt and zoom to maps
+        this.ownerTenantUserProfile.addressLocation.latitude = 39.8282;
+        this.ownerTenantUserProfile.addressLocation.longitude = -98.5795;
+        this.ownerTenantUserProfile.addressLocation.zoom = 4;
+
+        this.contractorUserProfile.addressLocation.latitude = 39.8282;
+        this.contractorUserProfile.addressLocation.longitude = -98.5795;
+        this.contractorUserProfile.addressLocation.zoom = 4;
+
+        this.architectUserProfile.addressLocation.latitude = 39.8282;
+        this.architectUserProfile.addressLocation.longitude = -98.5795;
+        this.architectUserProfile.addressLocation.zoom = 4;
     }
 
     ngOnInit()  {
         this.block(true);
 
         //load Places Autocomplete
+        this.setCurrentPositionOwnerTenant();
+        this.setCurrentPositionContractorUser();
+        this.setCurrentPositionArchitectUser();
+
         this.mapsAPILoader.load().then(() => {
 
             let autocompleteOwnerTenant = new google.maps.places.Autocomplete(this.addressOwnerTenantElementRef.nativeElement, {  types: ["address"], componentRestrictions: {country: 'US'} });
@@ -64,6 +81,10 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                 this.ownerTenantUserProfile.address1 = placeOwnerTenant.formatted_address;
                 this.ownerTenantSearchControl.setValue( this.ownerTenantUserProfile.address1);
                 addPermitWizard.changeAttr("#address1","validAddress", "true");
+                //set latitude, longitude and zoom
+                this.ownerTenantUserProfile.addressLocation.latitude = placeOwnerTenant.geometry.location.lat();
+                this.ownerTenantUserProfile.addressLocation.longitude = placeOwnerTenant.geometry.location.lng();
+                this.ownerTenantUserProfile.addressLocation.zoom = 12;
             });
 
             let autocompleteContractorUser = new google.maps.places.Autocomplete(this.addressContractorUserElementRef.nativeElement, { types: ["address"], componentRestrictions: {country: 'US'} });
@@ -72,6 +93,10 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                 this.contractorUserProfile.address1 = placeContractorUser.formatted_address;
                 this.contractorSearchControl.setValue( this.contractorUserProfile.address1);
                 addPermitWizard.changeAttr("#address1_contractor","validAddress", "true");
+                //set latitude, longitude and zoom
+                this.contractorUserProfile.addressLocation.latitude = placeContractorUser.geometry.location.lat();
+                this.contractorUserProfile.addressLocation.longitude = placeContractorUser.geometry.location.lng();
+                this.contractorUserProfile.addressLocation.zoom = 12;
                 });
 
             let autocompleteArchitectUser = new google.maps.places.Autocomplete(this.addressArchitectUserElementRef.nativeElement, { types: ["address"], componentRestrictions: {country: 'US'} });
@@ -80,6 +105,11 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                 this.architectUserProfile.address1=placeArchitectUser.formatted_address;
                 this.architectSearchControl.setValue( this.architectUserProfile.address1);
                 addPermitWizard.changeAttr("#address1_architect","validAddress", "true");
+
+                //set latitude, longitude and zoom
+                this.architectUserProfile.addressLocation.latitude= placeArchitectUser.geometry.location.lat();
+                this.architectUserProfile.addressLocation.longitude = placeArchitectUser.geometry.location.lng();
+                this.architectUserProfile.addressLocation.zoom = 12;
             });
         });
 
@@ -141,7 +171,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                 addPermitWizard.changeAttr("#address1", "validAddress", "false");
             }
         }
-        else if (e.target.name == "addres1_contractor")
+        else if (e.target.name == "address1_contractor")
         {
             if (e.target.value == this.contractorUserProfile.address1) {
                 addPermitWizard.changeAttr("#address1_contractor", "validAddress", "true");
@@ -211,8 +241,12 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             this.myStep_disabled = true;
         }else
         {
-            this.contractorUserProfile = {countryState:{}};
+            this.contractorUserProfile = {countryState:{}, addressLocation: {}};
             this.myStep_disabled = false;
+            //Initialize latitude, longitude and zoom maps
+            this.contractorUserProfile.addressLocation.latitude = 39.8282;
+            this.contractorUserProfile.addressLocation.longitude = -98.5795;
+            this.contractorUserProfile.addressLocation.zoom = 4;
         }
     }
 
@@ -246,6 +280,36 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                     this.onError(error);
                     this.block(false);
                 });
+        }
+    }
+
+    private setCurrentPositionOwnerTenant() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.ownerTenantUserProfile.addressLocation.latitude = position.coords.latitude;
+                this.ownerTenantUserProfile.addressLocation.longitude = position.coords.longitude;
+                this.ownerTenantUserProfile.addressLocation.zoom = 12;
+            });
+        }
+    }
+
+    private setCurrentPositionContractorUser() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.contractorUserProfile.addressLocation.latitude = position.coords.latitude;
+                this.contractorUserProfile.addressLocation.longitude = position.coords.longitude;
+                this.contractorUserProfile.addressLocation.zoom = 12;
+            });
+        }
+    }
+
+    private setCurrentPositionArchitectUser() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.architectUserProfile.addressLocation.latitude = position.coords.latitude;
+                this.architectUserProfile.addressLocation.longitude = position.coords.longitude;
+                this.architectUserProfile.addressLocation.zoom = 12;
+            });
         }
     }
 }

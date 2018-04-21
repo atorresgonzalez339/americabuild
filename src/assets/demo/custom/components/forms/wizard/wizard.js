@@ -1,5 +1,5 @@
 //== Class definition
-var WizardDemo = function () {
+var Wizard = function () {
     //== Base elements
     var wizardEl = $('#m_wizard');
     var formEl = $('#m_form');
@@ -11,6 +11,12 @@ var WizardDemo = function () {
         //== Initialize form wizard
         wizard = wizardEl.mWizard({
             startStep: 1
+        });
+
+        formEl.find('[data-wizard-action="submit"]').on('click', function(e) {
+            if (!validator.form()) {
+                e.preventDefault();
+            }
         });
 
         //== Validation before going to next page
@@ -49,8 +55,6 @@ var WizardDemo = function () {
                     required: true,
                     phoneUS: true
                 },
-
-                //== Mailing address
                 address1: {
                     required: true
                 },
@@ -70,6 +74,74 @@ var WizardDemo = function () {
                     required: true
                 },
 
+                //== Contractor information
+                first_name_contractor: {
+                    required: true
+                },
+                last_name_contractor: {
+                    required: true
+                },
+                email_contractor: {
+                    required: true,
+                    email: true
+                },
+                phone_contractor: {
+                    required: true,
+                    phoneUS: true
+                },
+                address1_contractor: {
+                    required: true
+                },
+                address2_contractor: {
+                    required: true
+                },
+                city_contractor: {
+                    required: true
+                },
+                state_contractor: {
+                    required: true
+                },
+                zipcode_contractor: {
+                    required: true
+                },
+                driverlic_contractor: {
+                    required: true
+                },
+
+                //== Architect information
+                first_name_architect: {
+                    required: true
+                },
+                last_name_architect: {
+                    required: true
+                },
+                email_architect: {
+                    required: true,
+                    email: true
+                },
+                phone_architect: {
+                    required: true,
+                    phoneUS: true
+                },
+                address1_architect: {
+                    required: true
+                },
+                address2_architect: {
+                    required: true
+                },
+                city_architect: {
+                    required: true
+                },
+                state_architect: {
+                    required: true
+                },
+                zipcode_architect: {
+                    required: true
+                },
+                driverlic_architect: {
+                    required: true
+                },
+
                 //=== Confirmation(step 4)
                 accept: {
                     required: true
@@ -78,9 +150,6 @@ var WizardDemo = function () {
 
             //== Validation messages
             messages: {
-                'account_communication[]': {
-                    required: 'You must select at least one communication option'
-                },
                 accept: {
                     required: "You must accept the Terms and Conditions agreement!"
                 }
@@ -90,34 +159,28 @@ var WizardDemo = function () {
             invalidHandler: function(event, validator) {
                 mApp.scrollTop();
 
-                swal({
-                    "title": "",
-                    "text": "There are some errors in your submission. Please correct them.",
-                    "type": "error",
-                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
-                });
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": true,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error("There are invalid fields. Please correct them.");
             },
 
-            //== Submit valid form
-            submitHandler: function (form) {
-
-            }
         });
-    }
-
-    var initSubmit = function() {
-        /*
-        var btn = formEl.find('[data-wizard-action="submit"]');
-
-        btn.on('click', function(e) {
-            e.preventDefault();
-
-            if (validator.form()) {
-                //== See: src\js\framework\base\app.js
-                mApp.progress(btn);
-                mApp.block(formEl);
-            }
-        });*/
     }
 
     return {
@@ -128,11 +191,10 @@ var WizardDemo = function () {
 
             initWizard();
             initValidation();
-            initSubmit();
         }
     };
 }();
 
 jQuery(document).ready(function() {
-    WizardDemo.init();
+    Wizard.init();
 });

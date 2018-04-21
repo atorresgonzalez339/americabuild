@@ -160,7 +160,20 @@
 												<label class="form-control-label">
 													* Address 1:
 												</label>
-												<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-prepend m-dropdown m-dropdown--inline  m-dropdown--arrow" data-dropdown-toggle="click">
+															<span class="input-group-text m-dropdown__toggle" style="height: 100%; cursor: pointer;">
+																<i class="la la-map-marker"></i>
+															</span>
+														<div class="m-dropdown__wrapper">
+															<span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+															<div class="m-dropdown__inner">
+																<agm-map class="m-dropdown__wrapper" name="mapOwnerTenant" [latitude]="ownerTenantUserProfile.addressLocation.latitude" [longitude]="ownerTenantUserProfile.addressLocation.longitude" [scrollwheel]="false" [zoom]="ownerTenantUserProfile.addressLocation.zoom" style="height: 300px; width: 500px;">
+																	<agm-marker [latitude]="ownerTenantUserProfile.addressLocation.latitude" [longitude]="ownerTenantUserProfile.addressLocation.longitude"></agm-marker>
+																</agm-map>
+															</div>
+														</div>
+													</div>
 													<input [attr.validAddress]="false" placeholder="" type="text" id="address1" name="address1" class="form-control m-input" [formControl]="ownerTenantSearchControl" #addressOwnerTenant (blur)="onAddressBlur($event)" >
 												</div>
 											</div>
@@ -276,11 +289,24 @@
 												<label class="form-control-label">
 													* Address 1:
 												</label>
+												<div class="input-group" [hidden]="myStep_disabled">
+													<div class="input-group-prepend m-dropdown m-dropdown--inline  m-dropdown--arrow" data-dropdown-toggle="click">
+															<span class="input-group-text m-dropdown__toggle" style="height: 100%; cursor: pointer;">
+																<i class="la la-map-marker"></i>
+															</span>
+														<div class="m-dropdown__wrapper">
+															<span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+															<div class="m-dropdown__inner">
+																<agm-map name="mapContractorUser" [latitude]="contractorUserProfile.addressLocation.latitude" [longitude]="contractorUserProfile.addressLocation.longitude" [scrollwheel]="false" [zoom]="contractorUserProfile.addressLocation.zoom" style="height: 300px; width: 500px;">
+																	<agm-marker [latitude]="contractorUserProfile.addressLocation.latitude" [longitude]="contractorUserProfile.addressLocation.longitude"></agm-marker>
+																</agm-map>
+															</div>
+														</div>
+													</div>
+													<input [attr.validAddress]="false" type="text" placeholder="" id="address1_contractor" name="address1_contractor" class="form-control m-input" [formControl]="contractorSearchControl" #addressContractorUser (blur)="onAddressBlur($event)" disabled="{{myStep_disabled}}" >
+												</div>
 												<div class="form-group" [hidden]="!myStep_disabled">
 													<input type="text" name="address1_contractor" class="form-control m-input"  [(ngModel)]="contractorUserProfile.address1" #address1="ngModel" disabled="{{myStep_disabled}}" >
-												</div>
-												<div class="form-group" [hidden]="myStep_disabled">
-													<input [attr.validAddress]="false" type="text" placeholder="" id="address1_contractor" name="address1_contractor" class="form-control m-input" [formControl]="contractorSearchControl" #addressContractorUser (blur)="onAddressBlur($event)" disabled="{{myStep_disabled}}" >
 												</div>
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
@@ -504,7 +530,20 @@
 												<label class="form-control-label">
 													* Address 1:
 												</label>
-												<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-prepend m-dropdown m-dropdown--inline  m-dropdown--arrow" data-dropdown-toggle="click">
+															<span class="input-group-text m-dropdown__toggle" style="height: 100%; cursor: pointer;">
+																<i class="la la-map-marker"></i>
+															</span>
+														<div class="m-dropdown__wrapper">
+															<span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+															<div class="m-dropdown__inner">
+																<agm-map name="mapArchitectUser" [latitude]="architectUserProfile.addressLocation.latitude" [longitude]="architectUserProfile.addressLocation.longitude" [scrollwheel]="false" [zoom]="architectUserProfile.addressLocation.zoom" style="height: 300px; width: 500px;">
+																	<agm-marker [latitude]="architectUserProfile.addressLocation.latitude" [longitude]="architectUserProfile.addressLocation.longitude"></agm-marker>
+																</agm-map>
+															</div>
+														</div>
+													</div>
 													<input [attr.validAddress]="false" placeholder="" type="text" id="address1_architect" name="address1_architect" class="form-control m-input" [formControl]="architectSearchControl" #addressArchitectUser (blur)="onAddressBlur($event)" >
 												</div>
 											</div>
