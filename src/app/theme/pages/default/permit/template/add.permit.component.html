@@ -579,9 +579,9 @@
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
-													* Driver Lic Number/ID:
+													* License Number:
 												</label>
-												<input type="text" name="driverlic_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+												<input type="text" name="driverlic_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.licenseNumber" #licenseNumber="ngModel">
 											</div>
 										</div>
 									</div>
@@ -1049,10 +1049,10 @@
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
-															* Driver Lic Number/ID:
+															* License Number:
 														</label>
 														<span class="m-form__control-static">
-																			{{ architectUserProfile.driverLicOrId }}
+																			{{ architectUserProfile.licenseNumber }}
 																	</span>
 													</div>
 												</div>
