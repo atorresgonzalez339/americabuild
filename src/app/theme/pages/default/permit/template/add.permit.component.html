@@ -123,13 +123,13 @@
 												<label class="form-control-label">
 													* First Name:
 												</label>
-												<input type="text" name="first_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.firstname" #firstname="ngModel">
+												<input type="text" name="first_name" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.firstname" #firstname="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Last Name:
 												</label>
-												<input type="text" name="last_name" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.lastname" #lastname="ngModel">
+												<input type="text" name="last_name" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.lastname" #lastname="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -137,7 +137,7 @@
 												<label class="form-control-label">
 													* Email:
 												</label>
-												<input type="text" name="email" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.email" #email="ngModel">
+												<input type="text" name="email" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.email" #email="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
@@ -150,7 +150,7 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.phoneNumber" #phoneNumber="ngModel">
+														<input type="text" name="phone" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.phoneNumber" #phoneNumber="ngModel">
 													</div>
 												</div>
 											</div>
@@ -181,7 +181,7 @@
 												<label class="form-control-label">
 													* Address 2:
 												</label>
-												<input type="text" name="address2" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.address2" #address2="ngModel">
+												<input type="text" name="address2" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.address2" #address2="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -189,7 +189,7 @@
 												<label class="form-control-label">
 													* City:
 												</label>
-												<input type="text" name="city" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.city" #city="ngModel">
+												<input type="text" name="city" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.city" #city="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub select_element">
 												<label class="form-control-label">
@@ -205,13 +205,13 @@
 												<label class="form-control-label">
 													* Zip Code:
 												</label>
-												<input type="text" name="zipcode" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.zip" #zip="ngModel">
+												<input type="text" name="zipcode" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.zip" #zip="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Driver Lic Number/ID:
 												</label>
-												<input type="text" name="driverlic" class="form-control m-input" placeholder="" [(ngModel)]="ownerTenantUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+												<input type="text" name="driverlic" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.driverLicOrId" #driverLicOrId="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -252,13 +252,13 @@
 												<label class="form-control-label">
 													* First Name:
 												</label>
-												<input type="text" name="first_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.firstname" #firstname="ngModel" disabled="{{myStep_disabled}}">
+												<input type="text" name="first_name_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.firstname" #firstname="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Last Name:
 												</label>
-												<input type="text" name="last_name_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.lastname" #lastname="ngModel" disabled="{{myStep_disabled}}">
+												<input type="text" name="last_name_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.lastname" #lastname="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -266,7 +266,7 @@
 												<label class="form-control-label">
 													* Email:
 												</label>
-												<input type="text" name="email_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.email" #email="ngModel" disabled="{{myStep_disabled}}">
+												<input type="text" name="email_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.email" #email="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
@@ -279,7 +279,7 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel" disabled="{{myStep_disabled}}">
+														<input type="text" name="phone_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.phoneNumber" #phoneNumber="ngModel" disabled="{{myStep_disabled}}">
 													</div>
 												</div>
 											</div>
@@ -313,7 +313,7 @@
 												<label class="form-control-label">
 													* Address 2:
 												</label>
-												<input type="text" name="address2_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.address2" #address2="ngModel" disabled="{{myStep_disabled}}">
+												<input type="text" name="address2_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.address2" #address2="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -321,7 +321,7 @@
 												<label class="form-control-label">
 													* City:
 												</label>
-												<input type="text" name="city_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.city" #city="ngModel" disabled="{{myStep_disabled}}">
+												<input type="text" name="city_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.city" #city="ngModel" disabled="{{myStep_disabled}}">
 											</div>
 											<div class="col-lg-6 m-form__group-sub" [hidden]="myStep_disabled">
 												<label class="form-control-label">
@@ -343,13 +343,13 @@
 												<label class="form-control-label">
 													* Zip Code:
 												</label>
-												<input type="text" name="zipcode_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel" disabled="{{myStep_disabled}}">
+												<input type="text" name="zipcode_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel" disabled="{{myStep_disabled}}">
 											</div>
                                             <div class="col-lg-6 m-form__group-sub" [style.visibility]="!myStep_disabled ? 'visible' : 'hidden'">
                                                 <label class="form-control-label">
                                                     * License Number:
                                                 </label>
-                                                <input type="text" name="driverlic_contractor" class="form-control m-input" placeholder="" [(ngModel)]="contractorUserProfile.licenseNumber" #licenseNumber="ngModel" disabled="{{myStep_disabled}}">
+                                                <input type="text" name="driverlic_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.licenseNumber" #licenseNumber="ngModel" disabled="{{myStep_disabled}}">
                                             </div>
 										</div>
 									</div>
@@ -372,13 +372,13 @@
 												<label class="form-control-label">
 													* Folio Number:
 												</label>
-												<input type="text" name="folio_number" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.folioNumber" #folioNumber="ngModel">
+												<input type="text" name="folio_number" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.folioNumber" #folioNumber="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Number Of Units:
 												</label>
-												<input type="text" name="number_of_units" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.numberOfUnits" #numberOfUnits="ngModel">
+												<input type="text" name="number_of_units" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.numberOfUnits" #numberOfUnits="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -386,13 +386,13 @@
 												<label class="form-control-label">
 													* Lot:
 												</label>
-												<input type="text" name="lot" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.lot" #lot="ngModel">
+												<input type="text" name="lot" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.lot" #lot="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Block:
 												</label>
-												<input type="text" name="block" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.block" #block="ngModel">
+												<input type="text" name="block" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.block" #block="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -400,13 +400,13 @@
 												<label class="form-control-label">
 													* Subdivision:
 												</label>
-												<input type="text" name="subdivision" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.subdivision" #subdivision="ngModel">
+												<input type="text" name="subdivision" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.subdivision" #subdivision="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* PbPg:
 												</label>
-												<input type="text" name="pbpg" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.pbpg" #pbpg="ngModel">
+												<input type="text" name="pbpg" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.pbpg" #pbpg="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -414,13 +414,13 @@
 												<label class="form-control-label">
 													* Current Use of Property:
 												</label>
-												<input type="text" name="current_use_of_property" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.currentUseOfProperty" #currentUseOfProperty="ngModel">
+												<input type="text" name="current_use_of_property" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.currentUseOfProperty" #currentUseOfProperty="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Description Of Work:
 												</label>
-												<input type="text" name="description_of_work" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.descriptionOfWork" #descriptionOfWork="ngModel">
+												<input type="text" name="description_of_work" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.descriptionOfWork" #descriptionOfWork="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -428,13 +428,13 @@
 												<label class="form-control-label">
 													* Estimate Value:
 												</label>
-												<input type="text" name="estimate_value" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.estimateValue" #estimateValue="ngModel">
+												<input type="text" name="estimate_value" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.estimateValue" #estimateValue="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Area (sf):
 												</label>
-												<input type="text" name="area" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.area" #area="ngModel">
+												<input type="text" name="area" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.area" #area="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -442,7 +442,7 @@
 												<label class="form-control-label">
 													* Length (ft):
 												</label>
-												<input type="text" name="length" class="form-control m-input" placeholder="" [(ngModel)]="permitProfile.length" #length="ngModel">
+												<input type="text" name="length" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.length" #length="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub select_element">
 												<label class="form-control-label">
@@ -493,13 +493,13 @@
 												<label class="form-control-label">
 													* First Name:
 												</label>
-												<input type="text" name="first_name_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.firstname" #firstname="ngModel">
+												<input type="text" name="first_name_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.firstname" #firstname="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Last Name:
 												</label>
-												<input type="text" name="last_name_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.lastname" #lastname="ngModel">
+												<input type="text" name="last_name_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.lastname" #lastname="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -507,7 +507,7 @@
 												<label class="form-control-label">
 													* Email:
 												</label>
-												<input type="text" name="email_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.email" #email="ngModel">
+												<input type="text" name="email_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.email" #email="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
@@ -520,7 +520,7 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.phoneNumber" #phoneNumber="ngModel">
+														<input type="text" name="phone_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.phoneNumber" #phoneNumber="ngModel">
 													</div>
 												</div>
 											</div>
@@ -551,7 +551,7 @@
 												<label class="form-control-label">
 													* Address 2:
 												</label>
-												<input type="text" name="address2_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.address2" #address2="ngModel">
+												<input type="text" name="address2_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.address2" #address2="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -559,7 +559,7 @@
 												<label class="form-control-label">
 													* City:
 												</label>
-												<input type="text" name="city_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.city" #city="ngModel">
+												<input type="text" name="city_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.city" #city="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
@@ -575,13 +575,13 @@
 												<label class="form-control-label">
 													* Zip Code:
 												</label>
-												<input type="text" name="zipcode_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.zip" #zip="ngModel">
+												<input type="text" name="zipcode_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.zip" #zip="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Driver Lic Number/ID:
 												</label>
-												<input type="text" name="driverlic_architect" class="form-control m-input" placeholder="" [(ngModel)]="architectUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+												<input type="text" name="driverlic_architect" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="architectUserProfile.driverLicOrId" #driverLicOrId="ngModel">
 											</div>
 										</div>
 									</div>

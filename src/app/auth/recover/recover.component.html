@@ -18,12 +18,12 @@
             <form (ngSubmit)="f.form.valid && setRecoverPassword()" #f="ngForm" class="m-login__form m-form" action="">
               <ng-template #alertSignin></ng-template>
               <div class="form-group m-form__group">
-                <input class="form-control m-input" type="password" id="registerpassword"
+                <input class="form-control m-input" type="password" id="registerpassword" autocomplete="off"
                        placeholder="Password" name="password" [(ngModel)]="model.password"
                        #password="ngModel">
               </div>
               <div class="form-group m-form__group">
-                <input class="form-control m-input" type="password"
+                <input class="form-control m-input" type="password" autocomplete="off"
                        placeholder="Confirm Password" name="rpassword" [(ngModel)]="model.rpassword"
                        #rpassword="ngModel">
               </div>
