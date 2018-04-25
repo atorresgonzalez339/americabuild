@@ -268,7 +268,12 @@ var addPermitWizard = function () {
         changeAttr: function (idSelect, attr, value) {
             $(idSelect).attr(attr,value);
             $(idSelect).valid();
+        },
+        refreshSelectpicker: function(idSelect)
+        {
+            $(idSelect).selectpicker('refresh');
         }
+
     };
 }();
 

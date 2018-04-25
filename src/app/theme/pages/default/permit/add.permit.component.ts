@@ -1,8 +1,7 @@
-import { ElementRef, NgZone, Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild} from '@angular/core';
+import { ElementRef, Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild} from '@angular/core';
 import { ScriptLoaderService } from '../../../../_services/script-loader.service';
 import {PermitImprovementTypesService, PermitTypeService, PermitService, StateService } from './_services';
 import {Response} from "@angular/http";
-import {UserService} from "../../../../auth/_services";
 import {Router} from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 import { FormControl } from '@angular/forms';
@@ -28,7 +27,6 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public listStates: any [];
     public selectedPermitType: any = {};
     public selectedPermitImprovementType: any = {};
-    public ownerAddress: any = { valid: false};
     public ownerTenantSearchControl: FormControl = new FormControl();
     public contractorSearchControl: FormControl = new FormControl();
     public architectSearchControl: FormControl = new FormControl();
@@ -78,38 +76,135 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             let autocompleteOwnerTenant = new google.maps.places.Autocomplete(this.addressOwnerTenantElementRef.nativeElement, {  types: ["address"], componentRestrictions: {country: 'US'} });
             autocompleteOwnerTenant.addListener("place_changed", () => {
                 let placeOwnerTenant: google.maps.places.PlaceResult = autocompleteOwnerTenant.getPlace();
-                this.ownerTenantUserProfile.address1 = placeOwnerTenant.formatted_address;
-                this.ownerTenantSearchControl.setValue( this.ownerTenantUserProfile.address1);
-                addPermitWizard.changeAttr("#address1","validAddress", "true");
                 //set latitude, longitude and zoom
                 this.ownerTenantUserProfile.addressLocation.latitude = placeOwnerTenant.geometry.location.lat();
                 this.ownerTenantUserProfile.addressLocation.longitude = placeOwnerTenant.geometry.location.lng();
                 this.ownerTenantUserProfile.addressLocation.zoom = 12;
+
+                //Autocomplete address1, city, status and zip code
+                let route =  this.getAddressComponents(placeOwnerTenant.address_components, "route")
+                let street =  this.getAddressComponents(placeOwnerTenant.address_components, "street_number");
+                let premise =  this.getAddressComponents(placeOwnerTenant.address_components, "premise");
+                let city = this.getAddressComponents(placeOwnerTenant.address_components, "locality");
+                let state = this.getAddressComponents(placeOwnerTenant.address_components, "administrative_area_level_1");
+                let zip = this.getAddressComponents(placeOwnerTenant.address_components, "postal_code");
+
+                let addressName = "";
+                if ( street !== undefined && street !== null )
+                {
+                    addressName = street + ", ";
+                }
+
+                if (route !== undefined && route !== null)
+                {
+                    addressName += route;
+                }
+
+                if (premise !== undefined && premise !== null)
+                {
+                    addressName += addressName !== "" ? ", " + premise : premise;
+                }
+
+                this.ownerTenantUserProfile.address1 = addressName !== "" ? addressName : "";
+                this.ownerTenantSearchControl.setValue(addressName !== "" ? addressName : "");
+                this.ownerTenantUserProfile.city = city !== undefined && city !== null ? city : "";
+                this.ownerTenantUserProfile.countryState = state !== undefined && state !== null ? this.getStateByName(state) : {};
+                this.ownerTenantUserProfile.zip = zip !== undefined && zip !== null ? zip : "";
+
+                addPermitWizard.changeAttr("#address1","validAddress", "true");
+                setTimeout(()=> {
+                    addPermitWizard.refreshSelectpicker("#ownerTenantState");
+                }, 200);
             });
 
             let autocompleteContractorUser = new google.maps.places.Autocomplete(this.addressContractorUserElementRef.nativeElement, { types: ["address"], componentRestrictions: {country: 'US'} });
             autocompleteContractorUser.addListener("place_changed", () => {
                 let placeContractorUser: google.maps.places.PlaceResult = autocompleteContractorUser.getPlace();
-                this.contractorUserProfile.address1 = placeContractorUser.formatted_address;
-                this.contractorSearchControl.setValue( this.contractorUserProfile.address1);
-                addPermitWizard.changeAttr("#address1_contractor","validAddress", "true");
+
                 //set latitude, longitude and zoom
                 this.contractorUserProfile.addressLocation.latitude = placeContractorUser.geometry.location.lat();
                 this.contractorUserProfile.addressLocation.longitude = placeContractorUser.geometry.location.lng();
                 this.contractorUserProfile.addressLocation.zoom = 12;
-                });
+
+                //Autocomplete address1, city, status and zip code
+                let route =  this.getAddressComponents(placeContractorUser.address_components, "route")
+                let street =  this.getAddressComponents(placeContractorUser.address_components, "street_number");
+                let premise =  this.getAddressComponents(placeContractorUser.address_components, "premise");
+                let city = this.getAddressComponents(placeContractorUser.address_components, "locality");
+                let state = this.getAddressComponents(placeContractorUser.address_components, "administrative_area_level_1");
+                let zip = this.getAddressComponents(placeContractorUser.address_components, "postal_code");
+
+                let addressName = "";
+                if ( street !== undefined && street !== null )
+                {
+                    addressName = street + ", ";
+                }
+
+                if (route !== undefined && route !== null)
+                {
+                    addressName += route;
+                }
+
+                if (premise !== undefined && premise !== null)
+                {
+                    addressName += addressName !== "" ? ", " + premise : premise;
+                }
+
+                this.contractorUserProfile.address1 = addressName !== "" ? addressName : "";
+                this.contractorSearchControl.setValue(addressName !== "" ? addressName : "");
+                this.contractorUserProfile.city = city !== undefined && city !== null ? city : "";
+                this.contractorUserProfile.countryState = state !== undefined && state !== null ? this.getStateByName(state) : {};
+                this.contractorUserProfile.zip = zip !== undefined && zip !== null ? zip : "";
+
+                addPermitWizard.changeAttr("#address1_contractor","validAddress", "true");
+                setTimeout(()=> {
+                    addPermitWizard.refreshSelectpicker("#contractorState");
+                }, 200);
+            });
 
             let autocompleteArchitectUser = new google.maps.places.Autocomplete(this.addressArchitectUserElementRef.nativeElement, { types: ["address"], componentRestrictions: {country: 'US'} });
             autocompleteArchitectUser.addListener("place_changed", () => {
                 let placeArchitectUser: google.maps.places.PlaceResult = autocompleteArchitectUser.getPlace();
-                this.architectUserProfile.address1=placeArchitectUser.formatted_address;
-                this.architectSearchControl.setValue( this.architectUserProfile.address1);
-                addPermitWizard.changeAttr("#address1_architect","validAddress", "true");
 
                 //set latitude, longitude and zoom
                 this.architectUserProfile.addressLocation.latitude= placeArchitectUser.geometry.location.lat();
                 this.architectUserProfile.addressLocation.longitude = placeArchitectUser.geometry.location.lng();
                 this.architectUserProfile.addressLocation.zoom = 12;
+
+                //Autocomplete address1, city, status and zip code
+                let route =  this.getAddressComponents(placeArchitectUser.address_components, "route")
+                let street =  this.getAddressComponents(placeArchitectUser.address_components, "street_number");
+                let premise =  this.getAddressComponents(placeArchitectUser.address_components, "premise");
+                let city = this.getAddressComponents(placeArchitectUser.address_components, "locality");
+                let state = this.getAddressComponents(placeArchitectUser.address_components, "administrative_area_level_1");
+                let zip = this.getAddressComponents(placeArchitectUser.address_components, "postal_code");
+
+                let addressName = "";
+                if ( street !== undefined && street !== null )
+                {
+                    addressName = street + ", ";
+                }
+
+                if (route !== undefined && route !== null)
+                {
+                    addressName += route;
+                }
+
+                if (premise !== undefined && premise !== null)
+                {
+                    addressName += addressName !== "" ? ", " + premise : premise;
+                }
+
+                this.architectUserProfile.address1 = addressName !== "" ? addressName : "";
+                this.architectSearchControl.setValue(addressName !== "" ? addressName : "");
+                this.architectUserProfile.city = city !== undefined && city !== null ? city : "";
+                this.architectUserProfile.countryState = state !== undefined && state !== null ? this.getStateByName(state) : {};
+                this.architectUserProfile.zip = zip !== undefined && zip !== null ? zip : "";
+
+                addPermitWizard.changeAttr("#address1_architect","validAddress", "true");
+                setTimeout(()=> {
+                    addPermitWizard.refreshSelectpicker("#architectState");
+                }, 500);
             });
         });
 
@@ -236,6 +331,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     }
 
     changeOwner(e) {
+
         if(e.target.checked){
             this.contractorUserProfile = this.ownerTenantUserProfile;
             this.myStep_disabled = true;
@@ -310,6 +406,28 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                 this.architectUserProfile.addressLocation.longitude = position.coords.longitude;
                 this.architectUserProfile.addressLocation.zoom = 12;
             });
+        }
+    }
+
+    private getStateByName(name){
+        for(let i =0; i<this.listStates.length; i++)
+        {
+            if(this.listStates[i].name === name){
+                return this.listStates[i];
+            }
+        }
+        return null;
+    }
+
+    private getAddressComponents(components, type) {
+        //gets "premise","street_number", "route", "locality", "country", "postal_code", "administrative_area_level_1"  regionName, "administrative_area_level_2" provName
+        for (var key in components) {
+            if (components.hasOwnProperty(key)) {
+
+                if (type === components[key].types[0]) {
+                    return components[key].long_name;
+                }
+            }
         }
     }
 }
