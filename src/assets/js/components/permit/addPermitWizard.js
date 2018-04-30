@@ -155,6 +155,9 @@ var addPermitWizard = function () {
                     required: true,
                     range:[0.0,99999999999]
                 },
+                gallons: {
+                    required: true,
+                },
                 typeOfImprovement: {
                     required: true
                 },

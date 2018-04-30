@@ -31,6 +31,7 @@ export class PermitService extends BaseService{
 				estimateValue:permitProfile.estimateValue,
 				area:permitProfile.area,
 				length:permitProfile.length,
+				gallons:permitProfile.gallons,
 				typeOfImprovement:permitProfile.typeOfImprovement,
 				permitType:permitProfile.type,
 				ownerBuilder:permitProfile.ownerBuilder

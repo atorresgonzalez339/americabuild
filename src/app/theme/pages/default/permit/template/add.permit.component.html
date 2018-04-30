@@ -444,6 +444,15 @@
 												</label>
 												<input type="text" name="length" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.length" #length="ngModel">
 											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Gallons:
+												</label>
+												<input type="text" name="gallons" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.gallons" #gallons="ngModel">
+											</div>
+										</div>
+
+										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub select_element">
 												<label class="form-control-label">
 													* Type Of Improvement:
@@ -452,9 +461,6 @@
 													<option *ngFor="let pt of listPermitImprovementType" [ngValue]="pt">{{pt.name}}</option>
 												</select>
 											</div>
-										</div>
-
-										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub select_element">
 												<label class="form-control-label">
 													* Permit Type:
@@ -938,14 +944,22 @@
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
+															* Gallons:
+														</label>
+														<span class="m-form__control-static">
+															{{ permitProfile.gallons }}
+														</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
 															* Type Of Improvement:
 														</label>
 														<span class="m-form__control-static">
 																			{{ selectedPermitImprovementType.name }}
 																	</span>
 													</div>
-												</div>
-												<div class="form-group m-form__group m-form__group--sm row">
 													<div class="col-lg-6 m-form__group-sub">
 														<label class="form-control-label">
 															* Permit Type:
