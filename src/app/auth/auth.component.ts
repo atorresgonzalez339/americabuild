@@ -16,6 +16,7 @@ import {AlertComponent} from './_directives/alert.component';
 import {LoginCustom} from './_helpers/login-custom';
 import {Helpers} from '../helpers';
 import {Response} from "@angular/http";
+declare let bootstrapSelectpicker: any;
 
 @Component({
   selector: '.m-grid.m-grid--hor.m-grid--root.m-page',
@@ -30,6 +31,7 @@ export class AuthComponent implements OnInit , AfterViewInit{
   message:string;
   error=false;
   parameters=false;
+  userTypes: any[];
 
   @ViewChild('alertSignin',
       {read: ViewContainerRef}) alertSignin: ViewContainerRef;
@@ -77,18 +79,36 @@ export class AuthComponent implements OnInit , AfterViewInit{
 
     this._script.loadScripts('body', [
       'assets/vendors/base/vendors.bundle.js',
-      'assets/demo/demo3/base/scripts.bundle.js'
+      'assets/demo/demo3/base/scripts.bundle.js',
+      'assets/js/components/bootstrap-select.js'
     ], true).then(() => {
       LoginCustom.init();
+      this._userService.getUserTypes().subscribe(
+          (data: Response) =>
+          {
+            let response = data.json();
+            if (response.success) {
+              this.userTypes = response.data;
+              setTimeout(()=> {
+                bootstrapSelectpicker.initSelects('#userType');
+              }, 500);
+            }
+            else {
+              this.showAlert('alertSignup');
+              this._alertService.error(response.error);
+            }
+          },
+          error => {
+            this.showAlert('alertSignup');
+            this._alertService.error(error);
+          }
+      );
       Helpers.setLoading(false);
-
     });
 
   }
 
   ngAfterViewInit(): void {
-    this._script.loadScripts('body',
-        ['assets/demo/custom/components/forms/widgets/bootstrap-select.js']);
   }
 
   signin() {

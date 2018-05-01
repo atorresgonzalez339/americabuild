@@ -81,7 +81,11 @@
 									   placeholder="Confirm Password" autocomplete="off" name="rpassword" [(ngModel)]="model.rpassword"
 									   #rpassword="ngModel">
 							</div>
-
+							<div class="form-group m-form__group">
+								<select class="form-control m-bootstrap-select" id="userType" [(ngModel)]="model.userType" #userType="ngModel" name="userType" title="-- Account Type --">
+									<option *ngFor="let types of userTypes" [ngValue]="types">{{types.name}}</option>
+								</select>
+							</div>
 							<div class="row form-group m-form__group m-login__form-sub">
 								<div class="col m--align-left">
 									<label class="m-checkbox m-checkbox--focus">

@@ -10,4 +10,5 @@ export class User {
 	roleid: number;
 	activo: boolean;
 	companyid:number;
+	userType: any;
 }

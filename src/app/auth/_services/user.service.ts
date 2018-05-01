@@ -36,8 +36,13 @@ export class UserService extends BaseService{
 	}
 
 	create(user: User) {
-		return this.http.post(this.urlService+'users/register', JSON.stringify({ username:user.email, password:user.password, repassword: user.rpassword, fullname:user.fullname }),
-			{headers: this.getHeaders()});
+		return this.http.post(this.urlService+'users/register', JSON.stringify({
+			username:user.email,
+			password:user.password,
+			repassword: user.rpassword,
+			fullname:user.fullname,
+			userType: user.userType.id
+			}), {headers: this.getHeaders()});
 	}
 
 	update(user: User) {
@@ -46,5 +51,9 @@ export class UserService extends BaseService{
 
 	delete(id: number) {
 		return this.http.delete(this.urlService+'users/' + id);
+	}
+
+	getUserTypes() {
+		return this.http.get(this.urlService+'users/usertypes', {headers: this.getHeaders()});
 	}
 }

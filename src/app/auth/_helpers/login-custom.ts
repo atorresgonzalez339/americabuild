@@ -93,8 +93,9 @@ export class LoginCustom {
             equalTo: "#registerpassword",
             minlength: 5,
           },
-          company: {
-            min: 1,
+          userType:
+          {
+            required: true
           },
           agree: {
             required: true,
@@ -104,8 +105,9 @@ export class LoginCustom {
           rpassword: {
             equalTo: "Confirmation password does not match.",
           },
-          company:{
-            min: "Please select your company."
+          userType:
+          {
+            required: "Please select the user type."
           },
           agree: {
             required: "Please indicate that you accept the Terms and Conditions."
