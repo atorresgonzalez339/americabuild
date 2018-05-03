@@ -41,6 +41,8 @@ export class UserService extends BaseService{
 			password:user.password,
 			repassword: user.rpassword,
 			fullname:user.fullname,
+			phoneNumber: user.phoneNumber,
+			address: user.address,
 			userType: user.userType.id
 			}), {headers: this.getHeaders()});
 	}

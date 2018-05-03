@@ -147,6 +147,9 @@ export class AuthComponent implements OnInit , AfterViewInit{
             this.loading = false;
             LoginCustom.displaySignInForm();
             this.model = {};
+            setTimeout(()=> {
+              bootstrapSelectpicker.refreshSelectpicker('#userType');
+            }, 500);
           }
           else {
             this.showAlert('alertSignup');

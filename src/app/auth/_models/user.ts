@@ -9,6 +9,7 @@ export class User {
 	email: string;
 	roleid: number;
 	activo: boolean;
-	companyid:number;
+	phoneNumber:string;
+	address:string;
 	userType: any;
 }

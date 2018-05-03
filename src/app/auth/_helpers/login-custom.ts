@@ -93,6 +93,13 @@ export class LoginCustom {
             equalTo: "#registerpassword",
             minlength: 5,
           },
+          phone: {
+            required: true,
+            phoneUS: true
+          },
+          address: {
+            required: true,
+          },
           userType:
           {
             required: true
