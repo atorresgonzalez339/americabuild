@@ -11,5 +11,6 @@ export class User {
 	activo: boolean;
 	phoneNumber:string;
 	address:string;
+	licenseNumber: string;
 	userType: any;
 }

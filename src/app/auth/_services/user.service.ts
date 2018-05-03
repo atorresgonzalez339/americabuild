@@ -43,6 +43,7 @@ export class UserService extends BaseService{
 			fullname:user.fullname,
 			phoneNumber: user.phoneNumber,
 			address: user.address,
+			licenseNumber:user.licenseNumber,
 			userType: user.userType.id
 			}), {headers: this.getHeaders()});
 	}

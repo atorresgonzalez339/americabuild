@@ -88,9 +88,12 @@
 									   #rpassword="ngModel">
 							</div>
 							<div class="form-group m-form__group">
-								<select class="form-control m-bootstrap-select" id="userType" [(ngModel)]="model.userType" #userType="ngModel" name="userType" title="-- Account Type --">
+								<select class="form-control m-bootstrap-select" id="userType" [(ngModel)]="model.userType" #userType="ngModel" name="userType" (change)="onChangeUserType(userType.value)" title="-- Account Type --">
 									<option *ngFor="let types of userTypes" [ngValue]="types">{{types.name}}</option>
 								</select>
+							</div>
+							<div class="form-group m-form__group" [hidden]="disabledLicence">
+								<input class="form-control m-input" type="text" placeholder="License Number" name="licenseNumber" [(ngModel)]="model.licenseNumber" #licenseNumber="ngModel" autocomplete="off">
 							</div>
 							<div class="row form-group m-form__group m-login__form-sub">
 								<div class="col m--align-left">

@@ -76,6 +76,7 @@ export class LoginCustom {
       let btn = $(e.target);
       let form = $(e.target).closest('form');
       form.validate({
+        ignore: ':hidden',
         rules: {
           fullname: {
             required: true,
@@ -99,6 +100,9 @@ export class LoginCustom {
           },
           address: {
             required: true,
+          },
+          licenseNumber:{
+            required: true
           },
           userType:
           {

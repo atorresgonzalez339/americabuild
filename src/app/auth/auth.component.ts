@@ -32,6 +32,7 @@ export class AuthComponent implements OnInit , AfterViewInit{
   error=false;
   parameters=false;
   userTypes: any[];
+  disabledLicence = true;
 
   @ViewChild('alertSignin',
       {read: ViewContainerRef}) alertSignin: ViewContainerRef;
@@ -147,6 +148,7 @@ export class AuthComponent implements OnInit , AfterViewInit{
             this.loading = false;
             LoginCustom.displaySignInForm();
             this.model = {};
+            this.disabledLicence = true;
             setTimeout(()=> {
               bootstrapSelectpicker.refreshSelectpicker('#userType');
             }, 500);
@@ -197,5 +199,16 @@ export class AuthComponent implements OnInit , AfterViewInit{
     let factory = this.cfr.resolveComponentFactory(AlertComponent);
     let ref = this[target].createComponent(factory);
     ref.changeDetectorRef.detectChanges();
+  }
+
+  onChangeUserType(value){
+     if(value.name === "Architect" || value.name === "Contractor")
+     {
+        this.disabledLicence = false;
+     }
+     else
+     {
+      this.disabledLicence = true;
+     }
   }
 }
