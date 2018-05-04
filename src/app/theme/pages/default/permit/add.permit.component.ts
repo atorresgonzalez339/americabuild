@@ -15,7 +15,8 @@ declare var addPermitWizard: any;
     encapsulation: ViewEncapsulation.None,
 })
 export class AddPermitComponent extends BaseComponent implements AfterViewInit {
-    public ownerTenantUserProfile: any = {countryState:{}, addressLocation: {}};
+    public ownerUserProfile: any = {countryState:{}, addressLocation: {}};
+    public tenantUserProfile: any = {countryState:{}, addressLocation: {}};
     public contractorUserProfile: any = {countryState:{}, addressLocation: {}};
     public architectUserProfile: any = {countryState:{}, addressLocation: {}};
     public permitProfile: any = {};
@@ -27,15 +28,18 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public listStates: any [];
     public selectedPermitType: any = {};
     public selectedPermitImprovementType: any = {};
-    public ownerTenantSearchControl: FormControl = new FormControl();
+    public ownerSearchControl: FormControl = new FormControl();
+    public tenantSearchControl: FormControl = new FormControl();
     public contractorSearchControl: FormControl = new FormControl();
     public architectSearchControl: FormControl = new FormControl();
 
-    @ViewChild("addressOwnerTenant")
-    public addressOwnerTenantElementRef: ElementRef;
-    @ViewChild("addressContractorUser")
+    @ViewChild('addressOwner')
+    public addressOwnerElementRef: ElementRef;
+    @ViewChild('addressTenant')
+    public addressTenantElementRef: ElementRef;
+    @ViewChild('addressContractorUser')
     public addressContractorUserElementRef: ElementRef;
-    @ViewChild("addressArchitectUser")
+    @ViewChild('addressArchitectUser')
     public addressArchitectUserElementRef: ElementRef;
 
     constructor(private _script: ScriptLoaderService,
@@ -50,9 +54,13 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.permitProfile.ownerBuilder = false;
 
         //Initialize lat, lgt and zoom to maps
-        this.ownerTenantUserProfile.addressLocation.latitude = 39.8282;
-        this.ownerTenantUserProfile.addressLocation.longitude = -98.5795;
-        this.ownerTenantUserProfile.addressLocation.zoom = 4;
+        this.ownerUserProfile.addressLocation.latitude = 39.8282;
+        this.ownerUserProfile.addressLocation.longitude = -98.5795;
+        this.ownerUserProfile.addressLocation.zoom = 4;
+
+        this.tenantUserProfile.addressLocation.latitude = 39.8282;
+        this.tenantUserProfile.addressLocation.longitude = -98.5795;
+        this.tenantUserProfile.addressLocation.zoom = 4;
 
         this.contractorUserProfile.addressLocation.latitude = 39.8282;
         this.contractorUserProfile.addressLocation.longitude = -98.5795;
@@ -67,27 +75,28 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.block(true);
 
         //load Places Autocomplete
-        this.setCurrentPositionOwnerTenant();
+        this.setCurrentPositionOwner();
+        this.setCurrentPositionTenant();
         this.setCurrentPositionContractorUser();
         this.setCurrentPositionArchitectUser();
 
         this.mapsAPILoader.load().then(() => {
 
-            let autocompleteOwnerTenant = new google.maps.places.Autocomplete(this.addressOwnerTenantElementRef.nativeElement, {  types: ["address"], componentRestrictions: {country: 'US'} });
-            autocompleteOwnerTenant.addListener("place_changed", () => {
-                let placeOwnerTenant: google.maps.places.PlaceResult = autocompleteOwnerTenant.getPlace();
-                //set latitude, longitude and zoom
-                this.ownerTenantUserProfile.addressLocation.latitude = placeOwnerTenant.geometry.location.lat();
-                this.ownerTenantUserProfile.addressLocation.longitude = placeOwnerTenant.geometry.location.lng();
-                this.ownerTenantUserProfile.addressLocation.zoom = 12;
+            let autocompleteOwner = new google.maps.places.Autocomplete(this.addressOwnerElementRef.nativeElement, {  types: ["address"], componentRestrictions: {country: 'US'} });
+            autocompleteOwner.addListener('place_changed', () => {
+                let placeOwner: google.maps.places.PlaceResult = autocompleteOwner.getPlace();
+                // set latitude, longitude and zoom
+                this.ownerUserProfile.addressLocation.latitude = placeOwner.geometry.location.lat();
+                this.ownerUserProfile.addressLocation.longitude = placeOwner.geometry.location.lng();
+                this.ownerUserProfile.addressLocation.zoom = 12;
 
-                //Autocomplete address1, city, status and zip code
-                let route =  this.getAddressComponents(placeOwnerTenant.address_components, "route")
-                let street =  this.getAddressComponents(placeOwnerTenant.address_components, "street_number");
-                let premise =  this.getAddressComponents(placeOwnerTenant.address_components, "premise");
-                let city = this.getAddressComponents(placeOwnerTenant.address_components, "locality");
-                let state = this.getAddressComponents(placeOwnerTenant.address_components, "administrative_area_level_1");
-                let zip = this.getAddressComponents(placeOwnerTenant.address_components, "postal_code");
+                // Autocomplete address1, city, status and zip code
+                let route =  this.getAddressComponents(placeOwner.address_components, "route");
+                let street =  this.getAddressComponents(placeOwner.address_components, "street_number");
+                let premise =  this.getAddressComponents(placeOwner.address_components, "premise");
+                let city = this.getAddressComponents(placeOwner.address_components, "locality");
+                let state = this.getAddressComponents(placeOwner.address_components, "administrative_area_level_1");
+                let zip = this.getAddressComponents(placeOwner.address_components, "postal_code");
 
                 let addressName = "";
                 if ( street !== undefined && street !== null )
@@ -105,15 +114,59 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                     addressName += addressName !== "" ? ", " + premise : premise;
                 }
 
-                this.ownerTenantUserProfile.address1 = addressName !== "" ? addressName : "";
-                this.ownerTenantSearchControl.setValue(addressName !== "" ? addressName : "");
-                this.ownerTenantUserProfile.city = city !== undefined && city !== null ? city : "";
-                this.ownerTenantUserProfile.countryState = state !== undefined && state !== null ? this.getStateByName(state) : {};
-                this.ownerTenantUserProfile.zip = zip !== undefined && zip !== null ? zip : "";
+                this.ownerUserProfile.address1 = addressName !== "" ? addressName : "";
+                this.ownerSearchControl.setValue(addressName !== "" ? addressName : "");
+                this.ownerUserProfile.city = city !== undefined && city !== null ? city : "";
+                this.ownerUserProfile.countryState = state !== undefined && state !== null ? this.getStateByName(state) : {};
+                this.ownerUserProfile.zip = zip !== undefined && zip !== null ? zip : "";
 
-                addPermitWizard.changeAttr("#address1","validAddress", "true");
+                addPermitWizard.changeAttr("#address1Owner","validAddress", "true");
                 setTimeout(()=> {
-                    addPermitWizard.refreshSelectpicker("#ownerTenantState");
+                    addPermitWizard.refreshSelectpicker("#ownerState");
+                }, 200);
+            });
+
+            let autocompleteTenant = new google.maps.places.Autocomplete(this.addressTenantElementRef.nativeElement, {  types: ["address"], componentRestrictions: {country: 'US'} });
+            autocompleteTenant.addListener("place_changed", () => {
+                let placeTenant: google.maps.places.PlaceResult = autocompleteTenant.getPlace();
+                //set latitude, longitude and zoom
+                this.tenantUserProfile.addressLocation.latitude = placeTenant.geometry.location.lat();
+                this.tenantUserProfile.addressLocation.longitude = placeTenant.geometry.location.lng();
+                this.tenantUserProfile.addressLocation.zoom = 12;
+
+                //Autocomplete address1, city, status and zip code
+                let route =  this.getAddressComponents(placeTenant.address_components, "route");
+                let street =  this.getAddressComponents(placeTenant.address_components, "street_number");
+                let premise =  this.getAddressComponents(placeTenant.address_components, "premise");
+                let city = this.getAddressComponents(placeTenant.address_components, "locality");
+                let state = this.getAddressComponents(placeTenant.address_components, "administrative_area_level_1");
+                let zip = this.getAddressComponents(placeTenant.address_components, "postal_code");
+
+                let addressName = "";
+                if ( street !== undefined && street !== null )
+                {
+                    addressName = street + ", ";
+                }
+
+                if (route !== undefined && route !== null)
+                {
+                    addressName += route;
+                }
+
+                if (premise !== undefined && premise !== null)
+                {
+                    addressName += addressName !== "" ? ", " + premise : premise;
+                }
+
+                this.tenantUserProfile.address1 = addressName !== "" ? addressName : "";
+                this.tenantSearchControl.setValue(addressName !== "" ? addressName : "");
+                this.tenantUserProfile.city = city !== undefined && city !== null ? city : "";
+                this.tenantUserProfile.countryState = state !== undefined && state !== null ? this.getStateByName(state) : {};
+                this.tenantUserProfile.zip = zip !== undefined && zip !== null ? zip : "";
+
+                addPermitWizard.changeAttr("#address1Tenant","validAddress", "true");
+                setTimeout(()=> {
+                    addPermitWizard.refreshSelectpicker("#tenantState");
                 }, 200);
             });
 
@@ -238,7 +291,8 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             .subscribe((data)=> {
                     this.listStates = data.json().data;
                     setTimeout(()=> {
-                        addPermitWizard.initSelects('#ownerTenantState');
+                        addPermitWizard.initSelects('#ownerState');
+                        addPermitWizard.initSelects('#tenantState');
                         addPermitWizard.initSelects('#contractorState');
                         addPermitWizard.initSelects('#architectState');
                     }, 2000);
@@ -258,12 +312,19 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
 
     onAddressBlur(e)
     {
-        if (e.target.name == "address1") {
-            if (e.target.value == this.ownerTenantUserProfile.address1) {
-                addPermitWizard.changeAttr("#address1", "validAddress", "true");
+        if (e.target.name == "address1Owner") {
+            if (e.target.value == this.ownerUserProfile.address1) {
+                addPermitWizard.changeAttr("#address1Owner", "validAddress", "true");
             }
             else {
-                addPermitWizard.changeAttr("#address1", "validAddress", "false");
+                addPermitWizard.changeAttr("#address1Owner", "validAddress", "false");
+            }
+        }else if (e.target.name == "address1Tenant") {
+            if (e.target.value == this.tenantUserProfile.address1) {
+                addPermitWizard.changeAttr("#address1Tenant", "validAddress", "true");
+            }
+            else {
+                addPermitWizard.changeAttr("#address1Tenant", "validAddress", "false");
             }
         }
         else if (e.target.name == "address1_contractor")
@@ -291,9 +352,15 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
 
             if ( e.target.name == "applyinf")
             {
-                this.ownerTenantUserProfile.firstname =this.user.fullname.split(/\s(.+)/)[0];
-                this.ownerTenantUserProfile.lastname =this.user.fullname.split(/\s(.+)/)[1];
-                this.ownerTenantUserProfile.email =this.user.username;
+                this.ownerUserProfile.firstname =this.user.fullname.split(/\s(.+)/)[0];
+                this.ownerUserProfile.lastname =this.user.fullname.split(/\s(.+)/)[1];
+                this.ownerUserProfile.email =this.user.username;
+            }
+            else if ( e.target.name == "applyinfTenant")
+            {
+                this.tenantUserProfile.firstname =this.user.fullname.split(/\s(.+)/)[0];
+                this.tenantUserProfile.lastname =this.user.fullname.split(/\s(.+)/)[1];
+                this.tenantUserProfile.email =this.user.username;
             }
             else if (e.target.name == "applyinf2")
             {
@@ -311,9 +378,15 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         {
             if ( e.target.name == "applyinf")
             {
-                this.ownerTenantUserProfile.firstname ="";
-                this.ownerTenantUserProfile.lastname ="";
-                this.ownerTenantUserProfile.email ="";
+                this.ownerUserProfile.firstname ="";
+                this.ownerUserProfile.lastname ="";
+                this.ownerUserProfile.email ="";
+            }
+            else if ( e.target.name == "applyinfTenant")
+            {
+                this.tenantUserProfile.firstname = "";
+                this.tenantUserProfile.lastname = "";
+                this.tenantUserProfile.email = "";
             }
             else if (e.target.name == "applyinf2")
             {
@@ -333,7 +406,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     changeOwner(e) {
 
         if(e.target.checked){
-            this.contractorUserProfile = this.ownerTenantUserProfile;
+            this.contractorUserProfile = this.ownerUserProfile;
             this.myStep_disabled = true;
         }else
         {
@@ -349,20 +422,24 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     saveWizard(){
         if ( this.agree ) {
             this.block(true);
-            this.ownerTenantUserProfile.name = this.ownerTenantUserProfile.firstname + ' ' + this.ownerTenantUserProfile.lastname;
+            this.ownerUserProfile.name = this.ownerUserProfile.firstname + ' ' + this.ownerUserProfile.lastname;
+            this.tenantUserProfile.name = this.tenantUserProfile.firstname + ' ' + this.tenantUserProfile.lastname;
             this.contractorUserProfile.name = this.contractorUserProfile.firstname + ' ' + this.contractorUserProfile.lastname;
             this.architectUserProfile.name = this.architectUserProfile.firstname + ' ' + this.architectUserProfile.lastname;
             this.permitProfile.type = this.selectedPermitType.id;
             this.permitProfile.typeOfImprovement = this.selectedPermitImprovementType.id;
-            this.ownerTenantUserProfile.state = this.ownerTenantUserProfile.countryState.id;
+            this.ownerUserProfile.state = this.ownerUserProfile.countryState.id;
+            this.tenantUserProfile.state = this.tenantUserProfile.countryState.id;
             this.contractorUserProfile.state = this.contractorUserProfile.countryState.id;
             this.architectUserProfile.state = this.architectUserProfile.countryState.id;
-            this._permitService.create(this.ownerTenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
+            this._permitService.create(this.ownerUserProfile,this.tenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
                 (data: Response) => {
                     let response = data.json();
                     if (response.success) {
-                        this.ownerTenantUserProfile = {};
-                        this.contractorUserProfile = {};
+                        this.ownerUserProfile = {countryState:{}, addressLocation: {}};
+                        this.tenantUserProfile = {countryState:{}, addressLocation: {}};
+                        this.contractorUserProfile = {countryState:{}, addressLocation: {}};
+                        this.architectUserProfile ={countryState:{}, addressLocation: {}};
                         this.block(false);
                         this.showInfo("The permit has been created successfull");
                         this._router.navigate(['index']);
@@ -379,12 +456,22 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         }
     }
 
-    private setCurrentPositionOwnerTenant() {
+    private setCurrentPositionOwner() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
-                this.ownerTenantUserProfile.addressLocation.latitude = position.coords.latitude;
-                this.ownerTenantUserProfile.addressLocation.longitude = position.coords.longitude;
-                this.ownerTenantUserProfile.addressLocation.zoom = 12;
+                this.ownerUserProfile.addressLocation.latitude = position.coords.latitude;
+                this.ownerUserProfile.addressLocation.longitude = position.coords.longitude;
+                this.ownerUserProfile.addressLocation.zoom = 12;
+            });
+        }
+    }
+
+    private setCurrentPositionTenant() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.tenantUserProfile.addressLocation.latitude = position.coords.latitude;
+                this.tenantUserProfile.addressLocation.longitude = position.coords.longitude;
+                this.tenantUserProfile.addressLocation.zoom = 12;
             });
         }
     }

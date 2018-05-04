@@ -36,19 +36,19 @@
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									1. Owner / Tenant - Information
+									1. Owner Information
 								</div>
 							</div>
 						</div>
-						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_2">
-							<a href="#" class="m-wizard__step-number">
+						<div class="m-wizard__step m-wizard__step--current"  data-wizard-target="#m_wizard_form_step_2">
+							<a href="#"  class="m-wizard__step-number">
 								<span>
 									<i class="fa  flaticon-placeholder"></i>
 								</span>
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									2. Contractor Information
+									2. Tenant Information
 								</div>
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									3. Permit Information
+									3. Contractor Information
 								</div>
 							</div>
 						</div>
@@ -72,11 +72,23 @@
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									4. Architect Information
+									4. Permit Information
 								</div>
 							</div>
 						</div>
 						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_5">
+							<a href="#" class="m-wizard__step-number">
+								<span>
+									<i class="fa  flaticon-placeholder"></i>
+								</span>
+							</a>
+							<div class="m-wizard__step-info">
+								<div class="m-wizard__step-title">
+									5. Architect Information
+								</div>
+							</div>
+						</div>
+						<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_6">
 							<a href="#" class="m-wizard__step-number">
 								<span>
 									<i class="fa  flaticon-layers"></i>
@@ -84,7 +96,7 @@
 							</a>
 							<div class="m-wizard__step-info">
 								<div class="m-wizard__step-title">
-									5. Confirmation
+									6. Confirmation
 								</div>
 							</div>
 						</div>
@@ -106,7 +118,7 @@
 									<div class="m-form__section m-form__section--first">
 										<div class="m-form__heading">
 											<h3 class="m-form__heading-title">
-												Owner / Tenant - Information
+												Owner Information
 											</h3>
 										</div>
 										<div class="form-group m-form__group row">
@@ -123,13 +135,13 @@
 												<label class="form-control-label">
 													* First Name:
 												</label>
-												<input type="text" name="first_name" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.firstname" #firstname="ngModel">
+												<input type="text" name="first_name" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.firstname" #firstname="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Last Name:
 												</label>
-												<input type="text" name="last_name" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.lastname" #lastname="ngModel">
+												<input type="text" name="last_name" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.lastname" #lastname="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -137,7 +149,7 @@
 												<label class="form-control-label">
 													* Email:
 												</label>
-												<input type="text" name="email" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.email" #email="ngModel">
+												<input type="text" name="email" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.email" #email="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
@@ -150,7 +162,7 @@
 																		<i class="la la-phone"></i>
 																	</span>
 														</div>
-														<input type="text" name="phone" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.phoneNumber" #phoneNumber="ngModel">
+														<input type="text" name="phone" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.phoneNumber" #phoneNumber="ngModel">
 													</div>
 												</div>
 											</div>
@@ -168,20 +180,20 @@
 														<div class="m-dropdown__wrapper">
 															<span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
 															<div class="m-dropdown__inner">
-																<agm-map class="m-dropdown__wrapper" name="mapOwnerTenant" [latitude]="ownerTenantUserProfile.addressLocation.latitude" [longitude]="ownerTenantUserProfile.addressLocation.longitude" [scrollwheel]="false" [zoom]="ownerTenantUserProfile.addressLocation.zoom" style="height: 300px; width: 500px;">
-																	<agm-marker [latitude]="ownerTenantUserProfile.addressLocation.latitude" [longitude]="ownerTenantUserProfile.addressLocation.longitude"></agm-marker>
+																<agm-map class="m-dropdown__wrapper" name="mapOwner" [latitude]="ownerUserProfile.addressLocation.latitude" [longitude]="ownerUserProfile.addressLocation.longitude" [scrollwheel]="false" [zoom]="ownerUserProfile.addressLocation.zoom" style="height: 300px; width: 500px;">
+																	<agm-marker [latitude]="ownerUserProfile.addressLocation.latitude" [longitude]="ownerUserProfile.addressLocation.longitude"></agm-marker>
 																</agm-map>
 															</div>
 														</div>
 													</div>
-													<input [attr.validAddress]="false" placeholder="" type="text" id="address1" name="address1" class="form-control m-input" [formControl]="ownerTenantSearchControl" #addressOwnerTenant (blur)="onAddressBlur($event)" >
+													<input [attr.validAddress]="false" placeholder="" type="text" id="address1Owner" name="address1" class="form-control m-input" [formControl]="ownerSearchControl" #addressOwner (blur)="onAddressBlur($event)" >
 												</div>
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Address 2:
 												</label>
-												<input type="text" name="address2" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.address2" #address2="ngModel">
+												<input type="text" name="address2" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.address2" #address2="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -189,13 +201,13 @@
 												<label class="form-control-label">
 													* City:
 												</label>
-												<input type="text" name="city" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.city" #city="ngModel">
+												<input type="text" name="city" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.city" #city="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub select_element">
 												<label class="form-control-label">
 													* State:
 												</label>
-												<select class="form-control m-bootstrap-select" id="ownerTenantState" [(ngModel)]="ownerTenantUserProfile.countryState" #countryState="ngModel" name="state" title="-- Select an Option --">
+												<select class="form-control m-bootstrap-select" id="ownerState" [(ngModel)]="ownerUserProfile.countryState" #countryState="ngModel" name="state" title="-- Select an Option --">
 													<option *ngFor="let state of listStates" [ngValue]="state">{{state.name}}</option>
 												</select>
 											</div>
@@ -205,13 +217,13 @@
 												<label class="form-control-label">
 													* Zip Code:
 												</label>
-												<input type="text" name="zipcode" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.zip" #zip="ngModel">
+												<input type="text" name="zipcode" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.zip" #zip="ngModel">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">
 													* Driver Lic Number/ID:
 												</label>
-												<input type="text" name="driverlic" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerTenantUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+												<input type="text" name="driverlic" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="ownerUserProfile.driverLicOrId" #driverLicOrId="ngModel">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -228,7 +240,127 @@
 							</div>
 						</div>
 						<!--end: Form Wizard Step 1-->                     <!--begin: Form Wizard Step 2-->
-						<div class="m-wizard__form-step" id="m_wizard_form_step_2">
+						<div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_2">
+							<ng-template #alertPermit></ng-template>
+							<div class="row">
+								<div class="col-xl-10 offset-xl-1">
+									<div class="m-form__section m-form__section--first">
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">
+												Tenant Information
+											</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+													<input type="checkbox" name="applyinfTenant" value="" (change)="showProfile($event)">
+													Apply same information of the profile
+													<span></span>
+												</label>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* First Name:
+												</label>
+												<input type="text" name="first_name_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.firstname" #firstname="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Last Name:
+												</label>
+												<input type="text" name="last_name_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.lastname" #lastname="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Email:
+												</label>
+												<input type="text" name="email_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.email" #email="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Phone:
+												</label>
+												<div class="">
+													<div class="input-group">
+														<div class="input-group-prepend">
+																	<span class="input-group-text">
+																		<i class="la la-phone"></i>
+																	</span>
+														</div>
+														<input type="text" name="phone_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.phoneNumber" #phoneNumber="ngModel">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Address 1:
+												</label>
+												<div class="input-group">
+													<div class="input-group-prepend m-dropdown m-dropdown--inline  m-dropdown--arrow" data-dropdown-toggle="click">
+															<span class="input-group-text m-dropdown__toggle" style="height: 100%; cursor: pointer;">
+																<i class="la la-map-marker"></i>
+															</span>
+														<div class="m-dropdown__wrapper">
+															<span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+															<div class="m-dropdown__inner">
+																<agm-map class="m-dropdown__wrapper" name="mapTenant" [latitude]="tenantUserProfile.addressLocation.latitude" [longitude]="tenantUserProfile.addressLocation.longitude" [scrollwheel]="false" [zoom]="tenantUserProfile.addressLocation.zoom" style="height: 300px; width: 500px;">
+																	<agm-marker [latitude]="tenantUserProfile.addressLocation.latitude" [longitude]="tenantUserProfile.addressLocation.longitude"></agm-marker>
+																</agm-map>
+															</div>
+														</div>
+													</div>
+													<input [attr.validAddress]="false" placeholder="" type="text" id="address1Tenant" name="address1_tenant" class="form-control m-input" [formControl]="tenantSearchControl" #addressTenant (blur)="onAddressBlur($event)" >
+												</div>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Address 2:
+												</label>
+												<input type="text" name="address2_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.address2" #address2="ngModel">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* City:
+												</label>
+												<input type="text" name="city_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.city" #city="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub select_element">
+												<label class="form-control-label">
+													* State:
+												</label>
+												<select class="form-control m-bootstrap-select" id="tenantState" [(ngModel)]="tenantUserProfile.countryState" #countryState="ngModel" name="state_tenant" title="-- Select an Option --">
+													<option *ngFor="let state of listStates" [ngValue]="state">{{state.name}}</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Zip Code:
+												</label>
+												<input type="text" name="zipcode_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.zip" #zip="ngModel">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">
+													* Driver Lic Number/ID:
+												</label>
+												<input type="text" name="driverlic_tenant" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="tenantUserProfile.driverLicOrId" #driverLicOrId="ngModel">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end: Form Wizard Step 2-->                     <!--begin: Form Wizard Step 3-->
+						<div class="m-wizard__form-step" id="m_wizard_form_step_3">
 							<ng-template #alertPermit></ng-template>
 							<div class="row">
 								<div class="col-xl-10 offset-xl-1">
@@ -345,19 +477,19 @@
 												</label>
 												<input type="text" name="zipcode_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.zip" #zip="ngModel" disabled="{{myStep_disabled}}">
 											</div>
-                                            <div class="col-lg-6 m-form__group-sub" [style.visibility]="!myStep_disabled ? 'visible' : 'hidden'">
-                                                <label class="form-control-label">
-                                                    * License Number:
-                                                </label>
-                                                <input type="text" name="driverlic_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.licenseNumber" #licenseNumber="ngModel" disabled="{{myStep_disabled}}">
-                                            </div>
+											<div class="col-lg-6 m-form__group-sub" [style.visibility]="!myStep_disabled ? 'visible' : 'hidden'">
+												<label class="form-control-label">
+													* License Number:
+												</label>
+												<input type="text" name="driverlic_contractor" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="contractorUserProfile.licenseNumber" #licenseNumber="ngModel" disabled="{{myStep_disabled}}">
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!--end: Form Wizard Step 2-->                     <!--begin: Form Wizard Step 3-->
-						<div class="m-wizard__form-step" id="m_wizard_form_step_3">
+						<!--end: Form Wizard Step 3-->                     <!--begin: Form Wizard Step 4-->
+						<div class="m-wizard__form-step" id="m_wizard_form_step_4">
 							<ng-template #alertPermit></ng-template>
 							<div class="row">
 								<div class="col-xl-10 offset-xl-1">
@@ -474,8 +606,8 @@
 								</div>
 							</div>
 						</div>
-						<!--end: Form Wizard Step 3-->                     <!--begin: Form Wizard Step 4-->
-						<div class="m-wizard__form-step" id="m_wizard_form_step_4">
+						<!--end: Form Wizard Step 4-->                     <!--begin: Form Wizard Step 5-->
+						<div class="m-wizard__form-step" id="m_wizard_form_step_5">
 							<ng-template #alertPermit></ng-template>
 							<div class="row">
 								<div class="col-xl-10 offset-xl-1">
@@ -594,30 +726,35 @@
 								</div>
 							</div>
 						</div>
-						<!--end: Form Wizard Step 4-->                      <!--begin: Form Wizard Step 5-->
-						<div class="m-wizard__form-step" id="m_wizard_form_step_5">
+						<!--end: Form Wizard Step 5-->                      <!--begin: Form Wizard Step 6-->
+						<div class="m-wizard__form-step" id="m_wizard_form_step_6">
 							<div class="row">
-								<div class="col-xl-10 offset-xl-2">
+								<div class="col-xl-10 offset-xl-1">
 									<!--begin::Section-->
 									<ul class="nav nav-tabs m-tabs-line--2x m-tabs-line m-tabs-line--danger" role="tablist">
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_form_confirm_1" role="tab">
-												1. Owner / Tenant - Information
+												1. Owner Information
 											</a>
 										</li>
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_2" role="tab">
-												2. Contractor Information
+												2. Tenant Information
 											</a>
 										</li>
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_3" role="tab">
-												3. Permit Information
+												3. Contractor Information
 											</a>
 										</li>
 										<li class="nav-item m-tabs__item">
 											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_4" role="tab">
-												4. Architect Information
+												4. Permit Information
+											</a>
+										</li>
+										<li class="nav-item m-tabs__item">
+											<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_5" role="tab">
+												5. Architect Information
 											</a>
 										</li>
 									</ul>
@@ -626,7 +763,7 @@
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
-														Owner / Tenant - Information
+														Owner Information
 													</h4>
 												</div>
 												<div class="form-group m-form__group m-form__group--sm row">
@@ -635,7 +772,7 @@
 															* First Name:
 														</label>
 														<span class="m-form__control-static">
-															{{ ownerTenantUserProfile.firstname }}
+															{{ ownerUserProfile.firstname }}
 														</span>
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
@@ -643,7 +780,7 @@
 															* Last Name:
 														</label>
 														<span class="m-form__control-static">
-																{{ ownerTenantUserProfile.lastname }}
+																{{ ownerUserProfile.lastname }}
 														</span>
 													</div>
 												</div>
@@ -653,7 +790,7 @@
 															* Email:
 														</label>
 														<span class="m-form__control-static">
-																{{ ownerTenantUserProfile.email }}
+																{{ ownerUserProfile.email }}
 														</span>
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
@@ -661,7 +798,7 @@
 															* Phone:
 														</label>
 														<span class="m-form__control-static">
-															<i class="la la-phone">{{ ownerTenantUserProfile.phoneNumber }}</i>
+															<i class="la la-phone">{{ ownerUserProfile.phoneNumber }}</i>
 
 														</span>
 													</div>
@@ -672,7 +809,7 @@
 															* Address 1:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.address1 }}
+																		{{ ownerUserProfile.address1 }}
 																</span>
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
@@ -680,7 +817,7 @@
 															* Address 2:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.address2 }}
+																		{{ ownerUserProfile.address2 }}
 																</span>
 													</div>
 												</div>
@@ -690,7 +827,7 @@
 															* City:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.city }}
+																		{{ ownerUserProfile.city }}
 																</span>
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
@@ -698,7 +835,7 @@
 															* State:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.countryState.name }}
+																		{{ ownerUserProfile.countryState.name }}
 																</span>
 													</div>
 												</div>
@@ -708,7 +845,7 @@
 															* Zip Code:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.zip }}
+																		{{ ownerUserProfile.zip }}
 																</span>
 													</div>
 													<div class="col-lg-6 m-form__group-sub">
@@ -716,7 +853,7 @@
 															* Driver Lic Number/ID:
 														</label>
 														<span class="m-form__control-static">
-																		{{ ownerTenantUserProfile.driverLicOrId }}
+																		{{ ownerUserProfile.driverLicOrId }}
 																</span>
 													</div>
 												</div>
@@ -736,7 +873,109 @@
 
 											</div>
 										</div>
+
 										<div class="tab-pane" id="m_form_confirm_2" role="tabpanel">
+											<div class="m-form__section m-form__section--first">
+												<div class="m-form__heading">
+													<h4 class="m-form__heading-title">
+														Tenant Information
+													</h4>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* First Name:
+														</label>
+														<span class="m-form__control-static">
+															{{ tenantUserProfile.firstname }}
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Last Name:
+														</label>
+														<span class="m-form__control-static">
+																{{ tenantUserProfile.lastname }}
+														</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Email:
+														</label>
+														<span class="m-form__control-static">
+																{{ tenantUserProfile.email }}
+														</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Phone:
+														</label>
+														<span class="m-form__control-static">
+															<i class="la la-phone">{{ tenantUserProfile.phoneNumber }}</i>
+
+														</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 1:
+														</label>
+														<span class="m-form__control-static">
+																		{{ tenantUserProfile.address1 }}
+																</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Address 2:
+														</label>
+														<span class="m-form__control-static">
+																		{{ tenantUserProfile.address2 }}
+																</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* City:
+														</label>
+														<span class="m-form__control-static">
+																		{{ tenantUserProfile.city }}
+																</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* State:
+														</label>
+														<span class="m-form__control-static">
+																		{{ tenantUserProfile.countryState.name }}
+																</span>
+													</div>
+												</div>
+												<div class="form-group m-form__group m-form__group--sm row">
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Zip Code:
+														</label>
+														<span class="m-form__control-static">
+																		{{ tenantUserProfile.zip }}
+																</span>
+													</div>
+													<div class="col-lg-6 m-form__group-sub">
+														<label class="form-control-label">
+															* Driver Lic Number/ID:
+														</label>
+														<span class="m-form__control-static">
+																		{{ tenantUserProfile.driverLicOrId }}
+																</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="m_form_confirm_3" role="tabpanel">
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
@@ -825,18 +1064,19 @@
 																			{{ contractorUserProfile.zip }}
 																	</span>
 													</div>
-                                                    <div class="col-lg-6 m-form__group-sub" [hidden]="myStep_disabled">
-                                                        <label class="form-control-label">
-                                                            * License Number:
-                                                        </label>
-                                                        <span class="m-form__control-static">
+													<div class="col-lg-6 m-form__group-sub" [hidden]="myStep_disabled">
+														<label class="form-control-label">
+															* License Number:
+														</label>
+														<span class="m-form__control-static">
                                                             {{ contractorUserProfile.licenseNumber }}
                                                         </span>
-                                                    </div>
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="tab-pane" id="m_form_confirm_3" role="tabpanel">
+
+										<div class="tab-pane" id="m_form_confirm_4" role="tabpanel">
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
@@ -972,7 +1212,7 @@
 											</div>
 										</div>
 
-										<div class="tab-pane" id="m_form_confirm_4" role="tabpanel">
+										<div class="tab-pane" id="m_form_confirm_5" role="tabpanel">
 											<div class="m-form__section m-form__section--first">
 												<div class="m-form__heading">
 													<h4 class="m-form__heading-title">
@@ -1089,7 +1329,7 @@
 								</div>
 							</div>
 						</div>
-						<!--end: Form Wizard Step 3-->
+						<!--end: Form Wizard Step 6-->
 					</div>
 					<!--end: Form Body -->                 <!--begin: Form Actions -->
 					<div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
