@@ -23,11 +23,13 @@ export class LogoutComponent implements OnInit {
 			{
 				sessionStorage.removeItem("apiKey");
 				sessionStorage.removeItem("user");
+				Helpers.setLoading(false,true);
 				this._router.navigate(['/login']);
 			},
 			error => {
 				sessionStorage.removeItem("apiKey");
 				sessionStorage.removeItem("user");
+				Helpers.setLoading(false,true);
 				this._router.navigate(['/login']);
 			}
 		);

@@ -44,13 +44,16 @@ export class RecoverComponet implements OnInit {
       (data:Response) =>{
         let response = data.json();
         if (response.success) {
+          Helpers.setLoading(false, true);
           this._router.navigate(['/user/recover'], { queryParams: { token: this.token } });
         } else {
+          Helpers.setLoading(false, true);
           this._router.navigate(['/login'] , { queryParams: { error: response.error } });
         }
       },
       error => {
         this.showAlert('alertSignin');
+        Helpers.setLoading(false, true);
         this._alertService.error(error);
         this.loading = false;
       }
@@ -60,20 +63,18 @@ export class RecoverComponet implements OnInit {
       'assets/demo/demo3/base/scripts.bundle.js'
     ], true).then(() => {
       RecoverCustom.init();
-      Helpers.setLoading(false);
-
     });
   }
 
   ngAfterViewInit(): void {
-    this._script.loadScripts('body',
-      ['assets/demo/custom/components/forms/widgets/bootstrap-select.js']);
   }
 
   setRecoverPassword(){
+    Helpers.setLoading(true);
     this._userService.userRecover(this.token, this.model.password, this.model.rpassword).subscribe(
       (data:Response) =>{
         let response = data.json();
+        Helpers.setLoading(false,true);
         if (response.success) {
           this._router.navigate(['/login'], { queryParams: { success:"The password has been successfully recovered" }});
         } else {
@@ -81,13 +82,12 @@ export class RecoverComponet implements OnInit {
           this._alertService.error(response.error);
           this.loading = false;
         }
-        Helpers.setLoading(false);
       },
       error => {
         this.showAlert('alertSignin');
         this._alertService.error(error);
         this.loading = false;
-        Helpers.setLoading(false);
+        Helpers.setLoading(false, true);
       }
     );
   }

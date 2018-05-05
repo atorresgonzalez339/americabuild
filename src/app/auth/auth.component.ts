@@ -104,20 +104,22 @@ export class AuthComponent implements OnInit , AfterViewInit{
             this._alertService.error(error);
           }
       );
-      Helpers.setLoading(false);
+      Helpers.setLoading(false, true);
     });
 
   }
 
   ngAfterViewInit(): void {
-  }
+}
 
   signin() {
+    Helpers.setLoading(true);
     this.loading = true;
     this._authService.login(this.model.email, this.model.password).subscribe(
         (data: Response) => {
           this.loading = false;
           let response = data.json();
+          Helpers.setLoading(false);
           if (response.success) {
             sessionStorage.setItem('apiKey', response.token);
             this._router.navigate([this.returnUrl]);
@@ -128,14 +130,15 @@ export class AuthComponent implements OnInit , AfterViewInit{
           }
         },
         error => {
+          Helpers.setLoading(false);
           this.showAlert('alertSignin');
           this._alertService.error(error);
           this.loading = false;
         });
-
   }
 
   signup() {
+    Helpers.setLoading(true);
     this.loading = true;
     this._userService.create(this.model).subscribe(
         (data: Response) => {
@@ -158,16 +161,19 @@ export class AuthComponent implements OnInit , AfterViewInit{
             this._alertService.error(response.error);
             this.loading = false;
           }
+          Helpers.setLoading(false);
         },
         error => {
           this.showAlert('alertSignup');
           this._alertService.error(error);
           this.loading = false;
+          Helpers.setLoading(false);
         });
   }
 
 
   forgotPass() {
+    Helpers.setLoading(true);
     this.loading = true;
     this._userService.forgotPassword(this.model.email).subscribe(
         (data: Response) => {
@@ -186,11 +192,13 @@ export class AuthComponent implements OnInit , AfterViewInit{
             this._alertService.error(response.error);
             this.loading = false;
           }
+          Helpers.setLoading(false);
         },
         error => {
           this.showAlert('alertForgotPass');
           this._alertService.error(error);
           this.loading = false;
+          Helpers.setLoading(false);
         });
   }
 
