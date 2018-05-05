@@ -82,6 +82,41 @@ var addPermitWizard = function () {
                     required: true
                 },
 
+                //== Tenant information
+                first_name_tenant: {
+                    required: true
+                },
+                last_name_tenant: {
+                    required: true
+                },
+                email_tenant: {
+                    required: true,
+                    email: true
+                },
+                phone_tenant: {
+                    required: true,
+                    phoneUS: true
+                },
+                address1_tenant: {
+                    required: true,
+                    addressUS: true
+                },
+                address2_tenant: {
+                    required: true
+                },
+                city_tenant: {
+                    required: true
+                },
+                state_tenant: {
+                    required: true
+                },
+                zipcode_tenant: {
+                    required: true
+                },
+                driverlic_tenant: {
+                    required: true
+                },
+
                 //== Contractor information
                 first_name_contractor: {
                     required: true
