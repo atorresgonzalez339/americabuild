@@ -1,6 +1,7 @@
 import {OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Response} from "@angular/http";
+import {Helpers} from "../../../.././helpers";
 declare var toastr: any;
 declare var mApp: any;
 
@@ -22,6 +23,7 @@ export class BaseComponent implements OnInit {
 			if ( data.code === 403 )
 			{
 				this.showError(data.error);
+				this.block(false, true);
 				this._router.navigate(['logout']);
 			}
 			else
@@ -78,16 +80,8 @@ export class BaseComponent implements OnInit {
 		return toastr;
 	}
 
-	block(enable)
+	block(enable, forceUnblock = false)
 	{
-		if ( enable)
-		{
-			mApp.block('body', {message:"Please wait..."});
-		}
-		else
-		{
-			mApp.unblock('body');
-		}
-
+		Helpers.setLoading(enable,forceUnblock)
 	}
 }

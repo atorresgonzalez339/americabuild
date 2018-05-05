@@ -22,33 +22,35 @@ export class ThemeComponent extends  BaseComponent implements OnInit {
 	}
 
 	ngOnInit()  {
-		Helpers.setLoading(false);
+		Helpers.setLoading(true);
 		this._userService.userInformation().subscribe(
 			(data:Response) =>{
 				let response = data.json();
 				if (response.success) {
 					sessionStorage.setItem('user',JSON.stringify(response.data));
+					Helpers.setLoading(false);
 				}else{
+					Helpers.setLoading(false);
 					this._router.navigate(['/login'] , { queryParams: { error: response.error } });
 				}
 			},
 			error => {
+				Helpers.setLoading(false);
 				this._router.navigate(['/login'] , { queryParams: { error:error } });
 			}
 		);
 
 		this._script.loadScripts('body', ['assets/vendors/base/vendors.bundle.js','assets/demo/demo3/base/scripts.bundle.js'], true)
             .then(result => {
-				Helpers.setLoading(false);
 				// optional js to be loaded once
 				this._script.loadScripts('head', ['assets/vendors/custom/fullcalendar/fullcalendar.bundle.js'], true);
 			});
 		this._router.events.subscribe((route) => {
 			if (route instanceof NavigationStart) {
+				Helpers.setLoading(true);
 				(<any>mLayout).closeMobileAsideMenuOffcanvas();
 				(<any>mLayout).closeMobileHorMenuOffcanvas();
 				(<any>mApp).scrollTop();
-				this.block(true);
 				// hide visible popover
 				(<any>$('[data-toggle="m-popover"]')).popover('hide');
 			}
@@ -56,7 +58,7 @@ export class ThemeComponent extends  BaseComponent implements OnInit {
 				// init required js
 				(<any>mApp).init();
 				(<any>mUtil).init();
-				this.block(false);
+				Helpers.setLoading(false);
 				// content m-wrapper animation
 				let animation = 'm-animate-fade-in-up';
 				$('.m-wrapper').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function (e) {

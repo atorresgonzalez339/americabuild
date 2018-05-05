@@ -49,12 +49,28 @@ export class Helpers {
 		$('.m-subheader .m-stack__item:first-child').append(ul);
 	}
 
-	static setLoading(enable) {
-		let body = $('body');
+	static setLoading(enable, forceUnblock = false) {
+		let block = $('#blockPage');
 		if (enable) {
-			$(body).addClass('m-page--loading-non-block')
+			let count = parseInt($(block).attr("count"));
+			$(block).addClass('loading-block-ui');
+			$(block).attr("count", ++count );
 		} else {
-			$(body).removeClass('m-page--loading-non-block')
+			let count = parseInt($(block).attr("count"));
+			if ( forceUnblock )
+			{
+				count = 0;
+			}
+			count--;
+			if ( count > 0 )
+			{
+				$(block).attr("count", count );
+			}
+			else
+			{
+				$(block).attr("count", 0 );
+				$(block).removeClass('loading-block-ui');
+			}
 		}
 	}
 	
