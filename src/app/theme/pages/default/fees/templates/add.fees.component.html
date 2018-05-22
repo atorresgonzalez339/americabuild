@@ -1,0 +1,64 @@
+<div class="m-content">
+  <div class="m-portlet m-portlet--tab">
+  <div class="m-portlet__head">
+    <div class="m-portlet__head-caption">
+      <div class="m-portlet__head-title" >
+          <span class="m-portlet__head-icon m--hide">
+              <i class="la la-gear"></i>
+            </span>
+          <h3 class="m-portlet__head-text" *ngIf="isAdd"> Create Fees Item </h3>
+          <h3 class="m-portlet__head-text" *ngIf="!isAdd"> Update Fees Item </h3>
+      </div>
+    </div>
+  </div>
+  <!--begin::Form-->
+  <form id="addFeesForm" (ngSubmit)="submitFees()" class="m-form m-form--fit m-form--label-align-left">
+    <div class="m-portlet__body">
+      <div class="row">
+        <div class="col-lg-9 offset-lg-1">
+            <div class="form-group m-form__group row">
+              <label class="col-xl-3 col-lg-3 col-form-label">
+                * Description:
+              </label>
+              <div class="col-xl-9 col-lg-9">
+                <input type="text" class="form-control m-input" autocomplete="off" name="description" [(ngModel)]="fees.description" #description="ngModel">
+              </div>
+            </div>
+          <div class="m-form__group select_element m--margin-top-30 row" >
+            <label class="col-xl-3 col-lg-3 col-form-label">
+              * Permit Type:
+            </label>
+            <div class="col-xl-9 col-lg-9">
+              <select id="type" class="form-control m-bootstrap-select"  [(ngModel)]="selectedPermitType" name="type" title="-- Select an Option --">
+                <option *ngFor="let pt of listPermitType" [ngValue]="pt">{{pt.name}}</option>
+              </select>
+            </div>
+          </div>
+        <div></div>
+      </div>
+      </div>
+      <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+        <div class="m-form__actions">
+          <div class="row">
+            <div class="col-lg-9 m--align-right offset-lg-1">
+              <button id="btn-submit" class="btn btn-primary m-btn m-btn--custom m-btn--icon">
+                <span>
+                    <i class="la la-check"></i>Accept
+                </span>
+              </button>
+              <a routerLink="/fees" class="btn btn btn-secondary m-btn m-btn--custom m-btn--icon">
+                  <span>
+                      Cancel
+                  </span>
+              </a>
+            </div>
+            <div class="col-lg-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+  <!--end::Form-->
+</div>
+</div>

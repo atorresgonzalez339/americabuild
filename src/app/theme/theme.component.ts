@@ -40,7 +40,7 @@ export class ThemeComponent extends  BaseComponent implements OnInit {
 			}
 		);
 
-		this._script.loadScripts('body', ['assets/vendors/base/vendors.bundle.js','assets/demo/demo3/base/scripts.bundle.js'], true)
+		this._script.loadScripts('body', ['assets/vendors/base/vendors.bundle.js','assets/demo/demo3/base/scripts.bundle.js','assets/js/components/bootstrap-select.js'], true)
             .then(result => {
 				// optional js to be loaded once
 				this._script.loadScripts('head', ['assets/vendors/custom/fullcalendar/fullcalendar.bundle.js'], true);
