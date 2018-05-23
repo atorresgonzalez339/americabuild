@@ -7,7 +7,9 @@ import { LayoutModule } from '../../../layouts/layout.module';
 import { DefaultComponent } from '../default.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataTableModule } from 'primeng/datatable';
-import {FeesService} from './_services/index'
+import {FeesService, CompanyFeesService} from './_services/index'
+import {CompanyFeesComponent} from './company.fees.component';
+import {AddCompanyFeesComponent} from './add.company.fees.component';
 
 const routes: Routes = [
     {
@@ -26,6 +28,18 @@ const routes: Routes = [
                 'path': 'edit',
                 'component': AddFeesComponent
             },
+            {
+                'path': 'company-fees',
+                'component': CompanyFeesComponent
+            },
+            {
+                'path': 'company-fees/add',
+                'component': AddCompanyFeesComponent
+            },
+            {
+                'path': 'company-fees/edit',
+                'component': AddCompanyFeesComponent
+            }
         ]
     }
 ];
@@ -35,8 +49,10 @@ const routes: Routes = [
     ], exports: [ RouterModule
     ], declarations: [
         FeesComponent,
-        AddFeesComponent
-    ], providers: [FeesService]
+        AddFeesComponent,
+        CompanyFeesComponent,
+        AddCompanyFeesComponent
+    ], providers: [FeesService, CompanyFeesService]
 })
 export class FeesModule
 {
