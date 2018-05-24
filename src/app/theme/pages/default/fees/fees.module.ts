@@ -10,11 +10,22 @@ import {DataTableModule } from 'primeng/datatable';
 import {FeesService, CompanyFeesService} from './_services/index'
 import {CompanyFeesComponent} from './company.fees.component';
 import {AddCompanyFeesComponent} from './add.company.fees.component';
+import { NgxPermissionsGuard } from 'ngx-permissions';
+import {Helpers} from "../../../.././helpers";
 
 const routes: Routes = [
     {
         'path': '',
         'component': DefaultComponent,
+        'canActivate': [NgxPermissionsGuard],
+        'data': {
+            permissions: {
+                only: 'ROLE_ADMINISTRATOR',
+                redirectTo: () => {
+                    Helpers.setLoading(false, true);
+                    return '/denied';
+                }
+            }},
         'children': [
             {
                 'path': '',

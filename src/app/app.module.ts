@@ -15,7 +15,7 @@ import { RolesService } from "./theme/pages/default/roles/_services";
 import {CompanyService} from "./theme/pages/default/company/_services";
 import {FormsModule} from "@angular/forms";
 import { PermitService, PermitImprovementTypesService,PermitTypeService, StateService } from "./theme/pages/default/permit/_services";
-
+import { NgxPermissionsModule, NgxPermissionsGuard, NgxPermissionsStore, NgxPermissionsService, NgxRolesService, NgxRolesStore, NgxPermissionsConfigurationService, NgxPermissionsConfigurationStore} from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -23,15 +23,19 @@ import { PermitService, PermitImprovementTypesService,PermitTypeService, StateSe
     AppComponent
   ],
   imports: [
+
     LayoutModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ThemeRoutingModule,
-    AuthModule
+    AuthModule,
+    NgxPermissionsModule.forChild(),
   ],
-  providers: [ScriptLoaderService, CompanyService, RolesService, UserService, PermitService, PermitImprovementTypesService,PermitTypeService, StateService],
+  providers: [ScriptLoaderService, CompanyService, RolesService, UserService, PermitService, PermitImprovementTypesService,
+    NgxPermissionsService,
+    NgxPermissionsStore, NgxRolesService,NgxPermissionsGuard, NgxRolesStore, NgxPermissionsConfigurationService, NgxPermissionsConfigurationStore, PermitTypeService, StateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

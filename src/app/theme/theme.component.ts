@@ -3,7 +3,6 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Helpers } from '../helpers';
 import { ScriptLoaderService } from '../_services/script-loader.service';
 import {UserService} from "../auth/_services/index";
-import {Response} from "@angular/http";
 import {BaseComponent} from "./pages/default/base/base.component";
 
 declare let mApp: any;
@@ -22,24 +21,6 @@ export class ThemeComponent extends  BaseComponent implements OnInit {
 	}
 
 	ngOnInit()  {
-		Helpers.setLoading(true);
-		this._userService.userInformation().subscribe(
-			(data:Response) =>{
-				let response = data.json();
-				if (response.success) {
-					sessionStorage.setItem('user',JSON.stringify(response.data));
-					Helpers.setLoading(false);
-				}else{
-					Helpers.setLoading(false);
-					this._router.navigate(['/login'] , { queryParams: { error: response.error } });
-				}
-			},
-			error => {
-				Helpers.setLoading(false);
-				this._router.navigate(['/login'] , { queryParams: { error:error } });
-			}
-		);
-
 		this._script.loadScripts('body', ['assets/vendors/base/vendors.bundle.js','assets/demo/demo3/base/scripts.bundle.js','assets/js/components/bootstrap-select.js'], true)
             .then(result => {
 				// optional js to be loaded once

@@ -11,6 +11,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {HrefPreventDefaultDirective} from '../../_directives/href-prevent-default.directive';
 import {UnwrapTagDirective} from '../../_directives/unwrap-tag.directive';
+import {NgxPermissionsModule} from "ngx-permissions";
 
 @NgModule({
 	declarations: [
@@ -35,10 +36,14 @@ QuickSidebarComponent,
 ScrollTopComponent,
 TooltipsComponent,
 		HrefPreventDefaultDirective,
+		NgxPermissionsModule
 	],
 	imports: [
 		CommonModule,
 		RouterModule,
+		NgxPermissionsModule.forChild({
+			permissionsIsolate: false,
+			})
 	]
 })
 export class LayoutModule {

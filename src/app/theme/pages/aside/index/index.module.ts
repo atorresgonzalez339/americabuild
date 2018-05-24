@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { IndexComponent } from './index.component';
 import { LayoutModule } from '../../../layouts/layout.module';
-import { AsideComponent } from '../aside.component';
+import {DefaultComponent} from "../../default/default.component";
 
 const routes: Routes = [
     {
         "path": "",
-        "component": AsideComponent,
+        "component": DefaultComponent,
         "children": [
             {
                 "path": "",

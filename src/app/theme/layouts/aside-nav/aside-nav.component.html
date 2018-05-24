@@ -58,7 +58,7 @@
 					</ul>
 				</div>
 			</li>
-			<li class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true"  data-menu-submenu-toggle="hover">
+			<li  *ngxPermissionsOnly="['ROLE_ADMINISTRATOR']" class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<span class="m-menu__item-here"></span>
 					<i class="m-menu__link-icon flaticon-settings"></i>

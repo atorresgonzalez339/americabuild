@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import {Routes, RouterModule} from '@angular/router';
-import {AuthGuard} from "../auth/_guards/auth.guard";
-import {CompanyModule} from "./pages/default/company/company.module";
-import {PermitModule} from "./pages/default/permit/permit.module";
+import {AuthGuard} from "../auth/_guards";
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 const routes: Routes = [
     {
@@ -40,13 +39,18 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/default\/profile\/profile.module#ProfileModule"
             },
             {
+                "path": "denied",
+                "loadChildren": ".\/pages\/default\/access-denied\/access-denied.module#AccessDeniedModule"
+            },
+            {
                 "path": "404",
                 "loadChildren": ".\/pages\/default\/not-found\/not-found.module#NotFoundModule"
             },
             {
                 "path": "",
                 "redirectTo": "index",
-                "pathMatch": "full"
+                "pathMatch": "full",
+
             }
         ]
     },
@@ -58,7 +62,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    imports: [RouterModule.forChild(routes), NgxPermissionsModule.forChild({
+        permissionsIsolate: false})],
 })
 export class ThemeRoutingModule {}
