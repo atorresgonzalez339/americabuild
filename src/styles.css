@@ -132,3 +132,15 @@ p-dataTable .ui-datatable-emptymessage-row
   text-align: center;
 }
 
+.m-wizard.m-wizard--3 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info .m-wizard__step-line > span {
+  width: 1rem !important;
+}
+
+.m-wizard.m-wizard--3 .m-wizard__form {
+  padding: 0rem 2rem 3rem 2rem;
+}
+
+.m-wizard.m-wizard--3 .m-wizard__head {
+  padding: 2.8rem 4rem;
+}
+
