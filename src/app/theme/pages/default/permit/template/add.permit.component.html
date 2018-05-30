@@ -116,7 +116,7 @@
 												<span></span>
 											</div>
 											<div class="m-wizard__step-label">
-												Architect Information
+												Permit Fees Information
 											</div>
 										</div>
 									</div>
@@ -126,6 +126,23 @@
 																	<span>
 																		<span>
 																			6
+																		</span>
+																	</span>
+											</a>
+											<div class="m-wizard__step-line">
+												<span></span>
+											</div>
+											<div class="m-wizard__step-label">
+												Architect Information
+											</div>
+										</div>
+									</div>
+									<div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_7">
+										<div class="m-wizard__step-info">
+											<a href="#" class="m-wizard__step-number">
+																	<span>
+																		<span>
+																			7
 																		</span>
 																	</span>
 											</a>
@@ -152,7 +169,7 @@
             -->
 							<form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
 								<!--begin: Form Body -->
-								<div class="m-portlet__body m-portlet__body--no-padding">
+								<div class="m-portlet__body m-portlet__body--no-padding" style="min-height: 450px;">
 									<!--begin: Form Wizard Step 1-->
 									<div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
 										<div class="row">
@@ -650,10 +667,84 @@
 									</div>
 									<!--end: Form Wizard Step 4-->
 									<!--begin: Form Wizard Step 5-->
-
+									<div class="m-wizard__form-step" id="m_wizard_form_step_5">
+										<div class="row">
+											<div class="col-xl-12" [formGroup]="invoiceForm">
+												<div class="m-form__section m-form__section--first">
+													<div class="m-form__heading">
+														<h3 class="m-form__heading-title">
+															Permit Fees Information
+														</h3>
+													</div>
+													<div formArrayName="itemRows">
+														<div *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+															<div class="form-group m-form__group row" style="padding-bottom: 15px; !important">
+																	<div class="col-lg-3 m-form__group-sub">
+																		<label class="form-control-label">
+																			* Permit Fees:
+																		</label>
+																		<div>
+																			<select id="{{'permit_fees_'+ i}}"  name="permit_fees" (change)='changeCompanyFeesById(i)' formControlName="permit_fees" class="form-control m-bootstrap-select fees-validation" title="-- Select an Option --">
+																				<option *ngFor="let pt of listCompanyFeesCombox[i]" [ngValue]="pt" >{{pt.feesCategory.description}}</option>
+																			</select>
+																		</div>
+																	</div>
+																	<div class="col-lg-2 m-form__group-sub">
+																		<label class="form-control-label">
+																			* Cost:
+																		</label>
+																		<input type="text" id="{{'cost'+ i}}" readonly name="cost" (change)="calXvalue()"  formControlName="cost" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
+																	</div>
+																	<div class="col-lg-2 m-form__group-sub">
+																		<label class="form-control-label">
+																			* Value:
+																		</label>
+																		<input type="text" id="{{'value_fees'+ i}}" name="value" (change)="calXcost()"  formControlName="value_fees" class="form-control m-input fees-validation" autocomplete="off" placeholder="" onkeydown="return ( event.ctrlKey || event.altKey
+																																																																							|| (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+																																																																							|| (95<event.keyCode && event.keyCode<106)
+																																																																							|| (event.keyCode==8) || (event.keyCode==9)
+																																																																							|| (event.keyCode>34 && event.keyCode<40)
+																																																																							|| (event.keyCode==190 && event.target.value.indexOf('.') == -1)
+																																																																							|| (event.keyCode==46) )">
+																	</div>
+																	<div class="col-lg-2 m-form__group-sub">
+																		<label class="form-control-label">
+																			* Total Cost:
+																		</label>
+																		<input type="text" id="{{'total_cost'+ i}}" readonly  name="total_cost" formControlName="total_cost" [ngModel]="itemrow.get('cost').value * itemrow.get('value_fees').value" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
+																	</div>
+																	<div *ngIf="listSelected.length < fullList.length && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">
+																		<button id="btn-submit-add" (click)="addNewRow()" style="padding: 10px;margin-top: 26px;" name="btn-submit-add" class="btn btn-primary m-btn m-btn--custom m-btn--icon">
+																			  <span>
+																				  <i class="la la-check"></i>Add more
+																			  </span>
+																		</button>
+																	</div>
+																	<div class="m-form__group-sub">
+																		<button *ngIf="invoiceForm.controls.itemRows.controls.length > 1" style="padding: 10px;margin-top: 26px;" (click)="deleteRow(i)" title="Delete" class="btn btn-danger btn-primary m-btn m-btn--custom m-btn--icon"><i class="la la-trash"></i></button>
+																	</div>
+																</div>
+														</div>
+													</div>
+												</div>
+												<div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+													<div class="col-lg-9 m--align-right offset-lg-1">
+														<div class="col-lg-6 m-form__group-sub" style="padding-top: 10px;">
+															<label class="form-control-label" style="font-weight: bold;">
+																Total Cost:
+															</label>
+															<span class="m-form__control-static" style="font-weight: bold;" >
+																					{{ totalcost }}
+																				  </span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 									<!--end: Form Wizard Step 5-->
 									<!--begin: Form Wizard Step 6-->
-									<div class="m-wizard__form-step" id="m_wizard_form_step_5">
+									<div class="m-wizard__form-step" id="m_wizard_form_step_6">
 										<div class="row">
 											<div class="col-xl-12">
 												<div class="m-form__section m-form__section--first">
@@ -773,7 +864,7 @@
 									</div>
 									<!--end: Form Wizard Step 6-->
 									<!--begin: Form Wizard Step 7-->
-									<div class="m-wizard__form-step" id="m_wizard_form_step_6">
+									<div class="m-wizard__form-step" id="m_wizard_form_step_7">
 										<div class="row">
 											<div class="col-xl-12">
 												<!--begin::Section-->
@@ -800,6 +891,11 @@
 													</li>
 													<li class="nav-item m-tabs__item">
 														<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_5" role="tab">
+															5. Permit Fees Information
+														</a>
+													</li>
+													<li class="nav-item m-tabs__item">
+														<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_6" role="tab">
 															6. Architect Information
 														</a>
 													</li>
@@ -1262,6 +1358,71 @@
 														<div class="m-form__section m-form__section--first">
 															<div class="m-form__heading">
 																<h4 class="m-form__heading-title">
+																	Permit Fees
+																</h4>
+															</div>
+															<div class="m-form m-form--fit m-form--label-align-left" [formGroup]="invoiceForm">
+																<div class="m-portlet__body" formArrayName="itemRows">
+																	<div class="col-xl-12" *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+																		<div class="m-form__section m-form__section--first">
+																			<div class="form-group m-form__group row">
+																				<div class="col-lg-3 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Permit Fees:
+																					</label>
+																					<span class="m-form__control-static">
+																									{{ itemrow.get('permit_fees').value == "" ? "" : itemrow.get('permit_fees').value.feesCategory.description }}
+																								</span>
+																				</div>
+																				<div class="col-lg-3 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Cost:
+																					</label>
+																					<span class="m-form__control-static">
+																									{{ itemrow.get('cost').value }}
+																								</span>
+																				</div>
+																				<div class="col-lg-3 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Value:
+																					</label>
+																					<span class="m-form__control-static">
+																									{{ itemrow.get('value_fees').value}}
+																								</span>
+																				</div>
+																				<div class="col-lg-3 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Total Cost:
+																					</label>
+																					<span class="m-form__control-static">
+																									{{ itemrow.get('total_cost').value}}
+																								</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+																	<div class="col-lg-9 m--align-right offset-lg-1">
+																		<div class="col-lg-6 m-form__group-sub">
+																			<label class="form-control-label">
+																				Total Cost:
+																			</label>
+																			<span class="m-form__control-static">
+																					{{ totalcost }}
+																				  </span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+
+													<div class="tab-pane" id="m_form_confirm_6" role="tabpanel">
+														<div class="m-form__section m-form__section--first">
+															<div class="m-form__heading">
+																<h4 class="m-form__heading-title">
 																	Architect Information
 																</h4>
 															</div>
@@ -1359,8 +1520,8 @@
 														</div>
 													</div>
 
-												</div>
-												<!--end::Section-->                                 <!--end::Section-->
+
+													<!--end::Section-->                                 <!--end::Section-->
 												<div class="m-separator m-separator--dashed m-separator--lg"></div>
 												<div class="form-group m-form__group m-form__group--sm row">
 													<div class="col-xl-12">
@@ -1380,6 +1541,7 @@
 								</div>
 								<!--end: Form Body -->
 								<!--begin: Form Actions -->
+								</div>
 								<div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
 									<div class="m-form__actions">
 										<div class="row">

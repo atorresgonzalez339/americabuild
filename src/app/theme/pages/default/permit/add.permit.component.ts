@@ -1,12 +1,13 @@
-import { ElementRef, Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild} from '@angular/core';
+import { ElementRef, Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { ScriptLoaderService } from '../../../../_services/script-loader.service';
 import {PermitImprovementTypesService, PermitTypeService, PermitService, StateService } from './_services';
 import {Response} from "@angular/http";
 import {Router} from '@angular/router';
 import { BaseComponent } from '../base/base.component';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormArray, FormGroup, Validators  } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
+import {CompanyFeesService} from "../fees/_services/company.fees.service";
 declare var addPermitWizard: any;
 
 @Component({
@@ -33,6 +34,15 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public contractorSearchControl: FormControl = new FormControl();
     public architectSearchControl: FormControl = new FormControl();
 
+    //Permit Fees
+    public listCompanyFees: any [] = [];
+    public listCompanyFeesCombox: any [];
+    public fullList: any [] = [];
+    public listSelected: any [] = [];
+    invoiceForm: FormGroup;
+    items: FormArray;
+    totalcost: number;
+
     @ViewChild('addressOwner')
     public addressOwnerElementRef: ElementRef;
     @ViewChild('addressTenant')
@@ -44,13 +54,17 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
 
     constructor(private _script: ScriptLoaderService,
                 private _permitService: PermitService,
+                private _companyFeesService: CompanyFeesService,
                 private _permitTypeService: PermitTypeService,
                 private _permitImprovementTypesServices: PermitImprovementTypesService,
                 public _router: Router,
                 public _stateService: StateService,
                 private mapsAPILoader: MapsAPILoader,
+                private _fb: FormBuilder,
+                private ref: ChangeDetectorRef
     )  {
         super(_router);
+        this.listCompanyFeesCombox = [];
         this.permitProfile.ownerBuilder = false;
 
         //Initialize lat, lgt and zoom to maps
@@ -69,6 +83,8 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.architectUserProfile.addressLocation.latitude = 39.8282;
         this.architectUserProfile.addressLocation.longitude = -98.5795;
         this.architectUserProfile.addressLocation.zoom = 4;
+
+        this.createForm();
     }
 
     ngOnInit()  {
@@ -303,12 +319,184 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                     this.onError(error);
                 }
             );
+
+        this._companyFeesService.getAll()
+            .subscribe((data)=> {
+                    this.listCompanyFees = data.json().data;
+                    let auxList = data.json().data;
+                    this.fullList = data.json().data;
+                    this.listCompanyFeesCombox = [this.getItemList()];
+                    this.listSelected.push({id:null});
+                    setTimeout(()=> {
+                        addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
+                    }, 2000);
+                },
+                error =>
+                {
+                    this.block(false);
+                    this.onError(error);
+                }
+            );
+        this.invoiceForm = this._fb.group({
+            itemRows: this._fb.array([this.initItemRows()]) // here
+        });
+        this.totalcost = 0;
         this.block(false);
     }
 
     ngAfterViewInit()  {
         this._script.loadScripts('add-app-permit', ['assets/js/components/permit/addPermitWizard.js']);
+        addPermitWizard.initSelects('[id^=permit_fees]');
     }
+
+    /*Method to Permit fees*/
+    createForm() {
+        this.invoiceForm = this._fb.group({
+            itemRows: this._fb.array([])
+        });
+        this.invoiceForm.setControl('itemRows', this._fb.array([]));
+    }
+
+    get itemRows(): FormArray {
+        return this.invoiceForm.get('itemRows') as FormArray;
+    }
+
+    initItemRows() {
+        return this._fb.group({
+            // list all your form controls here, which belongs to your form array
+            permit_fees: [''],
+            cost: [''],
+            value_fees: [''],
+            total_cost: ['']
+        });
+    }
+
+    addNewRow() {
+        const control = <FormArray>this.invoiceForm.controls['itemRows'];
+        this.listCompanyFeesCombox.push(this.getItemList());
+
+        this.listSelected.push({id:null});
+        // add new formgroup
+        control.push(this.initItemRows());
+        this.ref.detectChanges();
+        addPermitWizard.initSelects('[id^=permit_fees]');
+    }
+
+    getItemList()
+    {
+        let array = [];
+
+        this.listCompanyFees.forEach( (item,index) => {
+           array.push(item);
+        });
+
+        return array;
+    }
+
+    deleteRow(index: number) {
+        // control refers to your formarray
+        const control = <FormArray>this.invoiceForm.controls['itemRows'];
+        // remove the chosen row
+        if(this.listSelected[index].id !== null)
+            this.addElementToLists(-1, this.listSelected[index]);
+
+        this.listSelected.splice(index, 1);
+        this.listCompanyFeesCombox.splice(index, 1);
+        control.removeAt(index);
+        this.ref.detectChanges();
+    }
+
+    calXcost() {
+        this.invoiceForm.get('itemRows').valueChanges.subscribe(values => {
+            // reset the total amount
+            this.totalcost = 0;
+            const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
+            // iterate each object in the form array
+            ctrl.controls.forEach(x => {
+                // get the itemmt value and need to parse the input to number
+                let parsed = parseFloat(x.get('total_cost').value);
+                // add to total
+                this.totalcost += parsed;
+                this.ref.detectChanges();
+            });
+        });
+    }
+
+    calXvalue() {
+        this.invoiceForm.get('itemRows').valueChanges.subscribe(values => {
+            // reset the total amount
+            this.totalcost = 0;
+            const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
+            // iterate each object in the form array
+            ctrl.controls.forEach(x => {
+                // get the itemmt value and need to parse the input to number
+                let parsed = parseFloat(x.get('total_cost').value);
+                // add to total
+                this.totalcost += parsed;
+                this.ref.detectChanges();
+            });
+        });
+    }
+
+    findElement(id:number)
+    {
+        for(let i =0; i<this.fullList.length; i++)
+        {
+            if(this.fullList[i].id === id){
+                return this.fullList[i];
+            }
+        }
+        return null;
+    }
+
+    deleteElementFromList(currentPosition: number, element:any)
+    {
+        this.listCompanyFeesCombox.forEach( (item, index) => {
+            if ( index !== currentPosition )
+            {
+                this.listCompanyFeesCombox[index].forEach( (item1, index1) => {
+                    if ( item1.id === element.id )
+                    {
+                        this.listCompanyFeesCombox[index].splice(index1,1);
+                    }
+                });
+            }
+        });
+        this.listCompanyFees.forEach( (item, index) => {
+            if ( item.id === element.id )
+            {
+                this.listCompanyFees.splice(index,1);
+            }
+        });
+    }
+
+    addElementToLists(currentPosition: number, element:any)
+    {
+        this.listCompanyFeesCombox.forEach( (item, index) => {
+            if ( index !== currentPosition )
+            {
+                this.listCompanyFeesCombox[index].push(element);
+            }
+        });
+        this.listCompanyFees.push(element);
+    }
+
+    changeCompanyFeesById(groupIndex) {
+
+        if (this.listSelected[groupIndex].id != null )
+        {
+            this.addElementToLists(groupIndex,this.listSelected[groupIndex]);
+        }
+
+        const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
+        this.listSelected[groupIndex] = this.findElement(ctrl.controls[groupIndex].get('permit_fees').value.id);
+        this.deleteElementFromList(groupIndex,this.listSelected[groupIndex]);
+        // iterate each object in the form array
+        ctrl.controls[groupIndex].get('cost').setValue(this.listSelected[groupIndex].value);
+        this.ref.detectChanges();
+        addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
+    }
+    /*----------------------------------------*/
 
     onAddressBlur(e)
     {
@@ -419,9 +607,22 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         }
     }
 
+    getPermitFeesItems()
+    {
+        let array: any[] = [];
+        const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
+        // iterate each object in the form array
+        ctrl.controls.forEach(x => {
+            array.push({companyFees:x.get('permit_fees').value.id, value: x.get('value_fees').value, permitFeesValue: x.get('cost').value  });
+        });
+
+        return array;
+    }
+
     saveWizard(){
         if ( this.agree ) {
             this.block(true);
+            let permitFees = this.getPermitFeesItems();
             this.ownerUserProfile.name = this.ownerUserProfile.firstname + ' ' + this.ownerUserProfile.lastname;
             this.tenantUserProfile.name = this.tenantUserProfile.firstname + ' ' + this.tenantUserProfile.lastname;
             this.contractorUserProfile.name = this.contractorUserProfile.firstname + ' ' + this.contractorUserProfile.lastname;
@@ -432,7 +633,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             this.tenantUserProfile.state = this.tenantUserProfile.countryState.id;
             this.contractorUserProfile.state = this.contractorUserProfile.countryState.id;
             this.architectUserProfile.state = this.architectUserProfile.countryState.id;
-            this._permitService.create(this.ownerUserProfile,this.tenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
+            this._permitService.create(permitFees, this.ownerUserProfile,this.tenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
                 (data: Response) => {
                     let response = data.json();
                     if (response.success) {

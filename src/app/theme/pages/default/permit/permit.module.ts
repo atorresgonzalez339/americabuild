@@ -7,7 +7,7 @@ import { LayoutModule } from '../../../layouts/layout.module';
 import { DefaultComponent } from '../default.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
-
+import {CompanyFeesService} from '../fees/_services';
 const routes: Routes = [
     {
         "path": "",
@@ -33,12 +33,11 @@ const routes: Routes = [
         language: 'en',
         region: 'US'
     }),
-],exports: [
-    RouterModule
 ],declarations: [
     PermitComponent,
     AddPermitComponent
-]})
+],providers: [CompanyFeesService]
+})
 export class PermitModule  {
 
 

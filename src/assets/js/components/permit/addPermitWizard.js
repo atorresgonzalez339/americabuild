@@ -24,7 +24,16 @@ var addPermitWizard = function () {
 
         //== Validation before going to next page
         wizard.on('beforeNext', function(wizard) {
-            if (validator.form() !== true) {
+            if (wizard.getStep() == 5)
+            {
+                var permitFees =$('input[type="text"].fees-validation, select.fees-validation');
+                if ( !permitFees.valid() )
+                {
+                    onerror();
+                    return false;
+                }
+            }
+            else if (validator.form() !== true) {
                 return false;  // don't go to the next step
             }
         })
@@ -36,6 +45,7 @@ var addPermitWizard = function () {
     }
 
     var initValidation = function() {
+
         $.validator.addMethod( "addressUS", function( value, element ) {
             return $(element).attr("validAddress") == "true";
         }, "Please enter a valid address." );
@@ -48,6 +58,7 @@ var addPermitWizard = function () {
             rules: {
                 //=== Client Information(step 1)
                 //== Client details
+
                 first_name: {
                     required: true
                 },
@@ -235,6 +246,22 @@ var addPermitWizard = function () {
                     required: true
                 },
 
+                permit_fees:
+                {
+                    required : true
+                },
+                cost: {
+                    required : true,
+                    range:[0.0,99999999999]
+                },
+                value: {
+                    required : true,
+                    range:[0.0,99999999999]
+                },
+                total_cost: {
+                    required : true,
+                    range:[0.0,99999999999]
+                },
                 //=== Confirmation(step 4)
                 accept: {
                     required: true
@@ -261,34 +288,49 @@ var addPermitWizard = function () {
                 typeOfImprovement: {
                     required: "You must to select a permit improvement type."
                 },
+                cost: {
+                    range: "The cost must be a float value."
+                },
+                total_cost: {
+                    range: "The total cost must be a float value."
+                },
+                value: {
+                    range: "The value must be a float value."
+                },
             },
             //== Display error
             invalidHandler: function(event, validator) {
-                mApp.scrollTop();
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": true,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
-
-                toastr.error("There are invalid fields. Please correct them.");
+                onerror();
             },
 
         });
     }
+
+    var onerror = function()
+    {
+        mApp.scrollTop();
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        toastr.error("There are invalid fields. Please correct them.");
+    }
+
 
     return {
         // public functions

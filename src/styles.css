@@ -144,3 +144,6 @@ p-dataTable .ui-datatable-emptymessage-row
   padding: 2.8rem 4rem;
 }
 
+.m-wizard.m-wizard--3 .m-portlet__foot {
+  margin: 0 0rem;
+}
