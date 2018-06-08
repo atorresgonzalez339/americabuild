@@ -26,8 +26,12 @@ export class AuthGuard implements CanActivate {
 						if (response.success) {
 							sessionStorage.setItem('user',JSON.stringify(response.data));
 							let user = JSON.parse(sessionStorage.getItem("user"));
-							const perm = [user.role.name];
-							this._permissionsService.loadPermissions(perm);
+							const permissions =[];
+							for(let i =0; i<user.roles.length; i++)
+							{
+								permissions.push(user.roles[i].name);
+							}
+							this._permissionsService.loadPermissions(permissions);
 							return true;
 						}
 						else
@@ -45,8 +49,12 @@ export class AuthGuard implements CanActivate {
 			}
 			else {
 				let user = JSON.parse(sessionStorage.getItem("user"));
-				const perm = [user.role.name];
-				this._permissionsService.loadPermissions(perm);
+				const permissions =[];
+				for(let i =0; i<user.roles.length; i++)
+				{
+					permissions.push(user.roles[i].name);
+				}
+				this._permissionsService.loadPermissions(permissions);
 				return true;
 			}
 		}
