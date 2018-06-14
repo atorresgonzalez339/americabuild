@@ -18,8 +18,8 @@ export class PermitService extends BaseService{
 		return this.http.get(this.urlService+'permittypes/' + id,{headers: this.getHeaders()});
 	}
 
-	create(permitFees: any[], ownerUserProfile:PermitUserProfile, tenantUserProfile: PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile, permitProfile) {
-		return this.http.post(this.urlService+'permits', JSON.stringify({ permitFees: permitFees, ownerUserProfile:ownerUserProfile, tenantUserProfile: tenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile,
+	create(permitPermitTypes: any[], permitFees: any[], ownerUserProfile:PermitUserProfile, tenantUserProfile: PermitUserProfile, contractorUserProfile: PermitUserProfile, architectUserProfile:PermitUserProfile, permitProfile) {
+		return this.http.post(this.urlService+'permits', JSON.stringify({ permitPermitTypes: permitPermitTypes, permitFees: permitFees, ownerUserProfile:ownerUserProfile, tenantUserProfile: tenantUserProfile, contractorUserProfile:contractorUserProfile,  architectUserProfile:architectUserProfile,
 				folioNumber:permitProfile.folioNumber,
 				numberOfUnits:permitProfile.numberOfUnits,
 				lot:permitProfile.lot,
@@ -27,13 +27,7 @@ export class PermitService extends BaseService{
 				subdivision:permitProfile.subdivision,
 				pbpg:permitProfile.pbpg,
 				currentUseOfProperty:permitProfile.currentUseOfProperty,
-				descriptionOfWork:permitProfile.descriptionOfWork,
-				estimateValue:permitProfile.estimateValue,
-				area:permitProfile.area,
-				length:permitProfile.length,
-				gallons:permitProfile.gallons,
 				typeOfImprovement:permitProfile.typeOfImprovement,
-				permitType:permitProfile.type,
 				ownerBuilder:permitProfile.ownerBuilder
 			}),
 			{headers: this.getHeaders()});
