@@ -24,7 +24,17 @@ var addPermitWizard = function () {
 
         //== Validation before going to next page
         wizard.on('beforeNext', function(wizard) {
+
             if (wizard.getStep() == 5)
+            {
+                var permitPermitTypes =$('input[type="text"].permit-type-validation, select.permit-type-validation');
+                if (validator.form() !== true || !permitPermitTypes.valid() )
+                {
+                    onerror();
+                    return false;
+                }
+            }
+            if (wizard.getStep() == 6)
             {
                 var permitFees =$('input[type="text"].fees-validation, select.fees-validation');
                 if ( !permitFees.valid() )
@@ -36,6 +46,7 @@ var addPermitWizard = function () {
             else if (validator.form() !== true) {
                 return false;  // don't go to the next step
             }
+
         })
 
         //== Change event
