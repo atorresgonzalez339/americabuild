@@ -24,7 +24,6 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public agree: boolean = false;
     public user: any = {};
     public myStep_disabled = false;
-    public listPermitType: any [];
     public listPermitImprovementType: any [];
     public listStates: any [];
     public selectedPermitType: any = {};
@@ -40,8 +39,14 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public fullList: any [] = [];
     public listSelected: any [] = [];
     invoiceForm: FormGroup;
-    items: FormArray;
+    //items: FormArray;
     totalcost: number;
+    //Permit Types
+    public listPermitType: any [] = [];
+    public listPermitTypeCombox: any [];
+    public fullListPermitType: any [] = [];
+    public listSelectedPermitType: any [] = [];
+    typeForm: FormGroup;
 
     @ViewChild('addressOwner')
     public addressOwnerElementRef: ElementRef;
@@ -67,6 +72,8 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.listCompanyFeesCombox = [];
         this.permitProfile.ownerBuilder = false;
 
+        this.listPermitTypeCombox = [];
+
         //Initialize lat, lgt and zoom to maps
         this.ownerUserProfile.addressLocation.latitude = 39.8282;
         this.ownerUserProfile.addressLocation.longitude = -98.5795;
@@ -85,6 +92,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.architectUserProfile.addressLocation.zoom = 4;
 
         this.createForm();
+        this.createFormPermitType();
     }
 
     ngOnInit()  {
@@ -280,8 +288,12 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this._permitTypeService.getAll()
             .subscribe((data)=> {
                     this.listPermitType = data.json().data;
+                    this.fullListPermitType = data.json().data;
+                    this.listSelectedPermitType.push({id:null});
+                    this.listPermitTypeCombox = [this.getItemListPermitType()];
                     setTimeout(()=> {
-                        addPermitWizard.initSelects('#type');
+                        addPermitWizard.initSelects('[id^=type_]');
+                        addPermitWizard.refreshSelectpicker('[id^=type_]');
                     }, 2000);
                 },
                 error =>
@@ -323,7 +335,6 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this._companyFeesService.getAll()
             .subscribe((data)=> {
                     this.listCompanyFees = data.json().data;
-                    let auxList = data.json().data;
                     this.fullList = data.json().data;
                     this.listCompanyFeesCombox = [this.getItemList()];
                     this.listSelected.push({id:null});
@@ -341,15 +352,148 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             itemRows: this._fb.array([this.initItemRows()]) // here
         });
         this.totalcost = 0;
+
+        this.typeForm = this._fb.group({
+            types: this._fb.array([
+                this.initRowsPermitType()
+            ])
+        });
         this.block(false);
     }
 
     ngAfterViewInit()  {
         this._script.loadScripts('add-app-permit', ['assets/js/components/permit/addPermitWizard.js']);
         addPermitWizard.initSelects('[id^=permit_fees]');
+        addPermitWizard.initSelects('[id^=type_]');
     }
 
-    /*Method to Permit fees*/
+    /****************Method to Permit Types******************************/
+    createFormPermitType() {
+        this.typeForm = this._fb.group({
+            types: this._fb.array([])
+        });
+        this.typeForm.setControl('types', this._fb.array([]));
+    }
+
+    get types(): FormArray {
+        return this.typeForm.get('types') as FormArray;
+    }
+
+    initRowsPermitType() {
+        return this._fb.group({
+            // list all your form controls here, which belongs to your form array
+            description_of_work: [''],
+            estimate_value: [''],
+            area: [''],
+            length: [''],
+            gallons: [''],
+            type: ['']
+        });
+    }
+
+    addPermitType() {
+        const control = <FormArray>this.typeForm.controls['types'];
+        this.listPermitTypeCombox.push(this.getItemListPermitType());
+        this.listSelectedPermitType.push({id:null});
+        control.push(this.initRowsPermitType());
+        this.ref.detectChanges();
+        addPermitWizard.initSelects('[id^=type_]');
+    }
+
+    getItemListPermitType()
+    {
+        let array = [];
+
+        this.listPermitType.forEach( (item,index) => {
+            array.push(item);
+        });
+
+        return array;
+    }
+
+    deleteRowPermitType(index: number) {
+        // control refers to your formarray
+        const control = <FormArray>this.typeForm.controls['types'];
+        // remove the chosen row
+        if(this.listSelectedPermitType[index].id !== null)
+            this.addElementToListsPermitType(-1, this.listSelectedPermitType[index]);
+
+        this.listSelectedPermitType.splice(index, 1);
+        this.listPermitTypeCombox.splice(index, 1);
+        control.removeAt(index);
+        this.ref.detectChanges();
+        addPermitWizard.refreshSelectpicker('[id^=type_]');
+    }
+
+    findElementPermitType(id:number)
+    {
+        for(let i =0; i<this.fullListPermitType.length; i++)
+        {
+            if(this.fullListPermitType[i].id === id){
+                return this.fullListPermitType[i];
+            }
+        }
+        return null;
+    }
+
+    deleteElementFromListPermitType(currentPosition: number, element:any)
+    {
+        this.listPermitTypeCombox.forEach( (item, index) => {
+            if ( index !== currentPosition )
+            {
+                this.listPermitTypeCombox[index].forEach( (item1, index1) => {
+                    if ( item1.id === element.id )
+                    {
+                        this.listPermitTypeCombox[index].splice(index1,1);
+                    }
+                });
+            }
+        });
+        this.listPermitType.forEach( (item, index) => {
+            if ( item.id === element.id )
+            {
+                this.listPermitType.splice(index,1);
+            }
+        });
+    }
+
+    addElementToListsPermitType(currentPosition: number, element:any)
+    {
+        this.listPermitTypeCombox.forEach( (item, index) => {
+            if ( index !== currentPosition )
+            {
+                this.listPermitTypeCombox[index].push(element);
+            }
+        });
+        this.listPermitType.push(element);
+    }
+
+    changePermitTypeById(groupIndex) {
+        if (this.listSelectedPermitType[groupIndex].id != null )
+        {
+            this.addElementToListsPermitType(groupIndex, this.listSelectedPermitType[groupIndex]);
+        }
+        const ctrl = <FormArray>this.typeForm.controls['types'];
+        this.listSelectedPermitType[groupIndex] = this.findElementPermitType(ctrl.controls[groupIndex].get('type').value.id);
+        this.deleteElementFromListPermitType(groupIndex, this.listSelectedPermitType[groupIndex]);
+        this.ref.detectChanges();
+        addPermitWizard.refreshSelectpicker('[id^=type_]');
+    }
+
+    getPermitTypesItems()
+    {
+        let array: any[] = [];
+        const ctrl = <FormArray>this.typeForm.controls['types'];
+        // iterate each object in the form array
+        ctrl.controls.forEach(x => {
+            array.push({descriptionOfWork:x.get('description_of_work').value, estimateValue: x.get('estimate_value').value, area: x.get('area').value, length: x.get('length').value, gallons: x.get('gallons').value, type: x.get('type').value.id });
+        });
+
+        return array;
+    }
+    /****************************************************************************/
+
+    /********************Method to Permit fees************************************/
     createForm() {
         this.invoiceForm = this._fb.group({
             itemRows: this._fb.array([])
@@ -387,7 +531,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         let array = [];
 
         this.listCompanyFees.forEach( (item,index) => {
-           array.push(item);
+            array.push(item);
         });
 
         return array;
@@ -487,7 +631,6 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         {
             this.addElementToLists(groupIndex,this.listSelected[groupIndex]);
         }
-
         const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
         this.listSelected[groupIndex] = this.findElement(ctrl.controls[groupIndex].get('permit_fees').value.id);
         this.deleteElementFromList(groupIndex,this.listSelected[groupIndex]);
@@ -495,6 +638,18 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         ctrl.controls[groupIndex].get('cost').setValue(this.listSelected[groupIndex].value);
         this.ref.detectChanges();
         addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
+    }
+
+    getPermitFeesItems()
+    {
+        let array: any[] = [];
+        const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
+        // iterate each object in the form array
+        ctrl.controls.forEach(x => {
+            array.push({companyFees:x.get('permit_fees').value.id, value: x.get('value_fees').value, permitFeesValue: x.get('cost').value  });
+        });
+
+        return array;
     }
     /*----------------------------------------*/
 
@@ -607,22 +762,15 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         }
     }
 
-    getPermitFeesItems()
-    {
-        let array: any[] = [];
-        const ctrl = <FormArray>this.invoiceForm.controls['itemRows'];
-        // iterate each object in the form array
-        ctrl.controls.forEach(x => {
-            array.push({companyFees:x.get('permit_fees').value.id, value: x.get('value_fees').value, permitFeesValue: x.get('cost').value  });
-        });
 
-        return array;
-    }
+
+
 
     saveWizard(){
         if ( this.agree ) {
             this.block(true);
             let permitFees = this.getPermitFeesItems();
+            let permitPermitTypes = this.getPermitTypesItems();
             this.ownerUserProfile.name = this.ownerUserProfile.firstname + ' ' + this.ownerUserProfile.lastname;
             this.tenantUserProfile.name = this.tenantUserProfile.firstname + ' ' + this.tenantUserProfile.lastname;
             this.contractorUserProfile.name = this.contractorUserProfile.firstname + ' ' + this.contractorUserProfile.lastname;
@@ -633,7 +781,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
             this.tenantUserProfile.state = this.tenantUserProfile.countryState.id;
             this.contractorUserProfile.state = this.contractorUserProfile.countryState.id;
             this.architectUserProfile.state = this.architectUserProfile.countryState.id;
-            this._permitService.create(permitFees, this.ownerUserProfile,this.tenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
+            this._permitService.create(permitPermitTypes, permitFees, this.ownerUserProfile,this.tenantUserProfile, this.contractorUserProfile, this.architectUserProfile, this.permitProfile).subscribe(
                 (data: Response) => {
                     let response = data.json();
                     if (response.success) {

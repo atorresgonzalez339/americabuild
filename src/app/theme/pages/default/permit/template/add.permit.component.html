@@ -667,7 +667,8 @@
 											</div>
 										</div>
 									</div>
-
+									<!--end: Form Wizard Step 4-->
+									<!--begin: Form Wizard Step 5-->
 									<div class="m-wizard__form-step" id="m_wizard_form_step_5">
 										<div class="row">
 											<div class="col-xl-12">
@@ -726,43 +727,6 @@
 															</label>
 															<input type="text" name="current_use_of_property" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.currentUseOfProperty" #currentUseOfProperty="ngModel">
 														</div>
-														<div class="col-lg-6 m-form__group-sub">
-															<label class="form-control-label">
-																* Description Of Work:
-															</label>
-															<input type="text" name="description_of_work" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.descriptionOfWork" #descriptionOfWork="ngModel">
-														</div>
-													</div>
-													<div class="form-group m-form__group row">
-														<div class="col-lg-6 m-form__group-sub">
-															<label class="form-control-label">
-																* Estimate Value:
-															</label>
-															<input type="text" name="estimate_value" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.estimateValue" #estimateValue="ngModel">
-														</div>
-														<div class="col-lg-6 m-form__group-sub">
-															<label class="form-control-label">
-																* Area (sf):
-															</label>
-															<input type="text" name="area" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.area" #area="ngModel">
-														</div>
-													</div>
-													<div class="form-group m-form__group row">
-														<div class="col-lg-6 m-form__group-sub">
-															<label class="form-control-label">
-																* Length (ft):
-															</label>
-															<input type="text" name="length" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.length" #length="ngModel">
-														</div>
-														<div class="col-lg-6 m-form__group-sub">
-															<label class="form-control-label">
-																* Gallons:
-															</label>
-															<input type="text" name="gallons" class="form-control m-input" autocomplete="off" placeholder="" [(ngModel)]="permitProfile.gallons" #gallons="ngModel">
-														</div>
-													</div>
-
-													<div class="form-group m-form__group row">
 														<div class="col-lg-6 m-form__group-sub select_element">
 															<label class="form-control-label">
 																* Type Of Improvement:
@@ -771,21 +735,91 @@
 																<option *ngFor="let pt of listPermitImprovementType" [ngValue]="pt">{{pt.name}}</option>
 															</select>
 														</div>
-														<div class="col-lg-6 m-form__group-sub select_element">
-															<label class="form-control-label">
-																* Permit Type:
-															</label>
-															<select id="type" class="form-control m-bootstrap-select m_selectpicker" [(ngModel)]="selectedPermitType" name="type" title="-- Select an Option --">
-																<option *ngFor="let pt of listPermitType" [ngValue]="pt">{{pt.name}}</option>
-															</select>
+													</div>
+
+													<div  [formGroup]="typeForm">
+															<div class="m-form__section m-form__section--last">
+																<div formArrayName="types">
+
+																		<div *ngFor="let itemrow of typeForm.controls.types.controls; let i=index" [formGroupName]="i">
+
+																		<div class="row m--margin-top-20 m--margin-bottom-25" style="border: 1px solid #ebedf2; padding-bottom: 20px;">
+																			<label class="form-label-fieldset">Permit Type</label>
+																			<div class="col-xl-12">
+																			<div class="form-group m-form__group row">
+																				<div class="col-lg-6 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Description Of Work:
+																					</label>
+																					<input type="text" id="{{'description_of_work_'+ i}}" name="description_of_work" class="permit-type-validation form-control m-input" autocomplete="off" placeholder="" formControlName="description_of_work">
+																				</div>
+																				<div class="col-lg-6 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Estimate Value:
+																					</label>
+																					<input type="text" id="{{'estimate_value_'+ i}}" name="estimate_value" class="permit-type-validation form-control m-input" autocomplete="off" placeholder="" formControlName="estimate_value">
+																				</div>
+																			</div>
+																			<div class="form-group m-form__group row">
+																				<div class="col-lg-6 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Area (sf):
+																					</label>
+																					<input type="text" id="{{'area_'+ i}}" name="area" class="permit-type-validation form-control m-input" autocomplete="off" placeholder="" formControlName="area">
+																				</div>
+																				<div class="col-lg-6 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Length (ft):
+																					</label>
+																					<input type="text" id="{{'length_'+ i}}" name="length" class="permit-type-validation form-control m-input" autocomplete="off" placeholder="" formControlName="length">
+																				</div>
+																			</div>
+																			<div class="form-group m-form__group row">
+																				<div class="col-lg-6 m-form__group-sub">
+																					<label class="form-control-label">
+																						* Gallons:
+																					</label>
+																					<input type="text" id="{{'gallons_'+ i}}" name="gallons" class="permit-type-validation form-control m-input" autocomplete="off" placeholder="" formControlName="gallons">
+																				</div>
+																				<div class="col-lg-6 m-form__group-sub select_element">
+																					<label class="form-control-label">
+																						* Permit Type:
+																					</label>
+																					<select id="{{'type_'+ i}}" class="permit-type-validation form-control m-bootstrap-select m_selectpicker" (change)='changePermitTypeById(i)' formControlName="type" name="type" title="-- Select an Option --">
+																						<option *ngFor="let pt of listPermitTypeCombox[i]" [ngValue]="pt">{{pt.name}}</option>
+																					</select>
+																				</div>
+																			</div>
+
+																				<div class="form-group m-form__group row">
+																				<div class="col-lg-12 m-form__group-sub">
+																					<div style="float: right">
+																						<a href="#" *ngIf="typeForm.controls.types.controls.length - 1 == i && listSelectedPermitType.length < fullListPermitType.length" title="Add more permit types" class="btn btn-primary m-btn m-btn--custom m-btn--icon" (click)="addPermitType()">
+																							<span>
+																								<i class="la la-plus"></i> 	&nbsp;&nbsp;Add More
+																							</span>
+																						</a>
+																						<button *ngIf="typeForm.controls.types.controls.length > 1" (click)="deleteRowPermitType(i)" title="Remove" class="btn btn-danger m-btn m-btn--custom m-btn--icon">
+																						  <span>
+																							  <i class="la la-trash"></i> Remove
+																						  </span>
+																						</button>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
 														</div>
+
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<!--end: Form Wizard Step 4-->
-									<!--begin: Form Wizard Step 5-->
+									<!--end: Form Wizard Step 5-->
+									<!--begin: Form Wizard Step 6-->
 									<div class="m-wizard__form-step" id="m_wizard_form_step_6">
 										<div class="row">
 											<div class="col-xl-12" [formGroup]="invoiceForm">
@@ -796,53 +830,53 @@
 														</h3>
 													</div>
 													<div formArrayName="itemRows">
-														<div *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+														<div *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index" [formGroupName]="i">
 															<div class="form-group m-form__group row" style="padding-bottom: 15px; !important">
-																	<div class="col-lg-3 m-form__group-sub">
-																		<label class="form-control-label">
-																			* Permit Fees:
-																		</label>
-																		<div>
-																			<select id="{{'permit_fees_'+ i}}"  name="permit_fees" (change)='changeCompanyFeesById(i)' formControlName="permit_fees" class="form-control m-bootstrap-select fees-validation" title="-- Select an Option --">
-																				<option *ngFor="let pt of listCompanyFeesCombox[i]" [ngValue]="pt" >{{pt.feesCategory.description}}</option>
-																			</select>
-																		</div>
+																<div class="col-lg-3 m-form__group-sub">
+																	<label class="form-control-label">
+																		* Permit Fees:
+																	</label>
+																	<div>
+																		<select id="{{'permit_fees_'+ i}}"  name="permit_fees" (change)='changeCompanyFeesById(i)' formControlName="permit_fees" class="form-control m-bootstrap-select fees-validation" title="-- Select an Option --">
+																			<option *ngFor="let pt of listCompanyFeesCombox[i]" [ngValue]="pt" >{{pt.feesCategory.description}}</option>
+																		</select>
 																	</div>
-																	<div class="col-lg-2 m-form__group-sub">
-																		<label class="form-control-label">
-																			* Cost:
-																		</label>
-																		<input type="text" id="{{'cost'+ i}}" readonly name="cost" (change)="calXvalue()"  formControlName="cost" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
-																	</div>
-																	<div class="col-lg-2 m-form__group-sub">
-																		<label class="form-control-label">
-																			* Value:
-																		</label>
-																		<input type="text" id="{{'value_fees'+ i}}" name="value" (change)="calXcost()"  formControlName="value_fees" class="form-control m-input fees-validation" autocomplete="off" placeholder="" onkeydown="return ( event.ctrlKey || event.altKey
+																</div>
+																<div class="col-lg-2 m-form__group-sub">
+																	<label class="form-control-label">
+																		* Cost:
+																	</label>
+																	<input type="text" id="{{'cost'+ i}}" readonly name="cost" (change)="calXvalue()"  formControlName="cost" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
+																</div>
+																<div class="col-lg-2 m-form__group-sub">
+																	<label class="form-control-label">
+																		* Value:
+																	</label>
+																	<input type="text" id="{{'value_fees'+ i}}" name="value" (change)="calXcost()"  formControlName="value_fees" class="form-control m-input fees-validation" autocomplete="off" placeholder="" onkeydown="return ( event.ctrlKey || event.altKey
 																																																																							|| (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
 																																																																							|| (95<event.keyCode && event.keyCode<106)
 																																																																							|| (event.keyCode==8) || (event.keyCode==9)
 																																																																							|| (event.keyCode>34 && event.keyCode<40)
 																																																																							|| (event.keyCode==190 && event.target.value.indexOf('.') == -1)
 																																																																							|| (event.keyCode==46) )">
-																	</div>
-																	<div class="col-lg-2 m-form__group-sub">
-																		<label class="form-control-label">
-																			* Total Cost:
-																		</label>
-																		<input type="text" id="{{'total_cost'+ i}}" readonly  name="total_cost" formControlName="total_cost" [ngModel]="itemrow.get('cost').value * itemrow.get('value_fees').value" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
-																	</div>
-																	<div *ngIf="listSelected.length < fullList.length && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">
-																		<button id="btn-submit-add" (click)="addNewRow()" style="padding: 10px;margin-top: 26px;" name="btn-submit-add" class="btn btn-primary m-btn m-btn--custom m-btn--icon">
+																</div>
+																<div class="col-lg-2 m-form__group-sub">
+																	<label class="form-control-label">
+																		* Total Cost:
+																	</label>
+																	<input type="text" id="{{'total_cost'+ i}}" readonly  name="total_cost" formControlName="total_cost" [ngModel]="itemrow.get('cost').value * itemrow.get('value_fees').value" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
+																</div>
+																<div *ngIf="listSelected.length < fullList.length && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">
+																	<button id="btn-submit-add" (click)="addNewRow()" style="padding: 10px;margin-top: 26px;" name="btn-submit-add" class="btn btn-primary m-btn m-btn--custom m-btn--icon">
 																			  <span>
 																				  <i class="la la-check"></i>Add more
 																			  </span>
-																		</button>
-																	</div>
-																	<div class="m-form__group-sub">
-																		<button *ngIf="invoiceForm.controls.itemRows.controls.length > 1" style="padding: 10px;margin-top: 26px;" (click)="deleteRow(i)" title="Delete" class="btn btn-danger btn-primary m-btn m-btn--custom m-btn--icon"><i class="la la-trash"></i></button>
-																	</div>
+																	</button>
 																</div>
+																<div class="m-form__group-sub">
+																	<button *ngIf="invoiceForm.controls.itemRows.controls.length > 1" style="padding: 10px;margin-top: 26px;" (click)="deleteRow(i)" title="Delete" class="btn btn-danger btn-primary m-btn m-btn--custom m-btn--icon"><i class="la la-trash"></i></button>
+																</div>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1392,65 +1426,77 @@
 																</div>
 																<div class="col-lg-6 m-form__group-sub">
 																	<label class="form-control-label">
-																		* Description Of Work:
-																	</label>
-																	<span class="m-form__control-static">
-																			{{ permitProfile.descriptionOfWork }}
-																	</span>
-																</div>
-															</div>
-															<div class="form-group m-form__group m-form__group--sm row">
-																<div class="col-lg-6 m-form__group-sub">
-																	<label class="form-control-label">
-																		* Estimate Value:
-																	</label>
-																	<span class="m-form__control-static">
-																			{{ permitProfile.estimateValue }}
-																	</span>
-																</div>
-																<div class="col-lg-6 m-form__group-sub">
-																	<label class="form-control-label">
-																		* Area (sf):
-																	</label>
-																	<span class="m-form__control-static">
-																			{{ permitProfile.area }}
-																	</span>
-																</div>
-															</div>
-															<div class="form-group m-form__group m-form__group--sm row">
-																<div class="col-lg-6 m-form__group-sub">
-																	<label class="form-control-label">
-																		* Length (ft):
-																	</label>
-																	<span class="m-form__control-static">
-																			{{ permitProfile.length }}
-																	</span>
-																</div>
-																<div class="col-lg-6 m-form__group-sub">
-																	<label class="form-control-label">
-																		* Gallons:
-																	</label>
-																	<span class="m-form__control-static">
-															{{ permitProfile.gallons }}
-														</span>
-																</div>
-															</div>
-															<div class="form-group m-form__group m-form__group--sm row">
-																<div class="col-lg-6 m-form__group-sub">
-																	<label class="form-control-label">
 																		* Type Of Improvement:
 																	</label>
 																	<span class="m-form__control-static">
 																			{{ selectedPermitImprovementType.name }}
 																	</span>
 																</div>
-																<div class="col-lg-6 m-form__group-sub">
-																	<label class="form-control-label">
-																		* Permit Type:
-																	</label>
-																	<span class="m-form__control-static">
-																			{{ selectedPermitType.name }}
-																	</span>
+															</div>
+
+															<div class="row">
+																<div class="col-xl-12" [formGroup]="typeForm">
+																	<div class="m-form__section m-form__section--last" >
+																		<label style="margin-top: 30px;">Permit Types</label>
+																		<div formArrayName="types">
+																			<div *ngFor="let itemtype of typeForm.controls.types.controls; let i=index" [formGroupName]="i" style="margin-top: 10px;">
+																				<div class="form-group m-form__group row">
+																					<div class="col-lg-6 m-form__group-sub">
+																						<label class="form-control-label">
+																							* Description Of Work:
+																						</label>
+																						<span class="m-form__control-static">
+                                                                                            {{ itemtype.get('description_of_work').value }}
+                                                                                        </span>
+																					</div>
+																					<div class="col-lg-6 m-form__group-sub">
+																						<label class="form-control-label">
+																							* Estimate Value:
+																						</label>
+																						<span class="m-form__control-static">
+                                                                                            {{ itemtype.get('estimate_value').value }}
+                                                                                        </span>
+																					</div>
+																				</div>
+																				<div class="form-group m-form__group row">
+																					<div class="col-lg-6 m-form__group-sub">
+																						<label class="form-control-label">
+																							* Area (sf):
+																						</label>
+																						<span class="m-form__control-static">
+                                                                                            {{ itemtype.get('area').value }}
+                                                                                        </span>
+																					</div>
+																					<div class="col-lg-6 m-form__group-sub">
+																						<label class="form-control-label">
+																							* Length (ft):
+																						</label>
+																						<span class="m-form__control-static">
+                                                                                            {{ itemtype.get('length').value }}
+                                                                                        </span>
+																					</div>
+																				</div>
+																				<div class="form-group m-form__group row">
+																					<div class="col-lg-6 m-form__group-sub">
+																						<label class="form-control-label">
+																							* Gallons:
+																						</label>
+																						<span class="m-form__control-static">
+                                                                                            {{ itemtype.get('gallons').value }}
+                                                                                        </span>
+																					</div>
+																					<div class="col-lg-6 m-form__group-sub select_element">
+																						<label class="form-control-label">
+																							* Permit Type:
+																						</label>
+																						<span class="m-form__control-static">
+                                                                                            {{ itemtype.get('type').value == "" ? "" : itemtype.get('type').value.name }}
+                                                                                        </span>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -1465,7 +1511,7 @@
 															</div>
 															<div class="m-form m-form--fit m-form--label-align-left" [formGroup]="invoiceForm">
 																<div class="m-portlet__body" formArrayName="itemRows">
-																	<div class="col-xl-12" *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+																	<div class="col-xl-12" *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index" [formGroupName]="i">
 																		<div class="m-form__section m-form__section--first">
 																			<div class="form-group m-form__group row">
 																				<div class="col-lg-3 m-form__group-sub">
@@ -1523,25 +1569,25 @@
 
 
 													<!--end::Section-->                                 <!--end::Section-->
-												<div class="m-separator m-separator--dashed m-separator--lg"></div>
-												<div class="form-group m-form__group m-form__group--sm row">
-													<div class="col-xl-12">
-														<div class="m-checkbox-inline m-form__group-sub">
-															<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-																<input type="checkbox" name="accept" value="" [(ngModel)]="agree">
-																Click here to indicate that you have confirmed the information.
-																<span></span>
-															</label>
+													<div class="m-separator m-separator--dashed m-separator--lg"></div>
+													<div class="form-group m-form__group m-form__group--sm row">
+														<div class="col-xl-12">
+															<div class="m-checkbox-inline m-form__group-sub">
+																<label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+																	<input type="checkbox" name="accept" value="" [(ngModel)]="agree">
+																	Click here to indicate that you have confirmed the information.
+																	<span></span>
+																</label>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
+										<!--end: Form Wizard Step 7-->
 									</div>
-									<!--end: Form Wizard Step 7-->
-								</div>
-								<!--end: Form Body -->
-								<!--begin: Form Actions -->
+									<!--end: Form Body -->
+									<!--begin: Form Actions -->
 								</div>
 								<div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
 									<div class="m-form__actions">
