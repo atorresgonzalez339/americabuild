@@ -38,9 +38,10 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     public listCompanyFeesCombox: any [];
     public fullList: any [] = [];
     public listSelected: any [] = [];
-    invoiceForm: FormGroup;
+    public companyFeesAmount = 0;
+    public invoiceForm: FormGroup;
     //items: FormArray;
-    totalcost: number;
+    public totalcost: number;
     //Permit Types
     public listPermitType: any [] = [];
     public listPermitTypeCombox: any [];
@@ -338,6 +339,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                     this.fullList = data.json().data;
                     this.listCompanyFeesCombox = [this.getItemList()];
                     this.listSelected.push({id:null});
+                    this.companyFeesAmount = this.fullList.length;
                     setTimeout(()=> {
                         addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
                     }, 2000);
@@ -415,13 +417,19 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         // control refers to your formarray
         const control = <FormArray>this.typeForm.controls['types'];
         // remove the chosen row
-        if(this.listSelectedPermitType[index].id !== null)
+        if(this.listSelectedPermitType[index].id !== null) {
             this.addElementToListsPermitType(-1, this.listSelectedPermitType[index]);
+            this.listSelectedPermitType.splice(index, 1);
+            this.listToNextStep();
+        }
+        else {
+            this.listSelectedPermitType.splice(index, 1);
+        }
 
-        this.listSelectedPermitType.splice(index, 1);
         this.listPermitTypeCombox.splice(index, 1);
         control.removeAt(index);
         this.ref.detectChanges();
+
         addPermitWizard.refreshSelectpicker('[id^=type_]');
     }
 
@@ -478,6 +486,41 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.deleteElementFromListPermitType(groupIndex, this.listSelectedPermitType[groupIndex]);
         this.ref.detectChanges();
         addPermitWizard.refreshSelectpicker('[id^=type_]');
+        this.listToNextStep();
+        addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
+    }
+
+    listToNextStep(){
+        /***********Obtener los que coinciden con los permitType********************/
+        let array = [];
+        this.listCompanyFeesCombox = [];
+        this.listSelectedPermitType.forEach( (sel, index) => {
+            this.fullList.forEach( (item, i) => {
+                if(item.feesCategory.permitType.id === sel.id){
+                    array.push(item);
+                }
+            });
+        });
+        this.listCompanyFees = array;
+
+        this.listCompanyFeesCombox = [this.getItemList()];
+        this.listSelected = [{id:null}];
+        this.companyFeesAmount = this.listCompanyFees.length;
+        /*********************************************************************/
+
+        /***********Eliminar FormArray Elementos********************/
+        this.invoiceForm = this._fb.group({
+            itemRows: this._fb.array([this.initItemRows()]) // here
+        });
+        this.listSelected = [];
+        this.listSelected.push({id:null});
+        /**************************************************************************/
+
+        this.totalcost = 0;
+        setTimeout(()=> {
+            addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
+            addPermitWizard.initSelects('[id^=permit_fees]');
+        }, 2000);
     }
 
     getPermitTypesItems()
@@ -548,6 +591,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         this.listCompanyFeesCombox.splice(index, 1);
         control.removeAt(index);
         this.ref.detectChanges();
+        addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
     }
 
     calXcost() {

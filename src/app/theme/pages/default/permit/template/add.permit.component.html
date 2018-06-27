@@ -866,7 +866,7 @@
 																	</label>
 																	<input type="text" id="{{'total_cost'+ i}}" readonly  name="total_cost" formControlName="total_cost" [ngModel]="itemrow.get('cost').value * itemrow.get('value_fees').value" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
 																</div>
-																<div *ngIf="listSelected.length < fullList.length && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">
+																<div *ngIf="companyFeesAmount - 1 > i && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">
 																	<button id="btn-submit-add" (click)="addNewRow()" style="padding: 10px;margin-top: 26px;" name="btn-submit-add" class="btn btn-primary m-btn m-btn--custom m-btn--icon">
 																			  <span>
 																				  <i class="la la-check"></i>Add more
