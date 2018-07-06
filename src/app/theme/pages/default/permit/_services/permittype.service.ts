@@ -18,6 +18,10 @@ export class PermitTypeService extends BaseService{
 		return this.http.get(this.urlService+'permittypes/' + id,{headers: this.getHeaders()});
 	}
 
+	getByPermit(id: number) {
+		return this.http.get(this.urlService+'permittypes/permit/' + id,{headers: this.getHeaders()});
+	}
+
 	/*create(PermitType: PermitType) {
 		return this.http.post(this.urlService+'permits', JSON.stringify({ name:PermitType.name, description:PermitType.description, type:PermitType.type }),
 							 {headers: this.getHeaders()});

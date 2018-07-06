@@ -33,12 +33,14 @@
     <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded" id="base_column_width" style="">
       <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
         <thead class="m-datatable__head">
-        <tr class="m-datatable__row" style="left: 0px;"><th data-field="RecordID" class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
-          <span style="width: 40px;"><label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+        <tr class="m-datatable__row" style="left: 0px;">
+          <th data-field="RecordID" class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
+          <span style="width: 40px;"><label
+            class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
             <input type="checkbox">
             <span></span>
           </label></span>
-        </th>
+          </th>
           <th data-field="ID" class="m-datatable__cell m-datatable__cell--sort" data-sort="asc">
             <span style="width: 150px;">ID<i class="la la-arrow-up"></i></span>
           </th>
@@ -52,8 +54,8 @@
             <span style="width: 181px;">User</span>
           </th>
           <th data-field="Type" class="m-datatable__cell m-datatable__cell--sort">
-              <span style="width: 181px;">Type</span>
-            </th>
+            <span style="width: 181px;">Type</span>
+          </th>
           <th data-field="Actions" class="m-datatable__cell m-datatable__cell--sort">
             <span style="width: 110px;">Actions</span>
           </th>
@@ -78,16 +80,23 @@
             <span style="width: 181px;">{{item.user.fullname}}</span>
           </td>
           <td data-field="Type" class="m-datatable__cell">
-              <span style="width: 181px;">{{item.type.name}}</span>
-            </td>
+            <span style="width: 181px;">{{item.type.name}}</span>
+          </td>
           <td data-field="Actions" class="m-datatable__cell"><span style="overflow: visible; width: 110px;"><span>
           <!--a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View details">
             <i class="la la-ellipsis-h"></i>
           </a-->
-          <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">
+          <a (click)="revision(item)"
+             class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+             title="Revision">
+            <i class="la la-book"></i>
+          </a>
+          <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+             title="Edit details">
             <i class="la la-edit"></i>
           </a>
-          <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
+          <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"
+             title="Delete">
             <i class="la la-trash"></i>
           </a>
         </span>
@@ -97,7 +106,7 @@
         </tbody>
       </table>
 
-    <!--end: Datatable -->
+      <!--end: Datatable -->
+    </div>
   </div>
-</div>
 </div>

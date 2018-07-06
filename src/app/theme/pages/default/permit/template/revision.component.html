@@ -1,0 +1,85 @@
+<div class="m-content">
+  <div class="m-portlet m-portlet--tab">
+    <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+        <div class="m-portlet__head-title">
+          <span class="m-portlet__head-icon m--hide">
+              <i class="la la-gear"></i>
+            </span>
+          <h3 class="m-portlet__head-text"> Revisions </h3>
+        </div>
+      </div>
+    </div>
+    <!--begin::Form-->
+    <form id="revisionForm" (ngSubmit)="submitRevision()" class="m-form m-form--fit m-form--label-align-left">
+      <div class="m-portlet__body" [formGroup]="invoiceForm">
+        <div formArrayName="itemRows">
+          <div *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index" [formGroupName]="i"
+               class="row m--margin-20"
+               style="border: 1px solid #ebedf2; padding-bottom: 20px;">
+            <label class="form-label-fieldset">{{revisions[i].permitType.description}}</label>
+            <div class="col-xl-12">
+              <div class="form-group m-form__group row">
+                <div class="col-lg-3 m-form__group-sub">
+                  <label class="form-control-label">
+                    * Name:
+                  </label>
+                  <input type="text" id="{{'name'+ i}}" name="name" formControlName="name" class="form-control m-input"
+                         autocomplete="off" placeholder="">
+                </div>
+                <div class="col-lg-7 m-form__group-sub">
+                  <label class="form-control-label">
+                    * Description:
+                  </label>
+                  <input type="text" id="{{'description'+ i}}" name="description" formControlName="description"
+                         class="form-control m-input" autocomplete="off" placeholder="">
+                </div>
+                <div *ngIf="revisions.length - 1 == i && listPermitType.length>0" class="m-form__group-sub"
+                     style="padding-right: 5px;" class="dropdown">
+                  <button class="btn btn-primary m-btn m-btn--custom dropdown-toggle"
+                          style="padding: 10px;margin-top: 26px;" type="button" id="dropdownMenuButton"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Add revision
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a *ngFor="let pt of listPermitType" class="dropdown-item" (click)="addRevision(pt)">
+                      {{pt.description}}
+                    </a>
+                  </div>
+                </div>
+                <div class="m-form__group-sub">
+                  <button type="button" *ngIf="revisions.length > 1"
+                          style="padding: 10px;margin-top: 26px;" (click)="deleteRevision(i)"
+                          title="Delete" class="btn btn-danger btn-primary m-btn m-btn--custom m-btn--icon"><i
+                    class="la la-trash"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+        <div class="m-form__actions">
+          <div class="row">
+            <div class="col-lg-9 m--align-right offset-lg-1">
+              <button id="btn-submit" [disabled]="!invoiceForm.valid"
+                      class="btn btn-primary m-btn m-btn--custom m-btn--icon">
+                <span>
+                    <i class="la la-check"></i>Save
+                </span>
+              </button>
+              <a routerLink="/permit" class="btn btn btn-secondary m-btn m-btn--custom m-btn--icon">
+                  <span>
+                      Cancel
+                  </span>
+              </a>
+            </div>
+            <div class="col-lg-1"></div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <!--end::Form-->
+  </div>
+</div>
