@@ -35,15 +35,16 @@ export class RevisionComponent extends BaseComponent implements AfterViewInit {
     this.listPermitType = [];
     this.revisions = [];
     this.todelete = [];
+
+    this.idpermit = PermitHelper.selectedItem.id;
+    if(!this.idpermit){
+      this._router.navigate(['permit']);
+    }
   }
 
   ngOnInit() {
     this.createForm();
-    this.idpermit = PermitHelper.selectedItem.id;
 
-    if(!this.idpermit){
-      this._router.navigate(['permit']);
-    }
     this.block(true);
 
     this._permitTypeService.getByPermit(this.idpermit)

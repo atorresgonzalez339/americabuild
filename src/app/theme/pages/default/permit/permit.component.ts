@@ -42,7 +42,7 @@ export class PermitComponent extends BaseComponent implements AfterViewInit {
   }
 
   revision(row) {
-    PermitHelper.selectedItem = row.id;
+    PermitHelper.selectedItem.id = row.id;
     this._router.navigate(['permit/revision']);
   }
 }
