@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BaseComponent} from '../base/base.component';
 import {RevisionHelper} from './_helpers/revision.helper';
 import {RevisionService} from './_services/revision.service';
+import {init} from 'protractor/built/launcher';
 
 declare let bootstrapSelectpicker: any;
 
@@ -24,6 +25,7 @@ export class AddRevisionComponent extends BaseComponent implements AfterViewInit
 
   public idpermit;
   public idPermitRevision;
+  public init = 0;
 
   constructor(private _script: ScriptLoaderService,
               public _router: Router,
@@ -91,13 +93,15 @@ export class AddRevisionComponent extends BaseComponent implements AfterViewInit
 
   onChangePermitType() {
     this.block(true);
-    this._revisionSrv.getByPermitType(this.revision.permitType.id)
+    this._revisionSrv.getByPermitType(this.revision.permitType.id, this.idpermit)
       .subscribe((value: any) => {
         this.listRevision = value.json().data;
 
         //si estoy editando
-        if (this.idPermitRevision) {
+        if (this.idPermitRevision && !this.init) {
+          this.listRevision.push(this.revision.revision);
           this.updateSelectRevision(this.revision.revision.id);
+          this.init = 1;
         }
 
         this.refreshSelect('revision');

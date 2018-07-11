@@ -17,8 +17,8 @@ export class RevisionService extends BaseService {
     return this.http.get(this.urlService + 'get-permitrevision/' + id, {headers: this.getHeaders()});
   }
 
-  getByPermitType(id: number) {
-    return this.http.get(this.urlService + 'revision/permittype/' + id, {headers: this.getHeaders()});
+  getByPermitType(id: number, idpermit) {
+    return this.http.get(this.urlService + 'revision/permittype/' + id + '/' + idpermit, {headers: this.getHeaders()});
   }
 
   create(data) {
