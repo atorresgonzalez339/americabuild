@@ -1,4 +1,4 @@
 var configuration = {
-    apiUrl:"http://apiservices.lh/",
+    apiUrl:"http://localhost:5904/",
     apiPath:"api/"
 }

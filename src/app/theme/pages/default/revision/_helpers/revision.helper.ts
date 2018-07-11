@@ -1,20 +1,25 @@
-export class PermitHelper {
-
-  static selectedItem: any = {id:null};
+export class RevisionHelper {
 
   static handleSubmit() {
     $('#btn-submit').click((e) => {
       let form = $(e.target).closest('form');
-
       form.validate({
         rules: {
-          description: {
+          type: {
             required: true,
           },
-          name: {
+          revision: {
             required: true,
           },
         },
+        messages: {
+          type: {
+            required: "This field is required."
+          },
+          revision: {
+            required: "This field is required."
+          }
+        }
       });
       if (!form.valid()) {
         e.preventDefault();

@@ -8,8 +8,6 @@ import {DefaultComponent} from '../default.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import {CompanyFeesService} from '../fees/_services';
-import {RevisionComponent} from './revision.component';
-import {RevisionService} from './_services/revision.service';
 
 const routes: Routes = [
   {
@@ -23,10 +21,6 @@ const routes: Routes = [
       {
         'path': 'add',
         'component': AddPermitComponent
-      },
-      {
-        'path': 'revision',
-        'component': RevisionComponent
       }
     ]
   }
@@ -45,10 +39,8 @@ const routes: Routes = [
   ], declarations: [
     PermitComponent,
     AddPermitComponent,
-    RevisionComponent
   ], providers: [
     CompanyFeesService,
-    RevisionService
   ]
 })
 export class PermitModule {
