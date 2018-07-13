@@ -834,12 +834,13 @@
 															<div class="form-group m-form__group row" style="padding-bottom: 15px; !important">
 																<div class="col-lg-3 m-form__group-sub">
 																	<label class="form-control-label">
-																		* Permit Fees:
+																		Permit Fees:
 																	</label>
 																	<div>
-																		<select id="{{'permit_fees_'+ i}}"  name="permit_fees" (change)='changeCompanyFeesById(i)' formControlName="permit_fees" class="form-control m-bootstrap-select fees-validation" title="-- Select an Option --">
-																			<option *ngFor="let pt of listCompanyFeesCombox[i]" [ngValue]="pt" >{{pt.feesCategory.description}}</option>
-																		</select>
+                                    {{listCompanyFeesCombox[0][i].feesCategory.description}}
+																		<!--<select id="{{'permit_fees_'+ i}}"  name="permit_fees" (change)='changeCompanyFeesById(i)' formControlName="permit_fees" class="form-control m-bootstrap-select fees-validation" title="&#45;&#45; Select an Option &#45;&#45;">-->
+																			<!--<option *ngFor="let pt of listCompanyFeesCombox[i]" [ngValue]="pt" >{{pt.feesCategory.description}}</option>-->
+																		<!--</select>-->
 																	</div>
 																</div>
 																<div class="col-lg-2 m-form__group-sub">
@@ -852,7 +853,7 @@
 																	<label class="form-control-label">
 																		* Value:
 																	</label>
-																	<input type="text" id="{{'value_fees'+ i}}" name="value" (change)="calXcost()"  formControlName="value_fees" class="form-control m-input fees-validation" autocomplete="off" placeholder="" onkeydown="return ( event.ctrlKey || event.altKey
+																	<input type="text" id="{{'value_fees'+ i}}"  name="value" (change)="calXcost()"  formControlName="value_fees" class="form-control m-input fees-validation" autocomplete="off" placeholder="" onkeydown="return ( event.ctrlKey || event.altKey
 																																																																							|| (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
 																																																																							|| (95<event.keyCode && event.keyCode<106)
 																																																																							|| (event.keyCode==8) || (event.keyCode==9)
@@ -866,16 +867,16 @@
 																	</label>
 																	<input type="text" id="{{'total_cost'+ i}}" readonly  name="total_cost" formControlName="total_cost" [ngModel]="itemrow.get('cost').value * itemrow.get('value_fees').value" class="form-control m-input fees-validation" autocomplete="off" placeholder="">
 																</div>
-																<div *ngIf="companyFeesAmount - 1 > i && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">
-																	<button id="btn-submit-add" (click)="addNewRow()" style="padding: 10px;margin-top: 26px;" name="btn-submit-add" class="btn btn-primary m-btn m-btn--custom m-btn--icon">
-																			  <span>
-																				  <i class="la la-check"></i>Add more
-																			  </span>
-																	</button>
-																</div>
-																<div class="m-form__group-sub">
-																	<button *ngIf="invoiceForm.controls.itemRows.controls.length > 1" style="padding: 10px;margin-top: 26px;" (click)="deleteRow(i)" title="Delete" class="btn btn-danger btn-primary m-btn m-btn--custom m-btn--icon"><i class="la la-trash"></i></button>
-																</div>
+																<!--<div *ngIf="companyFeesAmount - 1 > i && invoiceForm.controls.itemRows.controls.length - 1 == i" class="m-form__group-sub" style="padding-right: 5px;">-->
+																	<!--<button id="btn-submit-add" (click)="addNewRow()" style="padding: 10px;margin-top: 26px;" name="btn-submit-add" class="btn btn-primary m-btn m-btn&#45;&#45;custom m-btn&#45;&#45;icon">-->
+																			  <!--<span>-->
+																				  <!--<i class="la la-check"></i>Add more-->
+																			  <!--</span>-->
+																	<!--</button>-->
+																<!--</div>-->
+																<!--<div class="m-form__group-sub">-->
+																	<!--<button *ngIf="invoiceForm.controls.itemRows.controls.length > 1" style="padding: 10px;margin-top: 26px;" (click)="deleteRow(i)" title="Delete" class="btn btn-danger btn-primary m-btn m-btn&#45;&#45;custom m-btn&#45;&#45;icon"><i class="la la-trash"></i></button>-->
+																<!--</div>-->
 															</div>
 														</div>
 													</div>
@@ -895,8 +896,6 @@
 											</div>
 										</div>
 									</div>
-									<!--end: Form Wizard Step 5-->
-									<!--begin: Form Wizard Step 6-->
 									<!--end: Form Wizard Step 6-->
 									<!--begin: Form Wizard Step 7-->
 									<div class="m-wizard__form-step" id="m_wizard_form_step_7">

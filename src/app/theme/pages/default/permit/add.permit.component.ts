@@ -350,9 +350,9 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
                     this.onError(error);
                 }
             );
-        this.invoiceForm = this._fb.group({
-            itemRows: this._fb.array([this.initItemRows()]) // here
-        });
+        // this.invoiceForm = this._fb.group({
+        //     itemRows: this._fb.array([this.initItemRows()]) // here
+        // });
         this.totalcost = 0;
 
         this.typeForm = this._fb.group({
@@ -369,7 +369,8 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         addPermitWizard.initSelects('[id^=type_]');
     }
 
-    /****************Method to Permit Types******************************/
+  //<editor-fold desc="Permit type">
+  /****************Method to Permit Types******************************/
     createFormPermitType() {
         this.typeForm = this._fb.group({
             types: this._fb.array([])
@@ -491,36 +492,54 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
     }
 
     listToNextStep(){
-        /***********Obtener los que coinciden con los permitType********************/
-        let array = [];
-        this.listCompanyFeesCombox = [];
-        this.listSelectedPermitType.forEach( (sel, index) => {
-            this.fullList.forEach( (item, i) => {
-                if(item.feesCategory.permitType.id === sel.id){
-                    array.push(item);
-                }
-            });
+      /***********Obtener los que coinciden con los permitType********************/
+      let array = [];
+      // this.listCompanyFeesCombox = [];
+      this.listSelectedPermitType.forEach( (sel, index) => {
+        this.fullList.forEach( (item, i) => {
+          if(item.feesCategory.permitType.id === sel.id){
+            array.push(item);
+          }
         });
-        this.listCompanyFees = array;
+      });
+      this.listCompanyFees = array;
 
-        this.listCompanyFeesCombox = [this.getItemList()];
-        this.listSelected = [{id:null}];
-        this.companyFeesAmount = this.listCompanyFees.length;
-        /*********************************************************************/
+      this.listCompanyFeesCombox = [this.getItemList()];
 
-        /***********Eliminar FormArray Elementos********************/
-        this.invoiceForm = this._fb.group({
-            itemRows: this._fb.array([this.initItemRows()]) // here
-        });
-        this.listSelected = [];
-        this.listSelected.push({id:null});
-        /**************************************************************************/
+      this.companyFeesAmount = this.listCompanyFees.length;
+      /*********************************************************************/
 
-        this.totalcost = 0;
-        setTimeout(()=> {
-            addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
-            addPermitWizard.initSelects('[id^=permit_fees]');
-        }, 2000);
+      /***********Eliminar FormArray Elementos********************/
+      this.invoiceForm = this._fb.group({
+        itemRows: this._fb.array([]) // here
+      });
+      this.listSelected = [];
+      const control = <FormArray>this.invoiceForm.controls['itemRows'];
+      let that = this;
+      that.ref.detectChanges();
+      this.listCompanyFeesCombox[0].forEach(function (value, index) {
+
+        // this.listCompanyFeesCombox.push(this.getItemList());
+        that.listSelected.push(that.findElement(value.feesCategory.id));
+        // add new formgroup
+        control.push(that._fb.group({
+          // list all your form controls here, which belongs to your form array
+          permit_fees: [value],
+          cost: [value.value],
+          value_fees: [''],
+          total_cost: ['']
+        }));
+        that.ref.detectChanges();
+        addPermitWizard.initSelects('[id^=permit_fees]');
+      });
+      // this.listSelected.push({id: null});
+      /**************************************************************************/
+
+      this.totalcost = 0;
+      setTimeout(()=> {
+        addPermitWizard.refreshSelectpicker('[id^=permit_fees]');
+        addPermitWizard.initSelects('[id^=permit_fees]');
+      }, 2000);
     }
 
     getPermitTypesItems()
@@ -535,8 +554,10 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         return array;
     }
     /****************************************************************************/
+  //</editor-fold>
 
-    /********************Method to Permit fees************************************/
+  //<editor-fold desc="Permit Fees">
+  /********************Method to Permit fees************************************/
     createForm() {
         this.invoiceForm = this._fb.group({
             itemRows: this._fb.array([])
@@ -696,6 +717,7 @@ export class AddPermitComponent extends BaseComponent implements AfterViewInit {
         return array;
     }
     /*----------------------------------------*/
+  //</editor-fold>
 
     onAddressBlur(e)
     {
